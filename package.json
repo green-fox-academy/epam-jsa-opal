@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test:frontend": "jest",
-    "test:backend":"karma start karmaTest.js"
+    "test:backend":"karma start backend-test.conf.js"
   },
   "repository": {
     "type": "git",
