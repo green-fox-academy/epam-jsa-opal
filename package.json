@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test:frontend": "jest",
-    "test:backend": "karma start backend-test.conf.js"
+    "test:backend": "karma start backend-test.conf.js",
+    "lint":"eslint **/*.js"
   },
   "repository": {
     "type": "git",
@@ -41,11 +42,5 @@
   "dependencies": {
     "react": "^15.6.2",
     "react-dom": "^15.6.2"
-  },
-  "eslintConfig":{
-    "extends": "google",
-    "parserOptions": {
-        "ecmaVersion": 6
-      }
   }
 }
