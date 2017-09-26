@@ -4,7 +4,8 @@
   "description": "work by HAOCHEN ZOE ZHENGNAN",
   "main": "index.js",
   "scripts": {
-    "test:frontend": "jest"
+    "test:frontend": "jest",
+    "test:backend": "karma start backend-test.conf.js"
   },
   "repository": {
     "type": "git",
@@ -17,6 +18,10 @@
   },
   "homepage": "https://github.com/greenfox-academy/epam-jsa-opal#readme",
   "devDependencies": {
+    "jasmine-core": "^2.8.0",
+    "karma": "^1.7.1",
+    "karma-chrome-launcher": "^2.2.0",
+    "karma-jasmine": "^1.1.0",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
     "babel-preset-es2015": "^6.24.1",
@@ -36,5 +41,11 @@
   "dependencies": {
     "react": "^15.6.2",
     "react-dom": "^15.6.2"
+  },
+  "eslintConfig":{
+    "extends": "google",
+    "parserOptions": {
+        "ecmaVersion": 6
+      }
   }
 }
