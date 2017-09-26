@@ -4,8 +4,8 @@
   "description": "work by HAOCHEN ZOE ZHENGNAN",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
-    "test:backend":"karma"
+    "test:frontend": "jest",
+    "test:backend":"karma start karmaTest.js"
   },
   "repository": {
     "type": "git",
@@ -38,6 +38,5 @@
   "dependencies": {
     "react": "^15.6.2",
     "react-dom": "^15.6.2"
-  },
-  "test": "frontend"
+  }
 }
