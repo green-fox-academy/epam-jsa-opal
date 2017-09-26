@@ -4,7 +4,6 @@
   "description": "work by HAOCHEN ZOE ZHENGNAN",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
     "start": "node server.js",
     "test:frontend": "jest",
     "test:backend":"karma start backend-test.conf.js"
