@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/greenfox-academy/epam-jsa-opal#readme",
   "devDependencies": {
+    "eslint": "^4.7.2",
     "jest": "^21.1.0"
   },
   "test": "frontend"
