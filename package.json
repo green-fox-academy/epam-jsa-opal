@@ -4,9 +4,10 @@
   "description": "work by HAOCHEN ZOE ZHENGNAN",
   "main": "index.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "npm run build",
+    "build": "webpack && node server.js",
     "test:frontend": "jest",
-    "test:backend":"karma start backend-test.conf.js"
+    "test:backend": "karma start backend-test.conf.js"
   },
   "repository": {
     "type": "git",
