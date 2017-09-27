@@ -22,6 +22,7 @@
   "devDependencies": {
     "jasmine-core": "^2.8.0",
     "karma": "^1.7.1",
+    "babel-eslint": "^8.0.1",
     "karma-chrome-launcher": "^2.2.0",
     "karma-jasmine": "^1.1.0",
     "babel-core": "^6.26.0",
