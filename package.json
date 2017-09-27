@@ -7,7 +7,8 @@
     "start": "npm run build",
     "build": "webpack && node server.js",
     "test:frontend": "jest",
-    "test:backend": "karma start backend-test.conf.js"
+    "test:backend": "karma start backend-test.conf.js",
+    "lint":"eslint **/*.js"
   },
   "repository": {
     "type": "git",
@@ -30,6 +31,9 @@
     "babel-preset-react": "^6.24.1",
     "clean-webpack-plugin": "^0.1.16",
     "css-loader": "^0.28.7",
+    "eslint": "^4.7.2",
+    "eslint-config-google": "^0.9.1",
+    "eslint-plugin-react": "^7.4.0",
     "express": "^4.15.5",
     "jest": "^21.1.0",
     "node-sass": "^4.5.3",

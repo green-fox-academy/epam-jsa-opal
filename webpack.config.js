@@ -4,7 +4,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist') + '/app',
     filename: 'bundle.js',
-    publicPath: '/app/'
+    publicPath: '/app/',
   },
   devtool: 'inline-source-map',
   module: {
@@ -14,15 +14,15 @@ module.exports = {
         include: path.resolve(__dirname, 'src'),
         loader: 'babel-loader',
         query: {
-          presets: ['react', 'es2015']
-        }
+          presets: ['react', 'es2015'],
+        },
       },
       {
         test: /\.[css|scss]$/,
-        use: [
+        use:  [
           'style-loader',
           'css-loader',
-          'sass-loader'
+          'sass-loader',
         ]
       }
     ]
