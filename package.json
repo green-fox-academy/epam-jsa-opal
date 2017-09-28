@@ -4,7 +4,7 @@
   "description": "work by HAOCHEN ZOE ZHENGNAN",
   "main": "index.js",
   "scripts": {
-    "start": "npm run build && node ./src/server.js",
+    "start": "npm run build && node ./src/server/index.js",
     "build": "webpack -p --colors --config webpack.prod.js",
     "dev": "webpack-dev-server --colors --config webpack.dev.js --port 8080",
     "test:frontend": "jest --colors",
