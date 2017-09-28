@@ -4,7 +4,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
-  entry: './src/client/index.js',
+  entry: './src/index.js',
   output: {
     path: path.resolve(__dirname, './dist'),
     filename: 'bundle.js',
@@ -22,23 +22,23 @@ module.exports = {
           fallback: 'style-loader',
           use: [
             {
-              loader: 'css-loader'
+              loader: 'css-loader',
             },
             {
               loader: 'sass-loader',
               options: {
-                outputStyle: 'expanded'
-              }
-            }
-          ]
-        })
-      }
+                outputStyle: 'expanded',
+              },
+            },
+          ],
+        }),
+      },
     ],
   },
   plugins: [
     new CleanWebpackPlugin([path.resolve(__dirname, './dist')]),
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, './src/client/index.html'),
+      template: path.resolve(__dirname, './src/index.html'),
       filename: 'index.html',
       inject: 'body',
     }),
