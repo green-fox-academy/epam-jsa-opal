@@ -9,7 +9,7 @@
     "dev": "webpack-dev-server --colors --config webpack.dev.js --port 8080",
     "test:frontend": "jest --colors",
     "test:backend": "karma start backend-test.conf.js",
-    "lint": "eslint **/*.js"
+    "lint": "eslint **/*.js --color"
   },
   "repository": {
     "type": "git",
@@ -23,6 +23,7 @@
   "homepage": "https://github.com/greenfox-academy/epam-jsa-opal#readme",
   "devDependencies": {
     "babel-core": "^6.26.0",
+    "babel-eslint": "^8.0.1",
     "babel-loader": "^7.1.2",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
