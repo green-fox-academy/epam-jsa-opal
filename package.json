@@ -7,7 +7,7 @@
     "start": "node server.js",
     "test:frontend": "jest",
     "test:backend": "karma start backend-test.conf.js",
-    "lint":"eslint **/*.js"
+    "lint": "eslint **/*.js --color"
   },
   "repository": {
     "type": "git",
