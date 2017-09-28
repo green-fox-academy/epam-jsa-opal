@@ -6,5 +6,5 @@ app.get('/', (req, res) => {
   res.send('dist/index.html');
 });
 app.listen(3000, () => {
-  console.log('listening to port:3000');
+  console.log('listening on port:3000');
 });
