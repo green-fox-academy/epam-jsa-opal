@@ -1,7 +1,10 @@
 'use strict';
 import React from 'react';
 import ReactDOM from 'react-dom';
-// import App from './App';s
+import App from './components/Hello';
+// let React = require('react');
+// let ReactDOM = require('react-dom');
+// let App = require('./components/Hello');
 
-// ReactDOM.render(<App />, document.getElementById('root'));
-console.log(1);
+ReactDOM.render(<App />, document.getElementById('root'));
+
