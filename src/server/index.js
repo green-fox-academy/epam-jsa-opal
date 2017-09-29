@@ -8,6 +8,7 @@ app.get('/heartbeat', (req, res) => {
   res.json({status: 'ok'});
 });
 
+/* eslint no-console: "off" */
 app.listen(3000, () => {
   console.log('listening on port:3000');
 });
