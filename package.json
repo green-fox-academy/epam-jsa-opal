@@ -9,7 +9,7 @@
     "dev": "webpack-dev-server --colors --config webpack.dev.js --port 8080",
     "test:frontend": "jest --colors",
     "test:backend": "mocha ./test/server",
-    "lint": "eslint **/*.js --color"
+    "lint": "eslint . --ext .js --color"
   },
   "repository": {
     "type": "git",
