@@ -7,7 +7,7 @@
     "start": "npm run build && node server.js",
     "build": "webpack",
     "test:frontend": "jest",
-    "test:backend": "mocha",
+    "test:backend": "mocha ./test/server",
     "lint":"eslint **/*.js"
   },
   "repository": {
