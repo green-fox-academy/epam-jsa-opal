@@ -7,7 +7,7 @@
     "start": "npm run build && node ./src/server/index.js",
     "build": "webpack -p --colors --config webpack.prod.js",
     "dev": "webpack-dev-server --colors --config webpack.dev.js --port 8080",
-    "heroku-prebuild": "npm install --only=dev",
+    "heroku-prebuild": "npm install",
     "test:frontend": "jest --colors",
     "test:backend": "mocha ./test/server",
     "lint": "eslint . --ext .js --color"
@@ -40,6 +40,7 @@
     "jest-cli": "^21.2.0",
     "mocha": "^3.5.3",
     "node-sass": "^4.5.3",
+    "object-assign": "^4.1.1",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.18.2",
     "uglifyjs-webpack-plugin": "^0.4.6",
