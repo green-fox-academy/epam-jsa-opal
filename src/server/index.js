@@ -11,7 +11,7 @@ app.get('/heartbeat', (req, res) => {
   let host = process.env.DB_HOST;
   let port = process.env.DB_PORT;
   let name = process.env.DB_NAME;
-  let url = protocol+'://'+host+':'+port+'/'+name;
+  let url = protocol+'://' + host+':' + port + '/' + name;
   MongoClient.connect(url, function(err, db) {
     let adminDb = db.admin();
     adminDb.serverStatus(function(err, info) {
