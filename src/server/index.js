@@ -8,7 +8,11 @@ app.use(express.static('dist'));
 app.get('/heartbeat', (req, res) => {
   var response;
   var MongoClient = require('mongodb').MongoClient;
-  var url = process.env.DB_URL;
+  var protocol = process.env.DB_PROTOCOL;
+  var host = process.env.DB_HOST;
+  var port = process.env.DB_PORT;
+  var name = process.env.DB_NAME;
+  var url = protocol+'://'+host+':'+port+'/'+name;
   MongoClient.connect(url,function(err,db) {
     var adminDb = db.admin();
     adminDb.serverStatus(function(err,info) {
