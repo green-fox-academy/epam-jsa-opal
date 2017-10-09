@@ -9,6 +9,7 @@ app.get('/heartbeat', (req, res) => {
 });
 
 /* eslint no-console: "off" */
-app.listen(3000, () => {
-  console.log('listening on port:3000');
+let portNum = process.env.PORT || 3000;
+app.listen(portNum, () => {
+  console.log(`listening on port:${portNum}`);
 });
