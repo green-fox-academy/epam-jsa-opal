@@ -40,28 +40,27 @@ app.post('/api/login', jsonParser, (req, res) => {
   let statusNum = 200;
   let contentType = req.headers['content-type'].toLowerCase();
   let obj = {};
-  if (validateEmail(email) === false) {
-    obj = {
-      'error': 'email format error',
-    };
-    statusNum = 400;
-    res.status(statusNum).json(obj);
-    return;
-  }
-  if (validatePossword(password) === false) {
-    obj = {
-      'error': 'password format error(with space or less than 6 charaters)',
-    };
-    statusNum = 400;
-    res.status(statusNum).json(obj);
-    return;
-  }
+
   db.findData(email, (userinfo)=>{
     if (contentType !== 'application/json') {
       obj = {
         'error': 'Content-Type wrong',
       };
       statusNum = 400;
+    } else if (validateEmail(email) === false) {
+      obj = {
+        'error': 'email format error',
+      };
+      statusNum = 400;
+      res.status(statusNum).json(obj);
+      return;
+    } else if (validatePossword(password) === false) {
+      obj = {
+        'error': 'password format error(with space or less than 6 charaters)',
+      };
+      statusNum = 400;
+      res.status(statusNum).json(obj);
+      return;
     } else if (!email || !password) {
       obj = {
         'error': 'missing field',
