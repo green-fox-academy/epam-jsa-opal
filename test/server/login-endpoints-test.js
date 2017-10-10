@@ -2,10 +2,8 @@ const assert = require('assert');
 let supertest = require('supertest');
 let server = supertest.agent('http://localhost:3000');
 
-// UNIT test begin
 describe('Test Login', function() {
   it('login success', function(done) {
-    // calling ADD api
     server
       .post('/api/login')
       .send({'username': 'gg001@gmail.com', 'password': '123456'})
@@ -18,7 +16,6 @@ describe('Test Login', function() {
       });
   });
   it('email || password not match', function(done) {
-    // calling ADD api
     server
       .post('/api/login')
       .send({'username': 'gg001@gmail.com', 'password': '12345678'})
@@ -31,7 +28,6 @@ describe('Test Login', function() {
       });
   });
   it('email || password miss field', function(done) {
-    // calling ADD api
     server
       .post('/api/login')
       .send({'username': 'gg001@gmail.com'})
@@ -44,7 +40,6 @@ describe('Test Login', function() {
       });
   });
   it('format wrong: email', function(done) {
-    // calling ADD api
     server
       .post('/api/login')
       .send({'username': 'gg001gmail.com'})
@@ -57,7 +52,6 @@ describe('Test Login', function() {
       });
   });
   it('format wrong: password', function(done) {
-    // calling ADD api
     server
       .post('/api/login')
       .send({'username': 'gg001@gmail.com', 'password': '1234 '})
