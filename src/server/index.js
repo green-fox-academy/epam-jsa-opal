@@ -115,7 +115,7 @@ function emailCheck(req, res, sendContent) {
   });
 }
 function phonenumberCheck(req, res, sendContent) {
-  if (req.body['phone number'] === '') {
+  if (req.body['phone number'].replace(' ', '') === '') {
     let obj = {
       'error': 'the phone number is void',
     };
@@ -138,7 +138,7 @@ function phonenumberCheck(req, res, sendContent) {
       db.close();
       return -1;
     }
-    db.collection('user').find({'username': req.body.username})
+    db.collection('user').find({'phone number': req.body['phone number']})
       .toArray(function(err, items) {
         if (items.length !== 0) {
           let obj = {
@@ -171,11 +171,18 @@ function fullnameCheck(req, res, sendContent) {
   passwordCheck(req, res, sendContent);
 }
 function passwordCheck(req, res, sendContent) {
+  if (req.body.password.replace(' ', '') === '') {
+    let obj = {
+      'error': 'the password is void',
+    };
+    res.status(400).send(obj);
+    return -1;
+  }
   if (req.body.password.length<=5) {
     let obj = {
       'error': 'the password is too short',
     };
-    res.status(500).send(obj);
+    res.status(400).send(obj);
     return -1;
   }
   let encrypted = CryptoJS.AES.encrypt(req.body.password, 'Secret Passphrase');
