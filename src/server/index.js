@@ -44,7 +44,7 @@ app.post('/api/login', jsonParser, (req, res) => {
     obj = {
       'error': 'email format error',
     };
-    statusNum = 403;
+    statusNum = 400;
     res.status(statusNum).json(obj);
     return;
   }
@@ -52,7 +52,7 @@ app.post('/api/login', jsonParser, (req, res) => {
     obj = {
       'error': 'password format error(with space or less than 6 charaters)',
     };
-    statusNum = 403;
+    statusNum = 400;
     res.status(statusNum).json(obj);
     return;
   }
