@@ -1,0 +1,27 @@
+
+.signup-form {
+  
+      padding: 1rem;
+      background-color: #eee;
+      border-radius: 3px;
+      min-width: calc(260px - 2rem);
+      width: 15%;
+  
+      input {
+          display: block;
+          width: 100%;
+          line-height: 2rem;
+      }
+  
+      input:not([type="submit"]) {
+          background-color: transparent;
+          border: none;
+          border-bottom: 1px solid black;
+          margin-bottom: 1rem;
+      }
+      label {
+        display: block;
+        width: 100%;
+        line-height: 2rem;
+      }
+  }
