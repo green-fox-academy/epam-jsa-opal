@@ -4,8 +4,7 @@ require('dotenv').config();
 const app = express();
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
-const usersDb = require('./users-db');
-const APILOGIN = require('./login-endpoints');
+const loginController = require('./login-endpoints');
 
 console.log(process.env.DB_URL);
 app.use(express.static('dist'));
@@ -27,9 +26,7 @@ app.get('/heartbeat', (req, res) => {
 });
 
 // handle post: login
-app.post('/api/login', jsonParser, (req, res) => {
-  APILOGIN.login(req, res, usersDb);
-});
+app.post('/api/login', jsonParser, loginController.login);
 
 /* eslint no-console: "off" */
 let portNum = process.env.PORT || 3000;

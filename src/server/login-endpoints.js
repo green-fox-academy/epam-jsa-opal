@@ -1,4 +1,5 @@
-function login(req, res, usersDb) {
+const usersDb = require('./users-db');
+function login(req, res) {
   let email = req.body.username;
   let password = req.body.password;
   let statusNum = 200;
@@ -35,6 +36,7 @@ function login(req, res, usersDb) {
         'error': 'something went wrong',
       };
       statusNum = 500;
+      // wait encrypt function
     } else if (password === userinfo.password) {
       let days = 7;
       let expiresAt = new Date().getTime() + days * 24 * 60 * 60 * 1000;
