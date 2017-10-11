@@ -8,6 +8,7 @@ class SignUpComponent extends React.Component {
     this.state = {
       'status': 'being',
       'error': '',
+      'pass': true,
     };
   }
   submitHandler(ev) {
@@ -31,6 +32,7 @@ class SignUpComponent extends React.Component {
         if (xhr.status === 404) {
           let errorText = 'Not Found';
           this.setState({'error': errorText});
+          this.setState({'pass': false});
         }
         if (xhr.status === 400) {
           let errorText = xhr.responseText;
@@ -54,7 +56,19 @@ class SignUpComponent extends React.Component {
   }
 
   render() {
-    return <SignUpForm isLoading={this.state.status === 'loading'} isError={this.state.error} onSubmit={this.submitHandler.bind(this)}/>;
+    let style = this.state.pass?
+      {
+
+      }
+      :
+      {
+        'userName': {
+          'border': '1px solid',
+          'borderColor': 'red',
+        },
+      }
+    ;
+    return <SignUpForm style={style} isLoading={this.state.status === 'loading'} isError={this.state.error} onSubmit={this.submitHandler.bind(this)}/>;
   }
 }
 

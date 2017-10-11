@@ -3,7 +3,7 @@ import './index.scss';
 
 const SignUpForm = (props) => (
   <form className="signup-form" onSubmit={props.onSubmit}>
-    <input name="username" required placeholder="Username" />
+    <input name="username" style={props.style.userName} required placeholder="Username" />
     <input type="email" name="email" required placeholder="E-mail" />
     <input name="phone" required placeholder="Phone Number" />
     <input name="fullname" required placeholder="Full Name" />
