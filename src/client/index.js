@@ -1,8 +1,8 @@
 'use strict';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Signup from '../client/screen/SignUpScreen';
+import App from './App';
 import './index.scss';
 
-ReactDOM.render(<Signup />, document.getElementById('root'));
+ReactDOM.render(<App />, document.getElementById('root'));
 

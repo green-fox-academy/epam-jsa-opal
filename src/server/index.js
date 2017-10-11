@@ -2,9 +2,12 @@
 const express = require('express');
 require('dotenv').config();
 const app = express();
-
+const path = require('path');
 console.log(process.env.DB_URL);
 app.use(express.static('dist'));
+app.get('/signup', (req, res) =>{
+  res.sendFile('index.html', {root: path.join(__dirname, '../../dist')});
+});
 app.get('/heartbeat', (req, res) => {
   let MongoClient = require('mongodb').MongoClient;
   let protocol = process.env.DB_PROTOCOL;

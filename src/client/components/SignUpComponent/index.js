@@ -32,6 +32,18 @@ class SignUpComponent extends React.Component {
           let errorText = 'Not Found';
           this.setState({'error': errorText});
         }
+        if (xhr.status === 400) {
+          let errorText = xhr.responseText;
+          this.setState({'error': errorText});
+        }
+        if (xhr.status === 409) {
+          let errorText = xhr.responseText;
+          this.setState({'error': errorText});
+        }
+        if (xhr.status === 500) {
+          let errorText = xhr.responseText;
+          this.setState({'error': errorText});
+        }
       }
     }.bind(this));
     xhr.open('POST', 'http://localhost:8080/signup');
