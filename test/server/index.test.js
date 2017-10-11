@@ -56,7 +56,7 @@ describe('phone number conflict test', function() {
         'email': 'asd@qq.com',
         'phone number': '139981232',
         'full name': 'asdasd',
-        'password': '',
+        'password': 'asdasdasd',
       })
       .expect('Content-type,/json/')
       .end(function(err, res) {
