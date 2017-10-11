@@ -1,24 +1,19 @@
 require('dotenv').config();
 const cryptoJs = require('./crypto.js');
-let bodyParser = require('body-parser');
-const express = require('express');
 let protocol = process.env.DB_PROTOCOL;
 let host = process.env.DB_HOST;
 let port = process.env.DB_PORT;
 let name = process.env.DB_NAME;
 let url = protocol + '://' + host + ':' +port+ '/' + name;
-const app = express();
 let mongodb = require('mongodb');
 let MongoClient = mongodb.MongoClient;
-app.use(bodyParser.json()); // for parsing application/json
-app.use(bodyParser.urlencoded({extended: true}));
-app.use(express.static('dist'));
 
 
 function mongoConnectErrorHandle(res, db) {
   let obj = {
     'error': 'Something wrong!',
   };
+  res.setHeader('content-type', 'application/json');
   res.status(500).send(obj);
   db.close();
 }
@@ -35,7 +30,7 @@ function dbHandler(req, res) {
   sendContent.email = req.body.email;
   sendContent['phone number'] = req.body['phone number'];
   sendContent['full name'] = req.body['full name'];
-  sendContent.password = cryptoJs.crypto(req.body.password);
+  sendContent.password = cryptoJs.encryptoData(req.body.password);
   MongoClient.connect(url, function(err, db) {
     if (err) {
       mongoConnectErrorHandle(res, db);
@@ -50,6 +45,7 @@ function dbHandler(req, res) {
         db.collection('user').insert(sendContent, function() {
           let objectId = sendContent._id;
           res.set('location', '/api/signup/'+objectId);
+          res.setHeader('content-type', 'application/json');
           res.status(201).send();
           db.close();
           return -1;
@@ -58,6 +54,7 @@ function dbHandler(req, res) {
         let obj = {
           'error': 'username conflicts!',
         };
+        res.setHeader('content-type', 'application/json');
         res.status(409).send(obj);
         db.close();
         return -1;
@@ -65,6 +62,7 @@ function dbHandler(req, res) {
         let obj = {
           'error': 'email conflicts!',
         };
+        res.setHeader('content-type', 'application/json');
         res.status(409).send(obj);
         db.close();
         return -1;
@@ -72,6 +70,7 @@ function dbHandler(req, res) {
         let obj = {
           'error': 'phone number conflicts!',
         };
+        res.setHeader('content-type', 'application/json');
         res.status(409).send(obj);
         db.close();
         return -1;

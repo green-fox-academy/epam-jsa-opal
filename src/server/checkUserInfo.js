@@ -1,12 +1,5 @@
 'use strict';
 const userDbHandler = require('./users_signup_db');
-require('dotenv').config();
-let bodyParser = require('body-parser');
-const express = require('express');
-const app = express();
-app.use(bodyParser.json()); // for parsing application/json
-app.use(bodyParser.urlencoded({extended: true}));
-app.use(express.static('dist'));
 
 
 function checkInfoValid(req, res) {
@@ -14,6 +7,7 @@ function checkInfoValid(req, res) {
     let obj = {
       'error': 'the username is void',
     };
+    res.setHeader('content-type', 'application/json');
     res.status(400).send(obj);
     return -1;
   }
@@ -21,6 +15,7 @@ function checkInfoValid(req, res) {
     let obj = {
       'error': 'the email is void',
     };
+    res.setHeader('content-type', 'application/json');
     res.status(400).send(obj);
     return -1;
   }
@@ -28,6 +23,7 @@ function checkInfoValid(req, res) {
     let obj = {
       'error': 'the email format is invalid',
     };
+    res.setHeader('content-type', 'application/json');
     res.status(400).send(obj);
     return -1;
   }
@@ -35,6 +31,7 @@ function checkInfoValid(req, res) {
     let obj = {
       'error': 'the phone number is void',
     };
+    res.setHeader('content-type', 'application/json');
     res.status(400).send(obj);
     return -1;
   }
@@ -42,6 +39,7 @@ function checkInfoValid(req, res) {
     let obj = {
       'error': 'the phone number is invalid',
     };
+    res.setHeader('content-type', 'application/json');
     res.status(400).send(obj);
     return -1;
   }
@@ -49,6 +47,7 @@ function checkInfoValid(req, res) {
     let obj = {
       'error': 'the full name is void',
     };
+    res.setHeader('content-type', 'application/json');
     res.status(400).send(obj);
     return -1;
   }
@@ -56,6 +55,7 @@ function checkInfoValid(req, res) {
     let obj = {
       'error': 'the full name is invalid',
     };
+    res.setHeader('content-type', 'application/json');
     res.status(400).send(obj);
     return -1;
   }
@@ -63,6 +63,7 @@ function checkInfoValid(req, res) {
     let obj = {
       'error': 'the password is void',
     };
+    res.setHeader('content-type', 'application/json');
     res.status(400).send(obj);
     return -1;
   }
@@ -70,6 +71,7 @@ function checkInfoValid(req, res) {
     let obj = {
       'error': 'the password is too short',
     };
+    res.setHeader('content-type', 'application/json');
     res.status(400).send(obj);
     return -1;
   }

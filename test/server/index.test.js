@@ -2,13 +2,6 @@ const assert = require('assert');
 const supertest = require('supertest');
 const server = supertest.agent('http://localhost:3000');
 
-describe('Dummy Backend Test', () => {
-  it('1 + 1 equals 2', () => {
-    assert.equal(2, 1 + 1);
-  });
-});
-
-
 describe('username conflict test', function() {
   it('login success', function(done) {
     server

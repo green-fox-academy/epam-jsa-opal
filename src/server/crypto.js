@@ -7,7 +7,7 @@ function crypto(String) {
 }
 
 module.exports = {
-  crypto: crypto,
+  encryptoData: crypto,
 };
 // let encrypted = CryptoJS.AES.encrypt(req.body.password, 'Secret Passphrase');
 // let decrypted = CryptoJS.AES.decrypt(encrypted, 'Secret Passphrase');
