@@ -1,17 +1,19 @@
 'use strict';
+require('dotenv').config();
 const cryptoJs = require('./crypto.js');
 let bodyParser = require('body-parser');
 const express = require('express');
-const url = 'mongodb://localhost:27017/epam';// already defined;
+let protocol = process.env.DB_PROTOCOL;
+let host = process.env.DB_HOST;
+let port = process.env.DB_PORT;
+let name = process.env.DB_NAME;
+let url = protocol + '://' + host + ':' +port+ '/' + name;
 const app = express();
 let mongodb = require('mongodb');
 let MongoClient = mongodb.MongoClient;
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static('dist'));
-app.get('/heartbeat', (req, res) => {
-  res.json({status: 'ok'});
-});
 
 
 function usernameCheck(req, res, sendContent) {
@@ -32,11 +34,7 @@ function usernameCheck(req, res, sendContent) {
 
   MongoClient.connect(url, function(err, db) {
     if (err) {
-      let obj = {
-        'error': 'something went wrong',
-      };
-      res.status(500).send(obj);
-      db.close();
+      mongoConnectErrorHandle(res, db);
       return -1;
     }
     db.collection('user').find({'username': req.body.username})
@@ -71,11 +69,7 @@ function emailCheck(req, res, sendContent) {
   }
   MongoClient.connect(url, function(err, db) {
     if (err) {
-      let obj = {
-        'error': 'something went wrong',
-      };
-      res.status(500).send(obj);
-      db.close();
+      mongoConnectErrorHandle(res, db);
       return -1;
     }
     db.collection('user').find({'email': req.body.email})
@@ -110,11 +104,7 @@ function phonenumberCheck(req, res, sendContent) {
   }
   MongoClient.connect(url, function(err, db) {
     if (err) {
-      let obj = {
-        'error': 'something went wrong',
-      };
-      res.status(500).send(obj);
-      db.close();
+      mongoConnectErrorHandle(res, db);
       return -1;
     }
     db.collection('user').find({'phone number': req.body['phone number']})
@@ -173,12 +163,8 @@ function passwordCheck(req, res, sendContent) {
 
   MongoClient.connect(url, function(err, db) {
     if (err) {
-      let obj = {
-        'error': 'Something wrong!',
-      };
-      res.status(500).send(obj);
-      db.close();
-      return;
+      mongoConnectErrorHandle(res, db);
+      return -1;
     }
     let objectId;
     db.collection('user').insert(sendContent, function() {
@@ -188,6 +174,15 @@ function passwordCheck(req, res, sendContent) {
       db.close();
     });
   });
+}
+
+
+function mongoConnectErrorHandle(res, db) {
+  let obj = {
+    'error': 'Something wrong!',
+  };
+  res.status(500).send(obj);
+  db.close();
 }
 
 function validateEmail(email) {
@@ -200,9 +195,19 @@ function hasNumber(myString) {
 }
 
 
-function checkInfoValid(req, res, sendContent) {
-  return usernameCheck(req, res, sendContent);
+function checkInfoValid(req, res) {
+  let sendContent = {
+    'username': ' ',
+    'email': '',
+    'phone number': '',
+    'full name': '',
+    'password': '',
+  };
+  if (usernameCheck(req, res, sendContent) === -1) {
+    return;
+  }
 }
+
 
 module.exports = {
   checkInfoValid: checkInfoValid,

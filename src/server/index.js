@@ -1,6 +1,7 @@
 'use strict';
 const check = require('./checkUserInfo.js');
 let bodyParser = require('body-parser');
+require('dotenv').config();
 const express = require('express');
 const app = express();
 app.use(bodyParser.json()); // for parsing application/json
@@ -18,16 +19,4 @@ app.listen(3000, () => {
   console.log('listening on port:3000');
 });
 
-app.post('/api/signup', function(req, res) {
-  let sendContent = {
-    'username': ' ',
-    'email': '',
-    'phone number': '',
-    'full name': '',
-    'password': '',
-  };
-  if (check.checkInfoValid(req, res, sendContent) === -1) {
-    console.log('check failed');
-    return;
-  }
-});
+app.post('/api/signup', check.checkInfoValid);
