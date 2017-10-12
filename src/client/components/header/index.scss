@@ -14,11 +14,47 @@ nav {
   height: 7em;
   background-color: #FFFFFF 100%;
   box-shadow: 0 2px 7px 0 rgba(214,214,214,0.50);
-    span { 
+    .team-name { 
       margin-left: 0.763em;
       margin-top: 0.315em;
       font-size: 3.8em;
       font-family: ArialRoundedMTBold;
       color: #D93738;
     }  
+    .search-logo {
+      margin-left: 1.4em;
+      height: 1.6em;
+      width: 1.6em;
+    }
+   
+    .search-name {
+      margin-left: 0.9em;
+      font-family: SanFranciscoDisplay-Medium;
+      font-size: 16px;
+      color: #868686;
+
+    }
+    .obstacle {
+      margin-left: 5.5em;
+      height: 4.5em;
+      width: 0.1em;
+      opacity: 0.14;
+      border: 1px solid #979797;
+    }
+    .upload-name {
+      justify-content:space-between;
+      font-family: SanFranciscoDisplay-Medium;
+      font-size: 16px;
+      color: #868686;
+    }
+    .upload-logo {
+      justify-content:space-between;
+      height: 2em;
+      width: 2em;
+    }
+    .user-profile {
+      justify-content:space-between;
+      height: 4.1em;
+      width: 4.1em;
+    }
 }

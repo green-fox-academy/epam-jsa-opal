@@ -1,15 +1,21 @@
 'use strict';
 import React from 'react';
 import './index.scss';
-import img from './assets/search.png';
-
+import search from './assets/search.png';
+import upload from './assets/upload.png';
+import userprofile from './assets/userprofile.png';
 
 class NavBar extends React.Component {
   render() {
     return (
       <nav className = "navbar">
-        <span>opal</span>
-        <img src={img} height="16" width="16"></img>
+        <span className = "team-name">opal</span>
+        <div className = "obstacle"></div>
+        <img className = "search-logo" src={search} ></img>
+        <span className = "search-name">search</span>
+        <img className = "upload-logo" src={upload}></img>
+        <span className = "upload-name">upload</span>
+        <img className = "user-profile" src={userprofile}></img>
       </nav>
     );
   }
