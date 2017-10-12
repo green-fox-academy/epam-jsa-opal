@@ -1,32 +1,21 @@
 'use strict';
 let mongodb = require('mongodb');
+let randomstring = require('randomstring');
 let MongoClient = mongodb.MongoClient;
 let protocol = process.env.DB_PROTOCOL;
 let host = process.env.DB_HOST;
 let port = process.env.DB_PORT;
 let name = process.env.DB_NAME;
 let url = protocol+'://' + host+':' + port + '/' + name;
+
 function createToken(userId, userAgent) {
   let tokenDescriptor = {};
-  let days = 7;
-  let expiresAt = new Date().getTime() + days * 24 * 60 * 60 * 1000;
-  let userAgentToString;
+  const TOKEN_LIFETIME = 7;
+  let expiresAt = new Date().getTime() + TOKEN_LIFETIME * 24 * 60 * 60 * 1000;
   tokenDescriptor.userId = userId;
   tokenDescriptor.userAgent = userAgent;
   tokenDescriptor.expiresAt = expiresAt;
-  if (tokenDescriptor.userAgent.includes('Windows')) {
-    userAgentToString = 'qwerasdf';
-  } else if (tokenDescriptor.userAgent.includes('Mac')) {
-    userAgentToString = 'asdfzxcv';
-  } else if (tokenDescriptor.userAgent.includes('iPhone')) {
-    userAgentToString = 'zxcvasdf';
-  } else if (tokenDescriptor.userAgent.includes('Android')) {
-    userAgentToString = 'asdfqwer';
-  } else {
-    userAgentToString = 'zxcvzxcv';
-  }
-  tokenDescriptor.token = tokenDescriptor.userId + userAgentToString;
-  // confirm if the token already exited
+  tokenDescriptor.token = randomstring.generate(32);
   searchTokenDescriptor(tokenDescriptor, insertTokenDescriptor);
   return {
     token: tokenDescriptor.token,
@@ -34,49 +23,97 @@ function createToken(userId, userAgent) {
   };
 }
 // delete Token from db
-function deleteToken(userId) {
+function deleteToken(token) {
   MongoClient.connect(url, (err, db) => {
-    let tokensDb = db.collection('tokenDescriptors');
-    tokensDb.remove({'userId': userId}, (err) => {
-      db.close();
-    });
+    try {
+      let tokensDb = db.collection('tokenDescriptors');
+      tokensDb.remove({'token': token}, (err) => {
+        try {
+          db.close();
+          throw err;
+        } catch (e) {
+          console.log(e.name + ':' + e.message);
+        }
+      });
+    } catch (e) {
+      console.log(e.name + ':' + e.message);
+    }
   });
 }
 // get Token from db
-function getToken(userId, callback) {
+function getToken(token, callback) {
   MongoClient.connect(url, (err, db) => {
-    let tokensDb = db.collection('tokenDescriptors');
-    tokensDb.findOne({'userId': userId}, (err, result) => {
-      if (result === null) {
-        callback([]);
-      } else {
-        callback(result);
+    try {
+      if (err) {
+        throw err;
       }
-      db.close();
-    });
+      let tokensDb = db.collection('tokenDescriptors');
+      tokensDb.findOne({'token': token}, (err, result) => {
+        try {
+          if (err) throw err;
+          if (result === null) {
+            callback([]);
+          } else {
+            callback(result);
+          }
+          db.close();
+        } catch (e) {
+          console.log(e.name + ':' + e.message);
+        }
+      });
+    } catch (e) {
+      console.log(e.name + ':' + e.message);
+    }
   });
 }
 // insert tokenDescriptor to database
 function insertTokenDescriptor(item) {
   MongoClient.connect(url, (err, db) => {
-    let tokensDb = db.collection('tokenDescriptors');
-    tokensDb.insert(item, (err, result) => {
-      db.close();
-    });
+    try {
+      if (err) {
+        throw err;
+      }
+      let tokensDb = db.collection('tokenDescriptors');
+      tokensDb.insert(item, (err, result) => {
+        try {
+          db.close();
+          throw err;
+        } catch (e) {
+          console.log(e.name + ':' + e.message);
+        }
+      });
+    } catch (e) {
+      console.log(e.name + ':' + e.message);
+    }
   });
 }
 // serach token from database
 function searchTokenDescriptor(tokenDescriptor, callback) {
   MongoClient.connect(url, (err, db) => {
-    let tokensDb = db.collection('tokenDescriptors');
-    tokensDb.findOne({'token': tokenDescriptor.token}, (err, result) => {
-      db.close();
-      if (result === null) {
-        callback(tokenDescriptor);
-      } else {
-        return;
+    try {
+      if (err) {
+        throw err;
       }
-    });
+      let tokensDb = db.collection('tokenDescriptors');
+      tokensDb.findOne({'token': tokenDescriptor.token}, (err, result) => {
+        try {
+          if (err) {
+            throw err;
+          }
+          db.close();
+          if (result === null) {
+            callback(tokenDescriptor);
+          } else {
+            return;
+          }
+        } catch (e) {
+          console.log(e.name + ':' + e.message);
+        }
+      });
+    } catch (e) {
+      /* eslint no-console: "off" */
+      console.log(e.name + ':' + e.message);
+    }
   });
 }
 
