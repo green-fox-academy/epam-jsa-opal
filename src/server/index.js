@@ -2,7 +2,10 @@
 const express = require('express');
 require('dotenv').config();
 const app = express();
-
+const bodyParser = require('body-parser');
+const jsonParser = bodyParser.json();
+const logoutController = require('./logout-endpoints');
+app.delete('/api/logout', jsonParser, logoutController.logout);
 console.log(process.env.DB_URL);
 app.use(express.static('dist'));
 app.get('/heartbeat', (req, res) => {
