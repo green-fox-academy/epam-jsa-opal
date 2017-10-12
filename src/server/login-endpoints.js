@@ -1,4 +1,5 @@
 const usersDb = require('./users-db');
+const tokensDb = require('./tokens-db');
 function login(req, res) {
   let email = req.body.username;
   let password = req.body.password;
@@ -38,11 +39,12 @@ function login(req, res) {
       statusNum = 500;
       // wait encrypt function
     } else if (password === userinfo.password) {
-      let days = 7;
-      let expiresAt = new Date().getTime() + days * 24 * 60 * 60 * 1000;
+      let userId = userinfo._id;
+      let userAgent = req.headers['user-agent'];
+      let tokenData = tokensDb.createToken(userId, userAgent);
       obj = {
-        'expiresAt': expiresAt,
-        'token': userinfo.token,
+        'expiresAt': tokenData.expiresAt,
+        'token': tokenData.token,
       };
       statusNum = 200;
     } else {
@@ -63,7 +65,6 @@ function validatePossword(password) {
   let reg = /\S{6,}/;
   return reg.test(password);
 }
-
 module.exports= {
   login: login,
 };
