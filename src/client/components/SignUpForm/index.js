@@ -6,10 +6,10 @@ const SignUpForm = (props) => (
     <h1>Create new user</h1>
     <input name="username"
       className={props.errorUsername ? 'error' : ''}
-      placeholder="Username (Option)" />
+      placeholder="Username (Optional)" />
     <input type="email" name="email" placeholder="E-mail" required
       className={props.errorEmail ? 'error' : ''}/>
-    <input name="phone" placeholder="Phone Number (Option)"
+    <input name="phone" placeholder="Phone Number (Optional)"
       className={props.errorPhone ? 'error' : ''}/>
     <input name="fullname" placeholder="Full Name" required
       className={props.errorFullname ? 'error' : ''}/>

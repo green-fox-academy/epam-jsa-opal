@@ -5,13 +5,11 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 const path = require('path');
-
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static('dist'));
-app.get('/api/signup', (req, res) =>{
-  res.send('endpoint of signup');
-});
+app.post('/api/signup', signUp.userSignup);
 app.get('*', (req, res) =>{
-  console.log(__dirname);
   res.sendFile('index.html', {root: path.join(__dirname, '../../dist')});
 });
 
@@ -25,7 +23,6 @@ app.get('/heartbeat', (req, res) => {
   MongoClient.connect(url, function(err, db) {
     let adminDb = db.admin();
     adminDb.serverStatus(function(err, info) {
-      console.log(info.version);
       res.json(info.version);
       db.close();
     });
@@ -36,7 +33,6 @@ app.get('/heartbeat', (req, res) => {
 /* eslint no-console: "off" */
 let portNum = process.env.PORT || 3000;
 app.listen(portNum, () => {
-  console.log(`listening on port:${portNum}`);
 });
 
-app.post('/api/signup', signUp.userSignup);
+

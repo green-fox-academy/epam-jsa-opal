@@ -15,6 +15,15 @@ class SignUpComponent extends React.Component {
     };
   }
   submitHandler(ev) {
+    this.state = {
+      'status': 'being',
+      'error': '',
+      'errorUsername': false,
+      'errorEmail': false,
+      'errorPhone': false,
+      'errorFullname': false,
+      'errorPassword': false,
+    };
     ev.preventDefault();
     let userName = ev.target.elements.namedItem('username').value;
     let email = ev.target.elements.namedItem('email').value;
@@ -22,18 +31,18 @@ class SignUpComponent extends React.Component {
     let fullName = ev.target.elements.namedItem('fullname').value;
     let password = ev.target.elements.namedItem('password').value;
     let obj = {
-      username: userName,
-      email: email,
-      phone: phone,
-      fullname: fullName,
-      password: password,
+      'username': userName,
+      'email': email,
+      'phone number': phone,
+      'full name': fullName,
+      'password': password,
     };
     let jsonData = JSON.stringify(obj);
     let xhr = new XMLHttpRequest();
     xhr.addEventListener('readystatechange', function() {
       if (xhr.readyState === XMLHttpRequest.DONE) {
-        let errorText = JSON.parse(xhr.responseText).error;
         if (xhr.status === 400) {
+          let errorText = JSON.parse(xhr.responseText).error;
           if (errorText === 'the username is void') {
             this.setState({'errorUsername': true});
           }
@@ -64,6 +73,7 @@ class SignUpComponent extends React.Component {
           this.setState({'error': errorText});
         }
         if (xhr.status === 409) {
+          let errorText = JSON.parse(xhr.responseText).error;
           if (errorText === 'username conflicts!') {
             this.setState({'errorUsername': true});
           }
@@ -76,6 +86,7 @@ class SignUpComponent extends React.Component {
           this.setState({'error': errorText});
         }
         if (xhr.status === 500) {
+          let errorText = JSON.parse(xhr.responseText).error;
           this.setState({'error': errorText});
         }
       }
