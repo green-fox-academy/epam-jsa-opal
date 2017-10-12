@@ -12,6 +12,11 @@ function login(req, res) {
       'error': 'Content-Type wrong',
     };
     statusNum = 400;
+  } else if (email === undefined || password === undefined) {
+    obj = {
+      'error': 'missing field',
+    };
+    statusNum = 400;
   } else if (validateEmail(email) === false) {
     obj = {
       'error': 'email format error',
@@ -20,11 +25,6 @@ function login(req, res) {
   } else if (validatePossword(password) === false) {
     obj = {
       'error': 'password format error(with space or less than 6 charaters)',
-    };
-    statusNum = 400;
-  } else if (email === undefined || password === undefined) {
-    obj = {
-      'error': 'missing field',
     };
     statusNum = 400;
   }
@@ -66,6 +66,7 @@ function validatePossword(password) {
   let reg = /\S{6,}/;
   return reg.test(password);
 }
+
 module.exports= {
   login: login,
 };
