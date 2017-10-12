@@ -11,7 +11,7 @@ describe('Test Login', function() {
       .expect(200)
       .end(function(err, res) {
         assert.equal(res.status, 200);
-        assert.equal(res.body.token, 'null now');
+        assert.equal(res.body.token, '59db39e3fd99722beceb29cczxcvzxcv');
         done();
       });
   });

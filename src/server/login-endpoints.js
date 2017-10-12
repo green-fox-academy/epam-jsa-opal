@@ -1,4 +1,6 @@
 const usersDb = require('./users-db');
+const tokensDb = require('./tokens-db');
+
 function login(req, res) {
   let email = req.body.username;
   let password = req.body.password;
@@ -10,6 +12,11 @@ function login(req, res) {
       'error': 'Content-Type wrong',
     };
     statusNum = 400;
+  } else if (email === undefined || password === undefined) {
+    obj = {
+      'error': 'missing field',
+    };
+    statusNum = 400;
   } else if (validateEmail(email) === false) {
     obj = {
       'error': 'email format error',
@@ -18,11 +25,6 @@ function login(req, res) {
   } else if (validatePossword(password) === false) {
     obj = {
       'error': 'password format error(with space or less than 6 charaters)',
-    };
-    statusNum = 400;
-  } else if (email === undefined || password === undefined) {
-    obj = {
-      'error': 'missing field',
     };
     statusNum = 400;
   }
@@ -38,11 +40,12 @@ function login(req, res) {
       statusNum = 500;
       // wait encrypt function
     } else if (password === userinfo.password) {
-      let days = 7;
-      let expiresAt = new Date().getTime() + days * 24 * 60 * 60 * 1000;
+      let userId = userinfo._id;
+      let userAgent = req.headers['user-agent'];
+      let tokenData = tokensDb.createToken(userId, userAgent);
       obj = {
-        'expiresAt': expiresAt,
-        'token': userinfo.token,
+        'expiresAt': tokenData.expiresAt,
+        'token': tokenData.token,
       };
       statusNum = 200;
     } else {
