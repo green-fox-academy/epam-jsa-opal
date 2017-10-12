@@ -1,10 +1,15 @@
 'use strict';
-const express = require('express');
+const check = require('./checkUserInfo.js');
+let bodyParser = require('body-parser');
 require('dotenv').config();
+const express = require('express');
 const app = express();
-
+app.use(bodyParser.json()); // for parsing application/json
+app.use(bodyParser.urlencoded({extended: true}));
 console.log(process.env.DB_URL);
 app.use(express.static('dist'));
+
+
 app.get('/heartbeat', (req, res) => {
   let MongoClient = require('mongodb').MongoClient;
   let protocol = process.env.DB_PROTOCOL;
@@ -22,8 +27,11 @@ app.get('/heartbeat', (req, res) => {
   });
 });
 
+
 /* eslint no-console: "off" */
 let portNum = process.env.PORT || 3000;
 app.listen(portNum, () => {
   console.log(`listening on port:${portNum}`);
 });
+
+app.post('/api/signup', check.checkInfoValid);
