@@ -1,7 +1,6 @@
 import React from 'react';
 import SignUpForm from '../SignUpForm';
 
-let url = 'http://localhost:3000/api/signup';
 class SignUpComponent extends React.Component {
   constructor(props) {
     super(props);
@@ -82,7 +81,7 @@ class SignUpComponent extends React.Component {
       }
       this.setState({'status': 'being'});
     }.bind(this));
-    xhr.open('POST', url);
+    xhr.open('POST', '/api/signup');
     xhr.setRequestHeader('Accept', 'application/json');
     xhr.setRequestHeader('Content-Type', 'application/json');
     this.setState({'status': 'loading'});
@@ -91,7 +90,6 @@ class SignUpComponent extends React.Component {
 
   render() {
     return <SignUpForm
-
       isLoading={this.state.status === 'loading'}
       errorMessage={this.state.error}
       errorUsername={this.state.errorUsername}

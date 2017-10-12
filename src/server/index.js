@@ -8,7 +8,7 @@ app.use(express.static('dist'));
 app.get('/api/signup', (req, res) =>{
   res.send('endpoint of signup');
 });
-app.get(/.*/, (req, res) =>{
+app.get('*', (req, res) =>{
   console.log(__dirname);
   res.sendFile('index.html', {root: path.join(__dirname, '../../dist')});
 });
