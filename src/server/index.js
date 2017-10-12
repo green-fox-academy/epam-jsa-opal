@@ -1,6 +1,8 @@
 'use strict';
-const express = require('express');
+const signUp = require('./signup-endpoints.js');
+let bodyParser = require('body-parser');
 require('dotenv').config();
+const express = require('express');
 const app = express();
 const path = require('path');
 
@@ -12,6 +14,7 @@ app.get('*', (req, res) =>{
   console.log(__dirname);
   res.sendFile('index.html', {root: path.join(__dirname, '../../dist')});
 });
+
 app.get('/heartbeat', (req, res) => {
   let MongoClient = require('mongodb').MongoClient;
   let protocol = process.env.DB_PROTOCOL;
@@ -29,8 +32,11 @@ app.get('/heartbeat', (req, res) => {
   });
 });
 
+
 /* eslint no-console: "off" */
 let portNum = process.env.PORT || 3000;
 app.listen(portNum, () => {
   console.log(`listening on port:${portNum}`);
 });
+
+app.post('/api/signup', signUp.userSignup);
