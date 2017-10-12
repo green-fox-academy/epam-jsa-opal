@@ -1,5 +1,5 @@
 'use strict';
-const userDbHandler = require('./users_signup_db');
+const signupData = require('./users_signup_db');
 
 
 function checkInfoValid(req, res) {
@@ -75,7 +75,6 @@ function checkInfoValid(req, res) {
     res.status(400).send(obj);
     return -1;
   }
-  userDbHandler.dbHandler(req, res);
 }
 function validateEmail(email) {
   let re = /\S+@\S+\.\S+/;
@@ -85,6 +84,11 @@ function hasNumber(myString) {
   return /\d/.test(myString);
 }
 
+function userSignup(req, res) {
+  checkInfoValid(req, res);
+  signupData.storeUser(req, res);
+}
+
 module.exports = {
-  checkInfoValid: checkInfoValid,
+  userSignup: userSignup,
 };

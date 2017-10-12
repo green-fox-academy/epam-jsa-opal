@@ -1,5 +1,5 @@
 require('dotenv').config();
-const cryptoJs = require('./crypto.js');
+const cryptoJs = require('./cryptData.js');
 let protocol = process.env.DB_PROTOCOL;
 let host = process.env.DB_HOST;
 let port = process.env.DB_PORT;
@@ -18,7 +18,7 @@ function mongoConnectErrorHandle(res, db) {
   db.close();
 }
 
-function dbHandler(req, res) {
+function dbInsert(req, res) {
   let sendContent = {
     'username': ' ',
     'email': '',
@@ -80,5 +80,5 @@ function dbHandler(req, res) {
 }
 
 module.exports = {
-  dbHandler: dbHandler,
+  storeUser: dbInsert,
 };

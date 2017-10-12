@@ -1,12 +1,12 @@
 'use strict';
-const check = require('./checkUserInfo.js');
+const signUp = require('./signup-endpoints.js');
 let bodyParser = require('body-parser');
 require('dotenv').config();
 const express = require('express');
 const app = express();
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({extended: true}));
-console.log(process.env.DB_URL);
+
 app.use(express.static('dist'));
 
 
@@ -34,4 +34,4 @@ app.listen(portNum, () => {
   console.log(`listening on port:${portNum}`);
 });
 
-app.post('/api/signup', check.checkInfoValid);
+app.post('/api/signup', signUp.userSignup);
