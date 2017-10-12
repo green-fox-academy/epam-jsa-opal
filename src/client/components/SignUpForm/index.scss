@@ -6,6 +6,7 @@
       border-radius: 3px;
       min-width: calc(260px - 2rem);
       width: 15%;
+      text-align: center;
   
       input {
           display: block;
@@ -19,9 +20,26 @@
           border-bottom: 1px solid black;
           margin-bottom: 1rem;
       }
-      label {
+
+      input:not([type="submit"]).error {
+        border: 1px solid red;
+      }
+
+      .loading {
         display: block;
         width: 100%;
         line-height: 2rem;
+        opacity: 0.5;
       }
+
+      span {
+        display: inline-block;
+        width: 100%;
+        line-height: 2rem;
+        color: #be4b49;
+      }
+
+      
   }
+  
+  

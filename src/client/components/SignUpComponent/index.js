@@ -1,14 +1,18 @@
 import React from 'react';
 import SignUpForm from '../SignUpForm';
 
-let url = 'http://localhost:8080';
+let url = 'http://localhost:3000/api/signup';
 class SignUpComponent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       'status': 'being',
       'error': '',
-      'pass': true,
+      'errorUsername': false,
+      'errorEmail': false,
+      'errorPhone': false,
+      'errorFullname': false,
+      'errorPassword': false,
     };
   }
   submitHandler(ev) {
@@ -29,26 +33,56 @@ class SignUpComponent extends React.Component {
     let xhr = new XMLHttpRequest();
     xhr.addEventListener('readystatechange', function() {
       if (xhr.readyState === XMLHttpRequest.DONE) {
-        if (xhr.status === 404) {
-          let errorText = 'Not Found';
-          this.setState({'error': errorText});
-          this.setState({'pass': false});
-        }
+        let errorText = JSON.parse(xhr.responseText).error;
         if (xhr.status === 400) {
-          let errorText = xhr.responseText;
+          if (errorText === 'the username is void') {
+            this.setState({'errorUsername': true});
+          }
+          if (errorText === 'the email is void') {
+            this.setState({'errorEmail': true});
+          }
+          if (errorText === 'the email format is invalid') {
+            this.setState({'errorEmail': true});
+          }
+          if (errorText === 'the phone number is void') {
+            this.setState({'errorPhone': true});
+          }
+          if (errorText === 'the phone number is invalid') {
+            this.setState({'errorPhone': true});
+          }
+          if (errorText === 'the full name is void') {
+            this.setState({'errorFullname': true});
+          }
+          if (errorText === 'the full name is invalid') {
+            this.setState({'errorFullname': true});
+          }
+          if (errorText === 'the password is void') {
+            this.setState({'errorPassword': true});
+          }
+          if (errorText === 'the password is too short') {
+            this.setState({'errorPassword': true});
+          }
           this.setState({'error': errorText});
         }
         if (xhr.status === 409) {
-          let errorText = xhr.responseText;
+          if (errorText === 'username conflicts!') {
+            this.setState({'errorUsername': true});
+          }
+          if (errorText === 'email conflicts!') {
+            this.setState({'errorEmail': true});
+          }
+          if (errorText === 'phone number conflicts!') {
+            this.setState({'errorPhone': true});
+          }
           this.setState({'error': errorText});
         }
         if (xhr.status === 500) {
-          let errorText = xhr.responseText;
           this.setState({'error': errorText});
         }
       }
+      this.setState({'status': 'being'});
     }.bind(this));
-    xhr.open('POST', 'http://localhost:8080/signup');
+    xhr.open('POST', url);
     xhr.setRequestHeader('Accept', 'application/json');
     xhr.setRequestHeader('Content-Type', 'application/json');
     this.setState({'status': 'loading'});
@@ -56,19 +90,17 @@ class SignUpComponent extends React.Component {
   }
 
   render() {
-    let style = this.state.pass?
-      {
+    return <SignUpForm
 
-      }
-      :
-      {
-        'userName': {
-          'border': '1px solid',
-          'borderColor': 'red',
-        },
-      }
-    ;
-    return <SignUpForm style={style} isLoading={this.state.status === 'loading'} isError={this.state.error} onSubmit={this.submitHandler.bind(this)}/>;
+      isLoading={this.state.status === 'loading'}
+      errorMessage={this.state.error}
+      errorUsername={this.state.errorUsername}
+      errorEmail={this.state.errorEmail}
+      errorPhone={this.state.errorPhone}
+      errorFullname={this.state.errorFullname}
+      errorPassword={this.state.errorPassword}
+      onSubmit={this.submitHandler.bind(this)}
+    />;
   }
 }
 
