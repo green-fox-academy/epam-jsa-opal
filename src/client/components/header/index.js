@@ -4,7 +4,7 @@ import './index.scss';
 import search from './assets/search.png';
 import upload from './assets/upload.png';
 import userprofile from './assets/userprofile.png';
-
+import popup from './assets/popup.png';
 class NavBar extends React.Component {
   render() {
     return (
@@ -13,9 +13,13 @@ class NavBar extends React.Component {
         <div className = "obstacle"></div>
         <img className = "search-logo" src={search} ></img>
         <span className = "search-name">search</span>
-        <img className = "upload-logo" src={upload}></img>
-        <span className = "upload-name">upload</span>
-        <img className = "user-profile" src={userprofile}></img>
+        <div className = "right-top">
+          <img className = "upload-logo" src={upload}></img>
+          <span className = "upload-name">upload</span>
+          <img className = "user-profile" src={userprofile}></img>
+          <img className = "popup-menu" src={popup}></img>
+        </div>
+
       </nav>
     );
   }
