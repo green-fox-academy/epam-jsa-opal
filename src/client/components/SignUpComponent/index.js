@@ -42,11 +42,9 @@ class SignUpComponent extends React.Component {
     let xhr = new XMLHttpRequest();
     xhr.addEventListener('readystatechange', function() {
       if (xhr.readyState === XMLHttpRequest.DONE) {
-        // this.setState({'status': 'being'});
-        console.log(xhr.status);
+        this.setState({'status': 'being'});
         if (xhr.status === 201) {
-          console.log(xhr.status + 'inside');
-          window.location.href = '/';
+          window.location.href = '/login';
           return;
         }
         if (xhr.status === 400) {

@@ -32,6 +32,10 @@ body {
     color: white;
     margin: 0 auto;
   }
+  .register-link {
+    display: flex;
+    flex-direction: row-reverse;
+  }
   .errorMessage {
     color: red;
   }

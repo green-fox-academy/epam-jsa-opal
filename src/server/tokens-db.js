@@ -6,7 +6,15 @@ let protocol = process.env.DB_PROTOCOL;
 let host = process.env.DB_HOST;
 let port = process.env.DB_PORT;
 let name = process.env.DB_NAME;
-let url = protocol+'://' + host+':' + port + '/' + name;
+let username = process.env.Username;
+let password = process.env.Password;
+let url;
+if (password !== undefined) {
+  // url: 'mongodb://54wallis_a_good_man:haha@ds015869.mlab.com:15869/walkingdead'
+  url = protocol +'://' + username + ':' + password + '@' + host+':' + port + '/' + name;
+} else {
+  url = protocol +'://' + host+':' + port + '/' + name;
+}
 const TOKEN_LIFETIME = 7;
 
 function createToken(userId, userAgent) {

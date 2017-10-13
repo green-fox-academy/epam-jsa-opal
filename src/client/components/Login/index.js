@@ -1,5 +1,6 @@
 import React from 'react';
 import './index.scss';
+import {Link} from 'react-router-dom';
 
 class LoginComponent extends React.Component {
   constructor(props) {
@@ -70,6 +71,7 @@ class LoginComponent extends React.Component {
         <input type="password" name="password" minLength='6' required/>
         <input type="submit"
           value={this.state.loginStatus === 'notLogin' ? 'Login' : 'Logining'}/>
+        <Link to='/signup' className="register-link">register now</Link>
         <span className="errorMessage">{this.state.errorMessage}</span>
       </form>
     );
