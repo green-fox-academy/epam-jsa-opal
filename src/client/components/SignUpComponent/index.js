@@ -41,6 +41,7 @@ class SignUpComponent extends React.Component {
     let xhr = new XMLHttpRequest();
     xhr.addEventListener('readystatechange', function() {
       if (xhr.readyState === XMLHttpRequest.DONE) {
+        this.setState({'status': 'being'});
         if (xhr.status === 400) {
           let errorText = JSON.parse(xhr.responseText).error;
           if (errorText === 'the username is void') {
@@ -90,7 +91,6 @@ class SignUpComponent extends React.Component {
           this.setState({'error': errorText});
         }
       }
-      this.setState({'status': 'being'});
     }.bind(this));
     xhr.open('POST', '/api/signup');
     xhr.setRequestHeader('Accept', 'application/json');

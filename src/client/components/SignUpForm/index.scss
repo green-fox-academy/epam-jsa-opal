@@ -1,6 +1,4 @@
-
-@import url('https://fonts.googleapis.com/css?family=Roboto');
-
+$designRed : #D93738;
 .signup-form {
   
       padding: 1rem;
@@ -12,7 +10,7 @@
       box-shadow: 1px 1px 2px rgba(0,0,0,.3);
       
       h1 {
-          color: #D93738;
+          color: $designRed;
           font-family: 'Roboto', sans-serif;
       }
 
@@ -20,7 +18,7 @@
           display: block;
           width: 100%;
           line-height: 2rem;
-          background-color:#D93738;
+          background-color:$designRed;
           color:white;
       }
   
@@ -47,7 +45,7 @@
         display: inline-block;
         width: 100%;
         line-height: 2rem;
-        color: #D93738;
+        color: $designRed;
         font-family: 'Roboto', sans-serif;
       }
 
