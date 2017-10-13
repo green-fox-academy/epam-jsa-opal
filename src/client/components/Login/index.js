@@ -66,15 +66,17 @@ class LoginComponent extends React.Component {
   }
   render() {
     return (
-      <form onSubmit={this.onSubmit} className="loginFrom">
-        <h1>Welcome login our website</h1>
-        <input type="email" name="email" required/>
-        <input type="password" name="password" minLength='6' required/>
-        <input type="submit"
-          value={this.state.loginStatus === 'notLogin' ? 'Login' : 'Logining'}/>
-        <Link to='/signup' className="register-link">register now</Link>
-        <span className="errorMessage">{this.state.errorMessage}</span>
-      </form>
+      <main>
+        <form onSubmit={this.onSubmit} className="loginFrom">
+          <h1>Welcome login our website</h1>
+          <input type="email" name="email" required/>
+          <input type="password" name="password" minLength='6' required/>
+          <input type="submit"
+            value={this.state.loginStatus === 'notLogin' ? 'Login' : 'Logining'}/>
+          <Link to='/signup' className="register-link">register now</Link>
+          <span className="errorMessage">{this.state.errorMessage}</span>
+        </form>
+      </main>
     );
   }
 }
