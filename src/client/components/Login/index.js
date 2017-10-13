@@ -67,6 +67,7 @@ class LoginComponent extends React.Component {
   render() {
     return (
       <form onSubmit={this.onSubmit} className="loginFrom">
+        <h1>Welcome login our website</h1>
         <input type="email" name="email" required/>
         <input type="password" name="password" minLength='6' required/>
         <input type="submit"
