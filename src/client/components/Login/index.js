@@ -50,7 +50,7 @@ class LoginComponent extends React.Component {
           // email format error
           this.setState({'errorMessage': errorMessage});
         } else if (errorMessage ===
-          'password format error(with space or less than 6 charaters)') {
+          'password format error') {
           this.setState({'errorMessage': errorMessage});
         }
       } else if (statusCode === 403) {
