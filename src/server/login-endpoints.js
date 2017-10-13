@@ -34,6 +34,14 @@ function login(req, res) {
     return;
   }
   usersDb.findUserInfo(email, (userinfo) => {
+    if (userinfo === false) {
+      obj = {
+        'error': 'password or username not match',
+      };
+      statusNum = 403;
+      res.status(statusNum).json(obj);
+      return;
+    }
     let passwordInDb = encryptoData.decryptoData(userinfo.password);
     password = encryptoData.encryptoData(password);
     password = encryptoData.decryptoData(password);
@@ -52,6 +60,11 @@ function login(req, res) {
         'token': tokenData.token,
       };
       statusNum = 200;
+    } else if (userinfo === false) {
+      statusNum = 403;
+      obj = {
+        'error': 'password or username not match',
+      };
     } else {
       obj = {
         'error': 'password or username not match',

@@ -28,7 +28,7 @@ function findUserInfo(email, callback) {
       let usersDB = db.collection('users');
       usersDB.findOne({'email': email}, (err, result) => {
         if (result === null) {
-          callback([]);
+          callback(false);
           db.close();
           return;
         }
