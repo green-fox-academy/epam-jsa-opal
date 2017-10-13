@@ -18,7 +18,10 @@ class NavBar extends React.Component {
           <span className = "upload-name">upload</span>
           <img className = "user-profile" src={userprofile}></img>
           <div className="dropdown">
-            <button className="dropbtn" ><img className = "popup-menu" src={popup}></img></button>
+            <button className="dropbtn" >
+              <img className = "popup-menu" src={popup}>
+              </img>
+            </button>
             <div className="dropdown-content">
               <a href="#">team</a>
               <a href="#">Opal</a>
