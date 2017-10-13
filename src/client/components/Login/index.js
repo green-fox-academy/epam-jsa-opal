@@ -29,7 +29,6 @@ class LoginComponent extends React.Component {
       },
       body: JSON.stringify(obj),
     }).then((response) => {
-      console.log(response.status + 'response');
       statusCode = response.status;
       return response.json();
     }).then((reslut) => {

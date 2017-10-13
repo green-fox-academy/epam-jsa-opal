@@ -1,7 +1,7 @@
 'use strict';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import LoginComponent from './components/Login';
+import App from './components/Hello';
 
-ReactDOM.render(<LoginComponent />, document.getElementById('root'));
+ReactDOM.render(<App />, document.getElementById('root'));
 
