@@ -17,10 +17,18 @@ class NavBar extends React.Component {
           <img className = "upload-logo" src={upload}></img>
           <span className = "upload-name">upload</span>
           <img className = "user-profile" src={userprofile}></img>
-          <img className = "popup-menu" src={popup}></img>
+          <div className="dropdown">
+            <button className="dropbtn" ><img className = "popup-menu" src={popup}></img></button>
+            <div className="dropdown-content">
+              <a href="#">team</a>
+              <a href="#">Opal</a>
+              <a href="#">is</a>
+              <a href="#">undefeatable</a>
+            </div>
+          </div>
         </div>
-
       </nav>
+
     );
   }
 }
