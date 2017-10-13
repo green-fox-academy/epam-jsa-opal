@@ -37,7 +37,7 @@ class LoginComponent extends React.Component {
         // stroe token
         localStorage.setItem('token', reslut.token);
         localStorage.setItem('expiresAt', reslut.expiresAt);
-        window.location.href = '/feed';
+        window.location.href = '/';
       } else if (statusCode === 400) {
         errorMessage = reslut.error;
         if (errorMessage === 'Content-Type wrong') {

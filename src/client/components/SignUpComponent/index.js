@@ -25,6 +25,7 @@ class SignUpComponent extends React.Component {
       'errorPassword': false,
     };
     ev.preventDefault();
+    this.setState({'status': 'loading'});
     let userName = ev.target.elements.namedItem('username').value;
     let email = ev.target.elements.namedItem('email').value;
     let phone = ev.target.elements.namedItem('phone').value;
@@ -41,7 +42,13 @@ class SignUpComponent extends React.Component {
     let xhr = new XMLHttpRequest();
     xhr.addEventListener('readystatechange', function() {
       if (xhr.readyState === XMLHttpRequest.DONE) {
-        this.setState({'status': 'being'});
+        // this.setState({'status': 'being'});
+        console.log(xhr.status);
+        if (xhr.status === 201) {
+          console.log(xhr.status + 'inside');
+          window.location.href = '/';
+          return;
+        }
         if (xhr.status === 400) {
           let errorText = JSON.parse(xhr.responseText).error;
           if (errorText === 'the username is void') {
@@ -95,7 +102,6 @@ class SignUpComponent extends React.Component {
     xhr.open('POST', '/api/signup');
     xhr.setRequestHeader('Accept', 'application/json');
     xhr.setRequestHeader('Content-Type', 'application/json');
-    this.setState({'status': 'loading'});
     xhr.send(jsonData);
   }
 
