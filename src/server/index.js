@@ -4,11 +4,15 @@ let bodyParser = require('body-parser');
 require('dotenv').config();
 const express = require('express');
 const app = express();
-app.use(bodyParser.json()); // for parsing application/json
+const path = require('path');
+
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
-
 app.use(express.static('dist'));
-
+app.post('/api/signup', signUp.userSignup);
+app.get('*', (req, res) =>{
+  res.sendFile('index.html', {root: path.join(__dirname, '../../dist')});
+});
 
 app.get('/heartbeat', (req, res) => {
   let MongoClient = require('mongodb').MongoClient;
@@ -20,7 +24,6 @@ app.get('/heartbeat', (req, res) => {
   MongoClient.connect(url, function(err, db) {
     let adminDb = db.admin();
     adminDb.serverStatus(function(err, info) {
-      console.log(info.version);
       res.json(info.version);
       db.close();
     });
@@ -31,7 +34,6 @@ app.get('/heartbeat', (req, res) => {
 /* eslint no-console: "off" */
 let portNum = process.env.PORT || 3000;
 app.listen(portNum, () => {
-  console.log(`listening on port:${portNum}`);
 });
 
-app.post('/api/signup', signUp.userSignup);
+
