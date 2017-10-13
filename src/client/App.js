@@ -11,6 +11,7 @@ class App extends React.Component {
       return (
         <Router>
           <div>
+            <Route path="/signup" component={Signup} />
             <Route path="/" component={Login} />
           </div>
         </Router>
