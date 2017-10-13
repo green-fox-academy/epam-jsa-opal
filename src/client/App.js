@@ -6,16 +6,27 @@ import Header from '../client/components/header';
 
 class App extends React.Component {
   render() {
-    return (
-      <Router>
-        <div>
-          <Route exact path="/" component={Header} />
-          <Route path="/signup" component={Signup} />
-          <Route path="/login" component={Login} />
-          <Route path="/heartbeat" component={Header} />
-        </div>
-      </Router>
-    );
+    let token = localStorage.getItem('token');
+    if (token === null) {
+      return (
+        <Router>
+          <div>
+            <Route path="/" component={Login} />
+          </div>
+        </Router>
+      );
+    } else {
+      return (
+        <Router>
+          <div>
+            <Route exact path="/" component={Header} />
+            <Route path="/signup" component={Signup} />
+            <Route path="/login" component={Login} />
+            <Route path="/heartbeat" component={Header} />
+          </div>
+        </Router>
+      );
+    }
   }
 }
 
