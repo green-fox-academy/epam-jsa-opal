@@ -1,5 +1,5 @@
 import React from 'react';
-import {BrowserRouter as Router, Route} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import Signup from '../client/screen/SignUpScreen';
 import Login from '../client/components/Login';
 import Header from '../client/components/header';
@@ -10,10 +10,10 @@ class App extends React.Component {
     if (token === null) {
       return (
         <Router>
-          <div>
+          <Switch>
             <Route path="/signup" component={Signup} />
             <Route path="/" component={Login} />
-          </div>
+          </Switch>
         </Router>
       );
     } else {
