@@ -1,17 +1,62 @@
 module.exports = {
-  'extends': ['eslint:recommended', 'google'],
-  'parser': 'babel-eslint',
+  'root': true,
   'env': {
     'es6': true,
     'node': true,
   },
-  'rules': {
-    'require-jsdoc': 0,
-    'react/jsx-uses-vars': 2,
-    'react/jsx-uses-react': 2,
-    'indent': ['error', 2],
+  'extends': [
+    'eslint:recommended',
+    'google',
+  ],
+  'parserOptions': {
+    'sourceType': 'module',
   },
-  'plugins': [
-    'react',
+  'rules': {
+    'indent': ['error', 2],
+    'require-jsdoc': 'off',
+  },
+  'overrides': [
+    // backend
+    {
+      'files': ['**/server/**/*.js'],
+      'rules': {
+        'no-console': 'off',
+      },
+    },
+    // backend-test
+    {
+      'files': ['**/test/server/**/*.js'],
+      'env': {
+        'mocha': true,
+      },
+    },
+    // frontend
+    {
+      'files': ['**/client/**/*.js'],
+      'env': {
+        'browser': true,
+        'node': false,
+      },
+      'parserOptions': {
+        'ecmaFeatures': {
+          'experimentalObjectRestSpread': true,
+          'jsx': true,
+        },
+      },
+      'rules': {
+        'react/jsx-uses-vars': 'error',
+        'react/jsx-uses-react': 'error',
+      },
+      'plugins': [
+        'react',
+      ],
+    },
+    // frontend-test
+    {
+      'files': ['**/test/client/**/*.js'],
+      'env': {
+        'jest': true,
+      },
+    },
   ],
 };
