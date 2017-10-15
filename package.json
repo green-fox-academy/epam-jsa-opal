@@ -12,7 +12,7 @@
     "test:backend": "mocha ./test/server",
     "lint:js": "eslint . --ext .js --color",
     "lint:css": "stylelint src/client/**/*.scss --colors",
-    "lint": "npm run lint:js && npm lint:css"
+    "lint": "run-s lint:*"
   },
   "repository": {
     "type": "git",
@@ -41,6 +41,7 @@
     "jest-cli": "^21.2.0",
     "mocha": "^3.5.3",
     "node-sass": "^4.5.3",
+    "npm-run-all": "^4.1.1",
     "object-assign": "^4.1.1",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.18.2",
