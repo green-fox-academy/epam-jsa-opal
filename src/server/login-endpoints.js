@@ -24,7 +24,7 @@ function login(req, res) {
     statusNum = 400;
   } else if (validatePossword(password) === false) {
     obj = {
-      'error': 'password format error(with space or less than 6 charaters)',
+      'error': 'password format error',
     };
     statusNum = 400;
   }

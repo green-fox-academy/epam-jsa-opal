@@ -1,8 +1,9 @@
 'use strict';
-const express = require('express');
-const signUp = require('./signup-endpoints.js');
-let bodyParser = require('body-parser');
+
 require('dotenv').config();
+
+const signUp = require('./signup-endpoints.js');
+const express = require('express');
 const path = require('path');
 const app = express();
 const bodyParser = require('body-parser');
