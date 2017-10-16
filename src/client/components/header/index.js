@@ -17,8 +17,10 @@ class header extends React.Component {
           </input>
         </form>
         <div className = "right-top">
-          <img className = "upload-logo" src={upload}></img>
-          <span className = "upload-name">upload</span>
+          <button className = "right-top-button">
+            <img className = "upload-logo" src={upload}></img>
+            <span className = "upload-name">upload</span>
+          </button>
           <img className = "user-profile" src={userprofile}></img>
           <nav>
             <div className="dropdown">
