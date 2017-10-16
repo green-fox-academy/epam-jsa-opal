@@ -36,13 +36,13 @@ function dbInsert(req, res) {
       mongoConnectErrorHandle(res, db);
       return -1;
     }
-    db.collection('users').find({$or: [
+    db.collection('user').find({$or: [
       {'username': req.body.username},
       {'email': req.body.email},
       {'phone number': req.body['phone number']},
     ]}).toArray(function(err, items) {
       if (items.length === 0) {
-        db.collection('users').insert(sendContent, function() {
+        db.collection('user').insert(sendContent, function() {
           let objectId = sendContent._id;
           res.set('location', '/api/signup/'+objectId);
           res.setHeader('content-type', 'application/json');

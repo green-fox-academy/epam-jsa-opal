@@ -85,9 +85,7 @@ function hasNumber(myString) {
 }
 
 function userSignup(req, res) {
-  if((checkInfoValid(req, res))=== -1){
-    return;
-  }
+  checkInfoValid(req, res);
   signupData.storeUser(req, res);
 }
 
