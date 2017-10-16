@@ -1,6 +1,6 @@
 'use strict';
 
-const signupData = require('../collections/users-signup-db');
+const signupData = require('../collections/users-db');
 
 function checkInfoValid(req, res) {
   if (req.body.username.replace(' ', '') === '') {

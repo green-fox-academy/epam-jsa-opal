@@ -13,11 +13,11 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static('dist'));
 app.post('/api/signup', signUp.signupUser);
+app.get('/heartbeat', DatabaseHealth.checkDatabaseHealth);
 app.get('*', (req, res) =>{
   res.sendFile('index.html', {root: path.join(__dirname, '../../dist')});
 });
 
-app.get('/heartbeat', DatabaseHealth.checkDatabaseHealth);
 
 let portNum = process.env.PORT || 3000;
 
