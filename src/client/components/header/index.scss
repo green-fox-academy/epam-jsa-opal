@@ -1,129 +1,147 @@
-$boxshadow:rgba(0,0,0,0.2);
-$navboxshadow:rgba(214,214,214,0.50);
-$teamname:#D93738;
+$boxshadow: rgba(0, 0, 0, .2);
+$navboxshadow: rgba(214, 214, 214, .5);
+$teamname: #d93738;
 $searchname: #868686;
-$navbackgroundcolor:#FFFFFF;
-$uploadnamecolor:#868686;
-#root {
+$navbackgroundcolor: #fff;
+$uploadnamecolor: #868686;
+
+.rootbody {
   width: 100%;
 }
+
 * {
   margin: 0;
   padding: 0;
 }
+
 header {
-  display: flex;
   align-items: center;
-  width: 100%;
-  height: 4.375em;
-  background-color:$navbackgroundcolor;
+  background-color: $navbackgroundcolor;
   box-shadow: 0 2px 7px 0 $navboxshadow;
-    form {
-      display: flex;
-      align-items: center;
-      width: 100%;
-    }
-    .search-name {
-      background-color:white;
-      width:100%;
-    }
-    .team-name { 
-      margin-left: 0.4768em;
-      font-size: 2.375em;
-      font-family: ArialRoundedMTBold;
-      color: $teamname;
-    }  
-    .search-logo {
-      color: #868686 100%;
-      margin-left: 0.875em;
-      height: 1em;
-      width: 1em;
-    }
+  display: flex;
+  height: 4.375em;
+  width: 100%;
+
+  form {
+    align-items: center;
+    display: flex;
+    width: 100%;
+  }
+
+  .search-name {
+    background-color: rgb(255, 255, 255);
+    width: 100%;
+  }
+
+  .team-name {
+    color: $teamname;
+    font-family: ArialRoundedMTBold;
+    font-size: 2.375em;
+    margin-left: .4768em;
+  }  
+
+  .search-logo {
+    color: #868686 100%;
+    height: 1em;
+    margin-left: .875em;
+    width: 1em;
+  }
     
-    .search-name {
-      margin-left: 0.9em;
+  .search-name {
+    color: $searchname;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1em;
+    margin-left: .9em;
+  }
+
+  .obstacle {
+    border: .0625em solid #979797;
+    height: 2.8125em;
+    margin-left: 3.4375em;
+    opacity: .14;
+  }
+
+  .right-top {
+    align-items: center;
+    display: flex;
+    margin-left: auto;
+    margin-right: 1.625em;
+
+    .user-profile {
+      height: 2.5625em;
+      width: 2.5625em;
+    }
+
+    .upload-logo {
+      height: 1.25em;
+      margin-right: .75em;
+      width: 1.25em;
+    }
+
+    .upload-name {
+      color: $uploadnamecolor;
       font-family: 'Roboto', sans-serif;
       font-size: 1em;
-      color: $searchname;
-
-    }
-    .obstacle {
-      margin-left: 3.4375em;
-      height:2.8125em;
-      opacity: 0.14;
-      border: 0.0625em solid #979797;
-    }
-    .right-top {
-      display: flex;
-      align-items: center;
       margin-left: auto;
-      margin-right: 1.625em;
-        .user-profile {
-          height: 2.5625em;
-          width: 2.5625em;
-        }
-        .upload-logo {
-          margin-right: 0.75em;
-          height: 1.25em;
-          width: 1.25em;
-        }
-        .upload-name {
-          margin-right: 2.3125em;
-          margin-left: auto;
-          font-family: 'Roboto', sans-serif;
-          font-size: 1em;
-          color: $uploadnamecolor;
-        }
-        .upload-name:hover {
-          cursor: pointer;
-        }
-        .popup-menu {
-          background-color: white;
-          padding-left: 1.25em;
-          height: 1.875em;
-          width: 1.875em;
-        }
+      margin-right: 2.3125em;
     }
+
+    .upload-name:hover {
+      cursor: pointer;
+    }
+
+    .popup-menu {
+      background-color: rgb(255, 255, 255);
+      height: 1.875em;
+      padding-left: 1.25em;
+      width: 1.875em;
+    }
+  }
 }
+
 .dropbtn {
-  border: none;
+  border: 0;
   cursor: pointer;
 }
 
 .dropdown {
-  background-color: white;
+  background-color: rgb(255, 255, 255);
+  border-left: .3em solid transparent;
+  border-right: .3em solid transparent;
+  border-top: .4em solid #9b9b9b;
+  height: 0;
+  margin-left: .6875em;
   margin-right: 1.8125em;
-  margin-left: 0.6875em;
-  width: 0; 
-  height: 0; 
-  border-left: 0.3em solid transparent;
-  border-right: 0.3em solid transparent;
-  border-top: 0.4em solid #9B9B9B;
+  width: 0;
 }
 
 .dropdown-content {
+  box-shadow: 0 8px 16px 0 $boxshadow;
   display: none;
-  position: absolute;
-  top: 30px;
   left: 85%;
   min-width: 8em;
-  box-shadow: 0px 8px 16px 0px $boxshadow;
+  position: absolute;
+  top: 30px;
   z-index: 1;
 }
+
 .dropdown-content button {
-  color: black;
-  padding: 0.625em 0.625em;
-  text-decoration: none;
-  display: block;
   background-color: Transparent;
+  color: rgb(0, 0, 0);
+  display: block;
+  padding: .625em;
+  text-decoration: none;
 }
+
 .dropdown-content button:hover {
   text-decoration: underline;
 }
+
 .dropdown:hover .dropdown-content {
   display: block;
 }
+
 .dropbtn {
-  background-color: white;
+  background-color: rgb(255, 255, 255);
 }
 
