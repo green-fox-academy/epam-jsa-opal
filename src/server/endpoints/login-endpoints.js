@@ -1,6 +1,6 @@
 const usersDb = require('../collections/users-db');
 const tokensDb = require('../collections/tokens-db');
-const encryptoData = require('../server/cryptData');
+const encryptoData = require('../cryptData');
 
 function login(req, res) {
   let email = req.body.username;
