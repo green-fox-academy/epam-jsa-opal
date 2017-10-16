@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto');
 $boxshadow:rgba(0,0,0,0.2);
 $navboxshadow:rgba(214,214,214,0.50);
 $teamname:#D93738;
@@ -12,13 +11,17 @@ $uploadnamecolor:#868686;
   margin: 0;
   padding: 0;
 }
-nav {
+header {
   display: flex;
   align-items: center;
   width: 100%;
   height: 4.375em;
-  background-color:$navbackgroundcolor 100%;
+  background-color:$navbackgroundcolor;
   box-shadow: 0 2px 7px 0 $navboxshadow;
+    .search-name {
+      background-color:white
+      100%;
+    }
     .team-name { 
       margin-left: 0.4768em;
       margin-top: 0.196em;
@@ -93,18 +96,20 @@ nav {
 .dropdown-content {
   display: none;
   position: absolute;
-  left: 90%;
+  top: 30px;
+  left: 85%;
   min-width: 8em;
   box-shadow: 0px 8px 16px 0px $boxshadow;
   z-index: 1;
 }
-.dropdown-content a {
+.dropdown-content button {
   color: black;
   padding: 0.625em 0.625em;
   text-decoration: none;
   display: block;
+  background-color: Transparent;
 }
-.dropdown-content a:hover {
+.dropdown-content button:hover {
   text-decoration: underline;
 }
 .dropdown:hover .dropdown-content {

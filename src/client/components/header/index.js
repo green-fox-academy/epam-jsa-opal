@@ -5,33 +5,35 @@ import './index.scss';
 import search from './assets/search.png';
 import upload from './assets/upload.png';
 import userprofile from './assets/userprofile.png';
-class NavBar extends React.Component {
+class header extends React.Component {
   render() {
     return (
-      <nav className = "navbar">
+      <header className = "header">
         <span className = "team-name">opal</span>
         <div className = "obstacle"></div>
-        <img className = "search-logo" src={search} ></img>
-        <span className = "search-name">search</span>
-        <div className = "right-top">
+        <form>
+          <img className = "search-logo" src={search} ></img>
+          <input className = "search-name" placeholder="search" type="search" >
+          </input>
+        </form>
+        <nav className = "right-top">
           <img className = "upload-logo" src={upload}></img>
           <span className = "upload-name">upload</span>
           <img className = "user-profile" src={userprofile}></img>
           <div className="dropdown">
             <button className="dropbtn" ></button>
             <div className="dropdown-content">
-              <a href="#">team</a>
-              <a href="#">Opal</a>
-              <a href="#">is</a>
-              <a href="#">undefeatable</a>
+              <button></button>
+              <button>my profile</button>
+              <button>logout</button>
             </div>
           </div>
-        </div>
-      </nav>
+        </nav>
+      </header>
 
     );
   }
 }
 
-export default NavBar;
+export default header;
 
