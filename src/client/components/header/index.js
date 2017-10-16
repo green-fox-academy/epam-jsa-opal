@@ -5,7 +5,6 @@ import './index.scss';
 import search from './assets/search.png';
 import upload from './assets/upload.png';
 import userprofile from './assets/userprofile.png';
-import popup from './assets/popup.png';
 class NavBar extends React.Component {
   render() {
     return (
