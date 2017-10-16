@@ -1,66 +1,66 @@
 'use strict';
 
-const signupData = require('../collections/users_signup_db');
+const signupData = require('../collections/users-signup-db');
 
 function checkInfoValid(req, res) {
   if (req.body.username.replace(' ', '') === '') {
-    let obj = {'error': 'the username is void',};
+    let obj = {'error': 'the username is void'};
 
     res.setHeader('content-type', 'application/json');
     res.status(400).send(obj);
     return -1;
   }
   if (req.body.email.replace(' ', '') === '') {
-    let obj = {'error': 'the email is void',};
+    let obj = {'error': 'the email is void'};
 
     res.setHeader('content-type', 'application/json');
     res.status(400).send(obj);
     return -1;
   }
   if (!validateEmail(req.body.email)) {
-    let obj = {'error': 'the email format is invalid',};
+    let obj = {'error': 'the email format is invalid'};
 
     res.setHeader('content-type', 'application/json');
     res.status(400).send(obj);
     return -1;
   }
   if (req.body['phone number'].replace(' ', '') === '') {
-    let obj = {'error': 'the phone number is void',};
+    let obj = {'error': 'the phone number is void'};
 
     res.setHeader('content-type', 'application/json');
     res.status(400).send(obj);
     return -1;
   }
   if (!/^\d+$/.test(req.body['phone number'])) {
-    let obj = {'error': 'the phone number is invalid',};
+    let obj = {'error': 'the phone number is invalid'};
 
     res.setHeader('content-type', 'application/json');
     res.status(400).send(obj);
     return -1;
   }
   if (req.body['full name'].replace(' ', '') === '') {
-    let obj = {'error': 'the full name is void',};
+    let obj = {'error': 'the full name is void'};
 
     res.setHeader('content-type', 'application/json');
     res.status(400).send(obj);
     return -1;
   }
   if (hasNumber(req.body['full name'])) {
-    let obj = {'error': 'the full name is invalid',};
+    let obj = {'error': 'the full name is invalid'};
 
     res.setHeader('content-type', 'application/json');
     res.status(400).send(obj);
     return -1;
   }
   if (req.body.password.replace(' ', '') === '') {
-    let obj = {'error': 'the password is void',};
+    let obj = {'error': 'the password is void'};
 
     res.setHeader('content-type', 'application/json');
     res.status(400).send(obj);
     return -1;
   }
   if (req.body.password.length <= 5) {
-    let obj = {'error': 'the password is too short',};
+    let obj = {'error': 'the password is too short'};
 
     res.setHeader('content-type', 'application/json');
     res.status(400).send(obj);
@@ -78,9 +78,9 @@ function hasNumber(myString) {
   return /\d/.test(myString);
 }
 
-function userSignup(req, res) {
+function signupUser(req, res) {
   checkInfoValid(req, res);
   signupData.storeUser(req, res);
 }
 
-module.exports = {userSignup: userSignup,};
+module.exports = {signupUser: signupUser};
