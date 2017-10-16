@@ -1,5 +1,6 @@
 const usersDb = require('../collections/users-db');
 const tokensDb = require('../collections/tokens-db');
+const encryptoData = require('../server/cryptData');
 
 function login(req, res) {
   let email = req.body.username;
@@ -33,13 +34,16 @@ function login(req, res) {
     return;
   }
   usersDb.findUserInfo(email, (userinfo) => {
+    let passwordInDb = encryptoData.decryptoData(userinfo.password || 404);
+    password = encryptoData.encryptoData(password);
+    password = encryptoData.decryptoData(password);
     if (userinfo === undefined) {
       obj = {
         'error': 'something went wrong',
       };
       statusNum = 500;
       // wait encrypt function
-    } else if (password === userinfo.password) {
+    } else if (password === passwordInDb) {
       let userId = userinfo._id;
       let userAgent = req.headers['user-agent'];
       let tokenData = tokensDb.createToken(userId, userAgent);
