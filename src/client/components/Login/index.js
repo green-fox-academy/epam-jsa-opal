@@ -54,7 +54,7 @@ class LoginComponent extends React.Component {
 
     errorMessage = response.error;
     this.setState({'errorMessage': errorMessage});
-    // this.setState({'loginStatus': 'notLogin'});
+    this.setState({'loginStatus': 'notLogin'});
   }
   render() {
     return (

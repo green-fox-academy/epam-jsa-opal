@@ -1,13 +1,14 @@
 'use strict';
 
 require('dotenv').config();
+
 const signUp = require('./signup-endpoints.js');
 const express = require('express');
+const path = require('path');
 const app = express();
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
 const loginController = require('./login-endpoints');
-const path = require('path');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -36,9 +37,7 @@ app.get('/heartbeat', (req, res) => {
 // handle post: login
 app.post('/api/login', jsonParser, loginController.login);
 
-/* eslint no-console: "off" */
 let portNum = process.env.PORT || 3000;
 app.listen(portNum, () => {
+  console.log(`listening on port:${portNum}`);
 });
-
-
