@@ -12,7 +12,9 @@
     "heroku-prebuild": "npm install --only=dev",
     "test:frontend": "jest --colors",
     "test:backend": "mocha ./test/server",
-    "lint": "eslint . --ext .js --color"
+    "lint:js": "eslint . --ext .js --color",
+    "lint:css": "stylelint src/client/**/*.scss --colors",
+    "lint": "run-s lint:*"
   },
   "repository": {
     "type": "git",
@@ -48,6 +50,8 @@
     "sass-loader": "^6.0.6",
     "style-loader": "^0.18.2",
     "supertest": "^3.0.0",
+    "stylelint": "^8.2.0",
+    "stylelint-config-sass-guidelines": "^3.1.0",
     "uglifyjs-webpack-plugin": "^0.4.6",
     "webpack": "^3.6.0",
     "webpack-dev-server": "^2.8.2",
