@@ -16,19 +16,20 @@ class header extends React.Component {
           <input className = "search-name" placeholder="search" type="search" >
           </input>
         </form>
-        <nav className = "right-top">
+        <div className = "right-top">
           <img className = "upload-logo" src={upload}></img>
           <span className = "upload-name">upload</span>
           <img className = "user-profile" src={userprofile}></img>
-          <div className="dropdown">
-            <button className="dropbtn" ></button>
-            <div className="dropdown-content">
-              <button></button>
-              <button>my profile</button>
-              <button>logout</button>
+          <nav>
+            <div className="dropdown">
+              <div className="dropdown-content">
+                <button></button>
+                <button>my profile</button>
+                <button>logout</button>
+              </div>
             </div>
-          </div>
-        </nav>
+          </nav>
+        </div>
       </header>
 
     );

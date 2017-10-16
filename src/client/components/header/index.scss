@@ -91,13 +91,14 @@ header {
 }
 
 .dropdown {
+  background-color: white;
   margin-right: 1.8125em;
   margin-left: 0.6875em;
   width: 0; 
   height: 0; 
-  border-left: 0.1875em solid transparent;
-  border-right: 0.1875em solid transparent;
-  border-top: 0.25em solid #9B9B9B;
+  border-left: 0.3em solid transparent;
+  border-right: 0.3em solid transparent;
+  border-top: 0.4em solid #9B9B9B;
 }
 
 .dropdown-content {
