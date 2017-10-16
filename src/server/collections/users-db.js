@@ -1,4 +1,5 @@
 require('dotenv').config();
+require('./users-db-login');
 const cryptoJs = require('../modules/crypt-data');
 let protocol = process.env.DB_PROTOCOL;
 let host = process.env.DB_HOST;
@@ -7,6 +8,7 @@ let name = process.env.DB_NAME;
 let url = protocol + '://' + host + ':' + port + '/' + name;
 let mongodb = require('mongodb');
 let MongoClient = mongodb.MongoClient;
+const loginCotroller = require('./users-db-login');
 
 function mongoConnectErrorHandle(res, db) {
   let obj = {'error': 'Something wrong!'};
@@ -78,4 +80,7 @@ function dbInsert(req, res) {
   });
 }
 
-module.exports = {storeUser: dbInsert};
+module.exports = {
+  storeUser: dbInsert,
+  findUserInfo: loginCotroller.findUserInfo,
+};
