@@ -30,8 +30,6 @@ app.get('/heartbeat', (req, res) => {
   });
 });
 
-
-/* eslint no-console: "off" */
 let portNum = process.env.PORT || 3000;
 app.listen(portNum, () => {
 });
