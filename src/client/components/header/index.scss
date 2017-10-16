@@ -68,6 +68,13 @@ header {
     display: flex;
     margin-left: auto;
     margin-right: 1.625em;
+    nav{
+      height: 2.5625em;
+      width: 2.5625em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
     .user-profile {
       height: 2.5625em;
@@ -119,18 +126,15 @@ header {
 
 .dropdown {
   background-color: rgb(255, 255, 255);
-  border-left: .8em solid transparent;
-  border-right: .8em solid transparent;
-  border-top: 1.3em solid #9b9b9b;
-  height: 0;
-  margin-left: .7em;
-  margin-right: 1.8em;
+  border-left: .3em solid transparent;
+  border-right: .3em solid transparent;
+  border-top: .6em solid #9b9b9b;
   width: 0;
 }
 
 .dropdown-content {
   position: relative;
-  background-color: white;
+  background-color: rgb(255, 255, 255);
   box-shadow: 0 8px 16px 0 $boxshadow;
   display: none;
   right: 1%;
@@ -141,7 +145,7 @@ header {
 }
 
 .dropdown-content button {
-  background-color: white;
+  background-color: rgb(255, 255, 255);
   color: rgb(0, 0, 0);
   display: block;
   padding: .625em;
