@@ -3,7 +3,7 @@ import './index.scss';
 import {Link} from 'react-router-dom';
 
 const LoginForm = (props) => (
-  <form onSubmit={props.onSubmit} className="loginFrom">
+  <form onSubmit={props.onSubmit} className="login-form">
     <h1>Login</h1>
     <input type="email" name="email" required placeholder="E-mail"/>
     <input type="password" name="password"
@@ -14,7 +14,7 @@ const LoginForm = (props) => (
       className={props.loginStatus === 'notLogin' ? '' : 'logining'}
     />
     <Link to="/signup" className="register-link">register now</Link>
-    <span className="errorMessage">{props.errorMessage}</span>
+    <span className="error-message">{props.errorMessage}</span>
   </form>
 );
 
