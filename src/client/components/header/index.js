@@ -1,4 +1,5 @@
 'use strict';
+
 import React from 'react';
 import './index.scss';
 import search from './assets/search.png';
@@ -18,10 +19,7 @@ class NavBar extends React.Component {
           <span className = "upload-name">upload</span>
           <img className = "user-profile" src={userprofile}></img>
           <div className="dropdown">
-            <button className="dropbtn" >
-              <img className = "popup-menu" src={popup}>
-              </img>
-            </button>
+            <button className="dropbtn" ></button>
             <div className="dropdown-content">
               <a href="#">team</a>
               <a href="#">Opal</a>

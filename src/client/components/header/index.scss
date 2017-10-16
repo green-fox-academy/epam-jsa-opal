@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
 $boxshadow:rgba(0,0,0,0.2);
 $navboxshadow:rgba(214,214,214,0.50);
 $teamname:#D93738;
@@ -26,6 +27,7 @@ nav {
       color: $teamname;
     }  
     .search-logo {
+      color: #868686 100%;
       margin-left: 0.875em;
       height: 1em;
       width: 1em;
@@ -33,8 +35,8 @@ nav {
    
     .search-name {
       margin-left: 0.9em;
-      font-family: SanFranciscoDisplay-Medium;
-      font-size: 1.6em;
+      font-family: 'Roboto', sans-serif;
+      font-size: 1em;
       color: $searchname;
 
     }
@@ -61,14 +63,13 @@ nav {
         .upload-name {
           margin-right: 2.3125em;
           margin-left: auto;
-          font-family: SanFranciscoDisplay-Medium;
+          font-family: 'Roboto', sans-serif;
           font-size: 1em;
           color: $uploadnamecolor;
         }
         .popup-menu {
           background-color: white;
           padding-left: 1.25em;
-          margin: right;
           height: 1.875em;
           width: 1.875em;
         }
@@ -80,13 +81,20 @@ nav {
 }
 
 .dropdown {
-  position: relative;
+  margin-right: 1.8125em;
+  margin-left: 0.6875em;
+  width: 0; 
+  height: 0; 
+  border-left: 0.1875em solid transparent;
+  border-right: 0.1875em solid transparent;
+  border-top: 0.25em solid #9B9B9B;
 }
 
 .dropdown-content {
   display: none;
   position: absolute;
-  min-width: 3.125em;
+  left: 90%;
+  min-width: 8em;
   box-shadow: 0px 8px 16px 0px $boxshadow;
   z-index: 1;
 }
@@ -105,3 +113,4 @@ nav {
 .dropbtn {
   background-color: white;
 }
+
