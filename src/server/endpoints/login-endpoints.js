@@ -1,5 +1,5 @@
-const usersDb = require('./users-db');
-const tokensDb = require('./tokens-db');
+const usersDb = require('../collections/users-db');
+const tokensDb = require('../collections/tokens-db');
 
 function login(req, res) {
   let email = req.body.username;

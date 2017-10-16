@@ -1,14 +1,12 @@
 'use strict';
-
-require('dotenv').config();
-
 const signUp = require('./signup-endpoints.js');
-const express = require('express');
-const path = require('path');
-const app = express();
 const bodyParser = require('body-parser');
+require('dotenv').config();
+const express = require('express');
+const app = express();
+const path = require('path');
 const jsonParser = bodyParser.json();
-const loginController = require('./login-endpoints');
+const loginController = require('./endpoints/login-endpoints');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
