@@ -18,13 +18,17 @@ header {
   height: 4.375em;
   background-color:$navbackgroundcolor;
   box-shadow: 0 2px 7px 0 $navboxshadow;
+    form {
+      display: flex;
+      align-items: center;
+      width: 100%;
+    }
     .search-name {
-      background-color:white
-      100%;
+      background-color:white;
+      width:100%;
     }
     .team-name { 
       margin-left: 0.4768em;
-      margin-top: 0.196em;
       font-size: 2.375em;
       font-family: ArialRoundedMTBold;
       color: $teamname;
@@ -35,7 +39,7 @@ header {
       height: 1em;
       width: 1em;
     }
-   
+    
     .search-name {
       margin-left: 0.9em;
       font-family: 'Roboto', sans-serif;
@@ -69,6 +73,9 @@ header {
           font-family: 'Roboto', sans-serif;
           font-size: 1em;
           color: $uploadnamecolor;
+        }
+        .upload-name:hover {
+          cursor: pointer;
         }
         .popup-menu {
           background-color: white;
