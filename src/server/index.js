@@ -1,6 +1,8 @@
 'use strict';
-const signUp = require('./signup-endpoints.js');
+
+const signUp = require('./endpoints/signup-endpoints');
 let bodyParser = require('body-parser');
+
 require('dotenv').config();
 const express = require('express');
 const app = express();
@@ -20,9 +22,11 @@ app.get('/heartbeat', (req, res) => {
   let host = process.env.DB_HOST;
   let port = process.env.DB_PORT;
   let name = process.env.DB_NAME;
-  let url = protocol+'://' + host+':' + port + '/' + name;
+  let url = protocol + '://' + host + ':' + port + '/' + name;
+
   MongoClient.connect(url, function(err, db) {
     let adminDb = db.admin();
+
     adminDb.serverStatus(function(err, info) {
       res.json(info.version);
       db.close();
@@ -31,7 +35,7 @@ app.get('/heartbeat', (req, res) => {
 });
 
 let portNum = process.env.PORT || 3000;
+
 app.listen(portNum, () => {
 });
-
 
