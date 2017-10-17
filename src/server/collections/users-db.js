@@ -7,7 +7,15 @@ let protocol = process.env.DB_PROTOCOL;
 let host = process.env.DB_HOST;
 let port = process.env.DB_PORT;
 let name = process.env.DB_NAME;
-let url = protocol + '://' + host + ':' + port + '/' + name;
+let username = process.env.Username;
+let password = process.env.Password;
+let url;
+
+if (password !== undefined) {
+  url = protocol + '://' + username + ':' + password + '@' + host + ':' + port + '/' + name;
+} else {
+  url = protocol + '://' + host + ':' + port + '/' + name;
+}
 let mongodb = require('mongodb');
 let MongoClient = mongodb.MongoClient;
 

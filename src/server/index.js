@@ -10,7 +10,7 @@ const app = express();
 const path = require('path');
 const jsonParser = bodyParser.json();
 const loginController = require('./endpoints/login-endpoints');
-let defaultPortNum = 3001;
+let defaultPortNum = 3000;
 let portNum = process.env.PORT || defaultPortNum;
 
 app.use(bodyParser.json());
