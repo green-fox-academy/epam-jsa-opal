@@ -155,8 +155,10 @@ header {
 .dropdown-content button:hover {
   text-decoration: underline;
 }
-
-.dropdown:hover .dropdown-content {
+.hoverstuff:hover {
+  cursor: pointer;
+}
+.hoverstuff:hover .dropdown-content {
   display: block;
 }
 

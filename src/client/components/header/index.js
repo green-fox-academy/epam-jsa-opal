@@ -22,7 +22,7 @@ class header extends React.Component {
             <span className = "upload-name">upload</span>
           </button>
           <img className = "user-profile" src={userprofile}></img>
-          <nav>
+          <nav className = "hoverstuff">
             <div className="dropdown">
               <div className="dropdown-content">
                 <button></button>
