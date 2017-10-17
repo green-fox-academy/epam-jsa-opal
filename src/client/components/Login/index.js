@@ -23,7 +23,7 @@ class LoginComponent extends React.Component {
     ev.preventDefault();
     let statusCode;
     let obj = {
-      username: ev.target.elements.namedItem('email').value,
+      email: ev.target.elements.namedItem('email').value,
       password: ev.target.elements.namedItem('password').value,
     };
 
