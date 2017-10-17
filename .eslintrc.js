@@ -14,7 +14,7 @@ module.exports = {
     'arrow-body-style': ['error', 'as-needed'],
     'brace-style': ['error', '1tbs'],
     'camelcase': ['error', {'properties': 'always'}],
-    'complexity': ['error', 5],
+    'complexity': ['error', 7],
     'computed-property-spacing': ['error', 'never'],
     'func-style': ['error', 'declaration', {'allowArrowFunctions': true}],
     'indent': ['error', 2],
