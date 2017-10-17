@@ -12,10 +12,13 @@ import watchlater from './assets/home.png';
 
 
 export default (p) => (
-  <nav>
-      <h1>Hello world</h1>
-      <Link href='www' >{p.link1}</Link>
-      <Link href='www'>watchlater</Link>
+  <nav className = 'navigationBar'>
+      <Link href='www.baidu.com' >Home</Link>
+      <Link href='www.baidu.com'>Trending</Link>
+      <Link href='www'>Feed</Link>
+      <Link href='www'>History</Link>
+      <Link href='www'>Watch later</Link>
+      <Link href='www'>Liked</Link>
   </nav>
 
 );
