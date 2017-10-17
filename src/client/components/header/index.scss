@@ -5,14 +5,6 @@ $searchname: #868686;
 $navbackgroundcolor: #fff;
 $uploadnamecolor: #868686;
 
-.rootbody {
-  width: 100%;
-}
-
-* {
-  margin: 0;
-  padding: 0;
-}
 
 header {
   align-items: center;
@@ -36,7 +28,6 @@ header {
 
   .team-name {
     color: $teamname;
-    font-family: 'Roboto', sans-serif;
     font-size: 1em;
     font-size: 2.375em;
     margin-left: .4768em;
@@ -51,7 +42,6 @@ header {
     
   .search-name {
     color: $searchname;
-    font-family: 'Roboto', sans-serif;
     font-size: 1em;
     margin-left: .9em;
   }
@@ -68,7 +58,7 @@ header {
     display: flex;
     margin-left: auto;
     margin-right: 1.625em;
-    nav{
+     nav {
       height: 2.5625em;
       width: 2.5625em;
       display: flex;
@@ -89,7 +79,6 @@ header {
 
     .upload-name {
       color: $uploadnamecolor;
-      font-family: 'Roboto', sans-serif;
       font-size: 1em;
       margin-left: auto;
       margin-right: 2.3125em;
