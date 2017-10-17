@@ -2,85 +2,76 @@
 
 const signupData = require('../collections/users-db');
 
-function checkInfoValid(req, res) {
-  if (req.body.username.replace(' ', '') === '') {
-    let obj = {'error': 'the username is void'};
+const EMAIL_REGEXP = /\S+@\S+\.\S+/;
 
-    res.setHeader('content-type', 'application/json');
-    res.status(400).send(obj);
-    return -1;
-  }
-  if (req.body.email.replace(' ', '') === '') {
-    let obj = {'error': 'the email is void'};
+function sendBadRequest(res, message) {
+  res.setHeader('content-type', 'application/json');
+  res.status(400).send({'error': message});
+}
 
-    res.setHeader('content-type', 'application/json');
-    res.status(400).send(obj);
-    return -1;
-  }
-  if (!validateEmail(req.body.email)) {
-    let obj = {'error': 'the email format is invalid'};
-
-    res.setHeader('content-type', 'application/json');
-    res.status(400).send(obj);
-    return -1;
-  }
-  if (req.body['phone number'].replace(' ', '') === '') {
-    let obj = {'error': 'the phone number is void'};
-
-    res.setHeader('content-type', 'application/json');
-    res.status(400).send(obj);
-    return -1;
-  }
-  if (!/^\d+$/.test(req.body['phone number'])) {
-    let obj = {'error': 'the phone number is invalid'};
-
-    res.setHeader('content-type', 'application/json');
-    res.status(400).send(obj);
-    return -1;
-  }
-  if (req.body['full name'].replace(' ', '') === '') {
-    let obj = {'error': 'the full name is void'};
-
-    res.setHeader('content-type', 'application/json');
-    res.status(400).send(obj);
-    return -1;
-  }
-  if (hasNumber(req.body['full name'])) {
-    let obj = {'error': 'the full name is invalid'};
-
-    res.setHeader('content-type', 'application/json');
-    res.status(400).send(obj);
-    return -1;
-  }
-  if (req.body.password.replace(' ', '') === '') {
-    let obj = {'error': 'the password is void'};
-
-    res.setHeader('content-type', 'application/json');
-    res.status(400).send(obj);
-    return -1;
-  }
-  if (req.body.password.length <= 5) {
-    let obj = {'error': 'the password is too short'};
-
-    res.setHeader('content-type', 'application/json');
-    res.status(400).send(obj);
-    return -1;
+function validateUsername(username) {
+  if (username.replace(' ', '') === '') {
+    throw new Error('the username is void');
   }
 }
 
 function validateEmail(email) {
-  let re = /\S+@\S+\.\S+/;
-
-  return re.test(email);
+  if (email.replace(' ', '') === '') {
+    throw new Error('the email is void');
+  }
+  if (!EMAIL_REGEXP.test(email)) {
+    throw new Error('the email format is invalid');
+  }
 }
 
-function hasNumber(myString) {
-  return /\d/.test(myString);
+function validatePhoneNumber(phoneNumber) {
+  if (phoneNumber.replace(' ', '') === '') {
+    throw new Error('the phone number is void');
+  }
+  if (!/^\d+$/.test(phoneNumber)) {
+    throw new Error('the phone number is invalid');
+  }
+}
+
+function validateFullName(fullName) {
+  if (fullName.replace(' ', '') === '') {
+    throw new Error('the full name is void');
+  }
+  if (/\d/.test(fullName)) {
+    throw new Error('the full name is invalid');
+  }
+}
+
+function validatePassword(password) {
+  if (password.replace(' ', '') === '') {
+    throw new Error('the password is void');
+  }
+  if (password.length <= 5) {
+    throw new Error('the password is too short');
+  }
+}
+
+function checkInfoValid(userData) {
+  validateUsername(userData.username);
+  validateEmail(userData.email);
+  validatePhoneNumber(userData.phoneNumber);
+  validateFullName(userData.fullName);
+  validatePassword(userData.password);
 }
 
 function signupUser(req, res) {
-  checkInfoValid(req, res);
-  signupData.storeUser(req, res);
+  try {
+    checkInfoValid({
+      username: req.body.username,
+      email: req.body.email,
+      phoneNumber: req.body['phone number'],
+      fullName: req.body['full name'],
+      password: req.body.password,
+    });
+    signupData.storeUser(req, res);
+  } catch (error) {
+    sendBadRequest(res, error.message);
+  }
 }
 
 module.exports = {signupUser: signupUser};

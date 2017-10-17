@@ -1,5 +1,6 @@
+'use strict';
+
 require('dotenv').config();
-require('./users-db-login');
 const cryptoJs = require('../modules/crypt-data');
 let protocol = process.env.DB_PROTOCOL;
 let host = process.env.DB_HOST;
@@ -8,7 +9,6 @@ let name = process.env.DB_NAME;
 let url = protocol + '://' + host + ':' + port + '/' + name;
 let mongodb = require('mongodb');
 let MongoClient = mongodb.MongoClient;
-const loginCotroller = require('./users-db-login');
 
 function mongoConnectErrorHandle(res, db) {
   let obj = {'error': 'Something wrong!'};
@@ -37,7 +37,7 @@ function dbInsert(req, res) {
       mongoConnectErrorHandle(res, db);
       return -1;
     }
-    db.collection('user').find({
+    db.collection('users').find({
       $or: [
         {'username': req.body.username},
         {'email': req.body.email},
@@ -45,7 +45,7 @@ function dbInsert(req, res) {
       ],
     }).toArray(function(err, items) {
       if (items.length === 0) {
-        db.collection('user').insert(sendContent, function() {
+        db.collection('users').insert(sendContent, function() {
           let objectId = sendContent._id;
 
           res.set('location', '/api/signup/' + objectId);
@@ -80,7 +80,34 @@ function dbInsert(req, res) {
   });
 }
 
+// find userinfo throw email
+function findUserInfo(email, callback) {
+  MongoClient.connect(url, (err, db) => {
+    try {
+      if (err) {
+        throw err;
+      }
+      let usersDB = db.collection('users');
+
+      usersDB.findOne({'email': email}, (err, result) => {
+        if (err) {
+          console.log(err);
+        }
+        db.close();
+        if (result === null) {
+          return callback([]);
+        }
+        let userinfo = result;
+
+        return callback(userinfo);
+      });
+    } catch (e) {
+      console.log(e.name + ':' + e.message);
+      return callback(undefined);
+    }
+  });
+}
 module.exports = {
   storeUser: dbInsert,
-  findUserInfo: loginCotroller.findUserInfo,
+  findUserInfo: findUserInfo,
 };
