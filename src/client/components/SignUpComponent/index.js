@@ -1,6 +1,12 @@
 import React from 'react';
 import SignUpForm from '../SignUpForm';
 
+const statusCodes = {
+  'contentWrong': 400,
+  'conflict': 409,
+  'severError': 500,
+};
+
 class SignUpComponent extends React.Component {
   constructor(props) {
     super(props);
@@ -87,7 +93,7 @@ class SignUpComponent extends React.Component {
     }
   }
   judge409Error(xhr) {
-    if (xhr.status === 409) {
+    if (xhr.status === statusCodes.conflict) {
       const errorObj = JSON.parse(xhr.responseText);
       const errorText = errorObj.error;
 
@@ -97,7 +103,7 @@ class SignUpComponent extends React.Component {
     }
   }
   judge400Error(xhr) {
-    if (xhr.status === 400) {
+    if (xhr.status === statusCodes.contentWrong) {
       const errorObj = JSON.parse(xhr.responseText);
       const errorText = errorObj.error;
 
@@ -110,7 +116,7 @@ class SignUpComponent extends React.Component {
     }
   }
   judge500Error(xhr) {
-    if (xhr.status === 500) {
+    if (xhr.status === statusCodes.severError) {
       let errorText = JSON.parse(xhr.responseText).error;
 
       this.setState({'error': errorText});
