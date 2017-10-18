@@ -10,9 +10,17 @@ let url = protocol + '://' + host + ':' + port + '/' + name;
 
 function checkDatabaseHealth(req, res) {
   MongoClient.connect(url, function(err, db) {
+    if (err) {
+      console.log(err);
+      return;
+    }
     let adminDb = db.admin();
 
     adminDb.serverStatus(function(err, info) {
+      if (err) {
+        console.log(err);
+        return;
+      }
       res.json(info.version);
       db.close();
     });

@@ -1,13 +1,17 @@
 'use strict';
+
+require('dotenv').config();
+
 const signUp = require('./endpoints/signup-endpoints');
 const bodyParser = require('body-parser');
-require('dotenv').config();
 const DatabaseHealth = require('./endpoints/heartbeat');
 const express = require('express');
 const app = express();
 const path = require('path');
 const jsonParser = bodyParser.json();
 const loginController = require('./endpoints/login-endpoints');
+let defaultPortNum = 3000;
+let portNum = process.env.PORT || defaultPortNum;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -18,10 +22,6 @@ app.get('/heartbeat', DatabaseHealth.checkDatabaseHealth);
 app.get('*', (req, res) =>{
   res.sendFile('index.html', {root: path.join(__dirname, '../../dist')});
 });
-
-
-
-let portNum = process.env.PORT || 3000;
 
 app.listen(portNum, () => {
   console.log(`listening on port:${portNum}`);

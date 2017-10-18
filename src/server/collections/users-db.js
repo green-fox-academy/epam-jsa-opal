@@ -1,14 +1,62 @@
+'use strict';
+
 require('dotenv').config();
-require('./users-db-login');
 const cryptoJs = require('../modules/crypt-data');
+const RETURN_FAILS = -1;
 let protocol = process.env.DB_PROTOCOL;
 let host = process.env.DB_HOST;
 let port = process.env.DB_PORT;
 let name = process.env.DB_NAME;
-let url = protocol + '://' + host + ':' + port + '/' + name;
+let username = process.env.Username;
+let password = process.env.Password;
+let url;
+
+if (password !== undefined) {
+  url = protocol + '://' + username + ':' + password + '@' + host + ':' + port + '/' + name;
+} else {
+  url = protocol + '://' + host + ':' + port + '/' + name;
+}
 let mongodb = require('mongodb');
 let MongoClient = mongodb.MongoClient;
-const loginCotroller = require('./users-db-login');
+
+function notFind(res, db, sendContent) {
+  db.collection('users').insert(sendContent, function() {
+    let objectId = sendContent._id;
+
+    res.set('location', '/api/signup/' + objectId);
+    res.setHeader('content-type', 'application/json');
+    res.status(201).send();
+    db.close();
+    return RETURN_FAILS;
+  });
+}
+
+function userNameConflict(res, db, sendContent) {
+  let obj = {'error': 'username conflicts!'};
+
+  res.setHeader('content-type', 'application/json');
+  res.status(409).send(obj);
+  db.close();
+  return RETURN_FAILS;
+}
+
+function emailConflict(res, db, sendContent) {
+  let obj = {'error': 'email conflicts!'};
+
+  res.setHeader('content-type', 'application/json');
+  res.status(409).send(obj);
+  db.close();
+  return RETURN_FAILS;
+}
+
+function phoneConflict(res, db, sendContent) {
+  let obj = {'error': 'phone number conflicts!'};
+
+  res.setHeader('content-type', 'application/json');
+  res.status(409).send(obj);
+  db.close();
+  return RETURN_FAILS;
+}
 
 function mongoConnectErrorHandle(res, db) {
   let obj = {'error': 'Something wrong!'};
@@ -35,52 +83,59 @@ function dbInsert(req, res) {
   MongoClient.connect(url, function(err, db) {
     if (err) {
       mongoConnectErrorHandle(res, db);
-      return -1;
+      return RETURN_FAILS;
     }
-    db.collection('user').find({
+    db.collection('users').find({
       $or: [
         {'username': req.body.username},
         {'email': req.body.email},
         {'phone number': req.body['phone number']},
       ],
     }).toArray(function(err, items) {
-      if (items.length === 0) {
-        db.collection('user').insert(sendContent, function() {
-          let objectId = sendContent._id;
-
-          res.set('location', '/api/signup/' + objectId);
-          res.setHeader('content-type', 'application/json');
-          res.status(201).send();
-          db.close();
-          return -1;
-        });
+      if (err) {
+        console.log(err);
+        return;
+      } else if (items.length === 0) {
+        notFind(res, db, sendContent);
       } else if (items[0].username === req.body.username) {
-        let obj = {'error': 'username conflicts!'};
-
-        res.setHeader('content-type', 'application/json');
-        res.status(409).send(obj);
-        db.close();
-        return -1;
+        userNameConflict(res, db, sendContent);
       } else if (items[0].email === req.body.email) {
-        let obj = {'error': 'email conflicts!'};
-
-        res.setHeader('content-type', 'application/json');
-        res.status(409).send(obj);
-        db.close();
-        return -1;
+        emailConflict(res, db, sendContent);
       } else if (items[0]['phone number'] === req.body['phone number']) {
-        let obj = {'error': 'phone number conflicts!'};
-
-        res.setHeader('content-type', 'application/json');
-        res.status(409).send(obj);
-        db.close();
-        return -1;
+        phoneConflict(res, db, sendContent);
       }
     });
   });
 }
 
+// find userinfo throw email
+function findUserInfo(email, callback) {
+  MongoClient.connect(url, (err, db) => {
+    try {
+      if (err) {
+        throw err;
+      }
+      let usersDB = db.collection('users');
+
+      usersDB.findOne({'email': email}, (err, result) => {
+        if (err) {
+          console.log(err);
+        }
+        db.close();
+        if (result === null) {
+          return callback([]);
+        }
+        let userinfo = result;
+
+        return callback(userinfo);
+      });
+    } catch (e) {
+      console.log(e.name + ':' + e.message);
+      return callback(undefined);
+    }
+  });
+}
 module.exports = {
   storeUser: dbInsert,
-  findUserInfo: loginCotroller.findUserInfo,
+  findUserInfo: findUserInfo,
 };
