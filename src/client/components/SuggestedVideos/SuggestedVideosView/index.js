@@ -1,12 +1,25 @@
 import React from 'react';
+import VideoPreview from '../../VideoPreview';
 
-const SuggestedVideosView = (props) => (
-  <ul className="suggested-video-ul">
-    <li className="suggested-video-list">
+const SuggestedVideosView = (props) => {
+  const suggestedVidesNum = props.suggestedVidesNum;
 
-    </li>
-  </ul>
-);
+  let suggestedVidesLists = props.videoInfos.map((value, index) => {
+    if (index < suggestedVidesNum) {
+      return (
+        <VideoPreview
+          videoInfo={value}
+          key={value.videoId} />
+      );
+    }
+  });
+
+  return (
+    <ul className="suggested-video-ul">
+      {suggestedVidesLists}
+    </ul>
+  );
+};
 
 export default SuggestedVideosView;
 
