@@ -55,13 +55,13 @@ class SuggesstedVideos extends React.Component {
   render() {
     return (
       <aside className="suggested-video-container">
-        <ul className="suggested-video-ul">
-          <h1>Up next</h1>
-          <SuggestedVideosView
-            videoInfos={this.state.videoInfos}
-            suggestedVidesNum={this.state.suggestedVidesNum}
-          />
-        </ul>
+
+        <h1>Up next</h1>
+        <SuggestedVideosView
+          videoInfos={this.state.videoInfos}
+          suggestedVidesNum={this.state.suggestedVidesNum}
+        />
+
         <button className="show-more-button">show more</button>
       </aside>
     );

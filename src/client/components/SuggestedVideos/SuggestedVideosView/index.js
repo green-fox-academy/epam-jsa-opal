@@ -1,10 +1,12 @@
 import React from 'react';
 
-const SuggestedVidesView = (props) => (
-  <li className="suggested-video-list">
+const SuggestedVideosView = (props) => (
+  <ul className="suggested-video-ul">
+    <li className="suggested-video-list">
 
-  </li>
+    </li>
+  </ul>
 );
 
-export default SuggestedVidesView;
+export default SuggestedVideosView;
 
