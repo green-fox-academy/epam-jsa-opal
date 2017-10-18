@@ -1,0 +1,78 @@
+.comment {
+  margin: 20px 0;
+  display: flex;
+  button {
+    background-color: #fff;
+  }
+
+  img {
+    width: 48px;
+    height: 48px;
+    border-radius: 48px;
+    display: block;
+    background-color: #ad3;
+  }
+
+  .comment-container {
+    width: 100%;
+    background-color: #fff;
+    position: relative;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid #979797;
+    margin-left: 20px;
+
+    .username {
+      font-weight: bold;
+    }
+
+    .comment-content {
+      color: #333;
+      margin: 10px 0;
+      width: 80%;
+    }
+    .like-button {
+      width: 17px;
+      height: 19px;
+      background-image: url('./assets/thumb.png');
+      background-repeat: no-repeat;
+      background-size: contain;
+      margin-right: 2rem;
+    }
+    .dislike-button {
+      width: 17px;
+      height: 19px;
+      background-image: url('./assets/thumb.png');
+      background-repeat: no-repeat;
+      background-size: contain;
+      transform: rotate(180deg);
+    }
+    .input-comment {
+      display: block;
+      width: 100px;
+      height: 41px;
+      background-color: #f6f6f6;
+      border-radius: 4px;
+      line-height: 19px;
+      color: #333;
+      margin-top: 10px;
+    }
+    .comment-time {
+      position: absolute;
+      top: 29px;
+      right: 30px;
+      font-size: 14px;
+      color: rgba(0, 0, 0, .38);
+    }
+    .comment-setting {
+      position:  absolute;
+      top: 5px;
+      right: 0;
+      background-image: url('./assets/Top right.png');
+      width: 6px;
+      height: 24px;
+      background-repeat: no-repeat;
+      background-size: contain
+    }
+  }
+}
+
