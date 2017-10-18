@@ -1,0 +1,88 @@
+.suggested-video-container {
+  .show-more-button {
+    $font-color: #4a4a4a;
+    color: $font-color;
+    cursor: pointer;
+    font-size: .875rem;
+    height: 2.56rem;
+    letter-spacing: 0;
+    line-height: 1rem;
+    width: 15.43rem;
+  }
+}
+
+.suggested-video-ul {
+  width: 13.75rem;
+
+  h1 {
+    font-size: 1rem;
+    letter-spacing: 0;
+    line-height: 19px;
+    margin-bottom: .5rem;
+    padding: 0 12.5px;
+  }
+}
+
+.suggested-video-list {
+  $bodrder-color: #979797;
+  border-bottom: 1px solid $bodrder-color;
+  display: inline-block;
+  list-style: none;
+  margin-bottom: 1.2rem;
+  padding: 0 12.5px;
+  padding-bottom: .5rem;
+  width: 13.75rem;
+
+  .suggested-video {
+    background-color: rgb(255, 136, 0);
+    height: 8.625rem;
+    position: relative;
+    width: 13.75rem;
+
+    a {
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      display: inline-block;
+      height: 100%;
+      width: 100%;
+    }
+
+    span {
+      $font-color: #fff;
+      $backround-color: #000;
+      background-color: rgba($color: $backround-color, $alpha: 0.73);
+      border-radius: 100px;
+      bottom: .3rem;
+      color: $font-color;
+      font-size: .625rem;
+      height: .937rem;
+      line-height: .937rem;
+      position: absolute;
+      right: .5rem;
+      text-align: center;
+      width: 2.937rem;
+    }
+  }
+
+  .title {
+    $title-color: #070707;
+    color: $title-color;
+    font-size: .875rem;
+    font-weight: bold;
+    line-height: 1rem;
+    margin: .5rem 0 .3rem;
+  }
+
+  span {
+    $span-color: #9b9b9b;
+    color: $span-color;
+    font-size: .625rem;
+    line-height: .75rem;
+  }
+
+  .video-message {
+    display: flex;
+    justify-content: space-between;
+  }
+}
