@@ -1,0 +1,20 @@
+video {
+  width: 50%;
+}
+video::-webkit-media-controls-enclosure {
+  opacity: 0.7;
+}
+video::-webkit-media-controls-panel {
+  background-color:black;
+}
+video::-internal-media-controls-download-button {
+  display:none;
+}
+
+video::-webkit-media-controls-enclosure {
+  overflow:hidden;
+}
+
+video::-webkit-media-controls-panel {
+  width: calc(100% + 30px); /* Adjust as needed */
+}
