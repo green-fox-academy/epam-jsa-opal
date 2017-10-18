@@ -1,7 +1,7 @@
 import React from 'react';
 import './index.scss';
 import noPreview from './404.png';
-import SuggesstedVideosView from './Suggested-Videos-View';
+import SuggestedVideosView from './SuggestedVideosView';
 
 class SuggesstedVideos extends React.Component {
   constructor(props) {
@@ -54,10 +54,16 @@ class SuggesstedVideos extends React.Component {
   }
   render() {
     return (
-      <SuggesstedVideosView
-        videoInfos={this.state.videoInfos}
-        suggestedVidesNum={this.state.suggestedVidesNum}
-      />
+      <aside className="suggested-video-container">
+        <ul className="suggested-video-ul">
+          <h1>Up next</h1>
+          <SuggestedVideosView
+            videoInfos={this.state.videoInfos}
+            suggestedVidesNum={this.state.suggestedVidesNum}
+          />
+        </ul>
+        <button className="show-more-button">show more</button>
+      </aside>
     );
   }
 }
