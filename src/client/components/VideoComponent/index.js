@@ -1,13 +1,21 @@
 import React from 'react';
-import Video from '../VideoPlayerComponent';
+import VideoPlayer from '../VideoPlayerComponent';
+import Oval2 from './assets/Oval_2.png';
 
 class VideoComponent extends React.Component {
   render() {
     return (
-      <div>
-        <video controls
-          src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4" type="video/mp4"
-        />
+      <div className="VideoComponent">
+        <VideoPlayer />
+        <div className="VideoBelow">
+          <div className="VideoInfo">
+            <span>Midnight Starr - Slow Jam</span>
+            <span>4,250,633 views</span>
+          </div>
+          <div className="UserInfo">
+
+          </div>
+        </div>
       </div>
     );
   }
