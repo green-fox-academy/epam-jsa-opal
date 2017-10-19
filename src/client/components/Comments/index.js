@@ -1,16 +1,17 @@
 import React from 'react';
 import './index.scss';
-import CommentView from './CommentView';
+import CommentsView from './CommentsView';
 
-class Comment extends React.Component {
+class Comments extends React.Component {
   constructor(props) {
     super(props);
   }
+
   render() {
     return (
-      <CommentView />
+      <CommentsView />
     );
   }
 }
 
-export default Comment;
+export default Comments;

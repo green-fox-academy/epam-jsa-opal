@@ -1,0 +1,48 @@
+.add-comment {
+  display: none;
+  margin-top: 20px;
+  img {
+    width: 48px;
+    height: 48px;
+    border-radius: 48px;
+    display: block;
+    background-color: #ad3;
+  }
+  .add-comment-content {
+    margin-left: 20px;
+    width: 100%;
+  }
+  input[type='text'] {
+    display: block;
+    width: 100%;
+    border-bottom: 2px solid #ccc;
+    line-height: 25px;
+    margin-top: 15px;
+  }
+  .buttons {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+  }
+  input:not([type='text']) {
+    width: 60px;
+    height: 35px;
+    background-color: #D3E9FA;
+    color: #fff;
+    margin: 0 10px;
+    cursor: no-drop;
+  }
+  input.active {
+    background-color: #2693E6;
+    cursor: pointer;
+  }
+  input[type='button'] {
+    cursor: pointer;
+    background-color: #fff;
+    color: #A1A1A1;
+  }
+
+}
+.clicked-comment.add-comment {
+  display: flex;
+}
