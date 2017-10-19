@@ -10,11 +10,11 @@ class header extends React.Component {
   Userlogout() {
     let token = localStorage.getItem('token');
 
-    fetch('/api/logout', {
+    fetch('/api/login', {
       method: 'delete',
       headers: {
         'Content-Type': 'application/json',
-        'token': token,
+        'Authorization': token,
       },
     }).then (function(event){
       localStorage.removeItem('token');
