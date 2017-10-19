@@ -93,6 +93,7 @@ function login(req, res) {
 function logout(req, res) {
   let obj = {};
   let token = req.get('Authorization');
+
   if (token === undefined) {
     res.status(401).json(obj);
     return;
@@ -100,11 +101,10 @@ function logout(req, res) {
   tokensDb.deleteToken(token, (deleteInfo) => {
     if (deleteInfo === undefined) {
       res.status(500).json(obj);
-    }else if(deleteInfo === false){
+    } else if (deleteInfo === false) {
       res.status(403).json(obj);
-    }else {
-      let header = req.headers;
-      res.status(204).json(obj); 
+    } else {
+      res.status(204).json(obj);
     }
   });
 }
