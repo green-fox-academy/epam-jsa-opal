@@ -95,7 +95,7 @@ function logout(req, res) {
   let token = req.get('Authorization');
 
   if (token === undefined) {
-    res.status(403).json(obj);
+    res.status(401).json(obj);
     return;
   }
   tokensDb.deleteToken(token, (deleteInfo) => {
