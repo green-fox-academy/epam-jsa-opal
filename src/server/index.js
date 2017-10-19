@@ -2,6 +2,7 @@
 
 require('dotenv').config();
 
+const logout = require('./endpoints/logout-endpoints');
 const signUp = require('./endpoints/signup-endpoints');
 const bodyParser = require('body-parser');
 const DatabaseHealth = require('./endpoints/heartbeat');
@@ -16,6 +17,7 @@ let portNum = process.env.PORT || defaultPortNum;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static('dist'));
+app.delete('/api/logout', logout.logout);
 app.post('/api/signup', signUp.signupUser);
 app.post('/api/login', jsonParser, loginController.login);
 app.get('/heartbeat', DatabaseHealth.checkDatabaseHealth);

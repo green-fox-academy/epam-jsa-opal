@@ -75,12 +75,13 @@ function createToken(userId, userAgent) {
 }
 
 // delete Token from db
-function deleteToken(token) {
+function deleteToken(token, callback) {
   /* eslint no-console: "off" */
   MongoClient.connect(url, (err, db) => {
     try {
       if (err) {
         console.log(err);
+        return callback(undefined);
       }
       let tokensDb = db.collection('tokenDescriptors');
 
@@ -89,6 +90,7 @@ function deleteToken(token) {
           console.log(err.name + ':' + err.message);
           return;
         }
+        return callback(true);
         db.close();
       });
     } catch (e) {
