@@ -2,7 +2,7 @@ import React from 'react';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
 import Signup from '../client/screen/SignUpScreen';
 import Login from '../client/components/Login';
-import Video from '../client/components/VideoComponent';
+import Video from '../client/components/VideoPlayerComponent';
 
 class App extends React.Component {
   render() {
