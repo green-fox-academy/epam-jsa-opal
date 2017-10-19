@@ -84,14 +84,20 @@ function deleteToken(token, callback) {
         return callback(undefined);
       }
       let tokensDb = db.collection('tokenDescriptors');
-
-      tokensDb.remove({'token': token}, (err) => {
-        if (err !== null) {
+      tokensDb.findOne({'token': token}, (err, result) => {
+        if (err) {
           console.log(err.name + ':' + err.message);
           return;
         }
-        return callback(true);
-        db.close();
+        if (result === null) {
+          db.close();
+          return callback(false);
+        } else {
+          tokensDb.remove({'token': token}, (err) => {
+            return callback(true);
+            db.close();
+          });
+        }
       });
     } catch (e) {
       console.log(e.name + ':' + e.message);
