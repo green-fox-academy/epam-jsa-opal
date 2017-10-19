@@ -23,13 +23,20 @@ class InputComment extends React.Component {
         <img src={avatar} alt=""/>
         <div className="add-comment-content">
           <input type="text" name="add-comment" onChange={this.onchangeInput}
+            placeholder={this.props.isComment ?
+              'Leave a comment about this video' :
+              'reply a message to this message'
+            }
           />
           <div className="buttons">
             <input type="button" value="CANCEL"
               onClick={this.props.onClickCancel}/>
-            <input type="submit" value="REPLY"
-              className={this.state.empty ? '' : 'active'}
-              disabled={this.state.empty ? true : false}
+            <input type="submit" value={this.props.isComment ?
+              'COMMENT' :
+              'REPLY'
+            }
+            className={this.state.empty ? '' : 'active'}
+            disabled={this.state.empty ? true : false}
             />
           </div>
         </div>

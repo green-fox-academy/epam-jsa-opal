@@ -31,11 +31,13 @@
 
   input:not([type='text']) {
     background-color: #d3e9fa;
+    border-radius: 4px;
     color: #fff;
     cursor: no-drop;
-    height: 35px;
-    margin: 0 10px;
-    width: 60px;
+    height: 41px;
+    line-height: 19px;
+    margin: 10px;
+    width: 100px;
   }
 
   input.active {

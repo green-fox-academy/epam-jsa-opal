@@ -27,20 +27,6 @@ Comments.defaultProps = {
       'dislikeNum': 99,
       'commentTime': '1 hrs ago',
       'commentId': 1,
-      'applys': [
-        {
-          'avatar': avatar,
-          'username': 'zoeinside',
-          'commentContent': 'oh!! i love this video amazing',
-          'likeNum': 123,
-          'clickedLike': true,
-          'clickedDislike': false,
-          'dislikeNum': 99,
-          'commentTime': '1 hrs ago',
-          'commentId': 3,
-        },
-
-      ],
     },
     {
       'avatar': avatar,

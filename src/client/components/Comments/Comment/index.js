@@ -10,8 +10,8 @@ class Comment extends React.Component {
     this.onClickDislikeButton = this.onClickDislikeButton.bind(this);
     this.state = {
       likeState: {
-        clickLike: false,
-        clickDislike: false,
+        clickLike: this.props.commentInfo.clickedLike,
+        clickDislike: this.props.commentInfo.clickedDislike,
       },
       clickComment: false,
     };
