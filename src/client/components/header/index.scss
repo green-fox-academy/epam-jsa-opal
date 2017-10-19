@@ -7,6 +7,8 @@ $uploadnamecolor: #868686;
 
 
 header {
+  position: relative;
+  z-index: 1;
   align-items: center;
   background-color: $navbackgroundcolor;
   box-shadow: 0 2px 7px 0 $navboxshadow;
@@ -21,8 +23,8 @@ header {
   }
 
   .search-name {
-    line-height: 47px;
     background-color: rgb(255, 255, 255);
+    line-height: 47px;
     width: 100%;
   }
 
@@ -58,12 +60,13 @@ header {
     display: flex;
     margin-left: auto;
     margin-right: 1.625em;
-     nav {
-      height: 2.5625em;
-      width: 2.5625em;
-      display: flex;
+
+    nav {
       align-items: center;
+      display: flex;
+      height: 2.5625em;
       justify-content: center;
+      width: 2.5625em;
     }
 
     .user-profile {
@@ -85,10 +88,11 @@ header {
     }
 
     .right-top-button {
-      display: flex;
       align-items: center;
       background-color: rgb(255, 255, 255);
+      display: flex;
     }
+
     .right-top-button:hover {
       cursor: pointer;
     }
@@ -103,9 +107,9 @@ header {
 }
 
 .right-top-button {
-  display: flex;
   align-items: center;
   background-color: rgb(255, 255, 255);
+  display: flex;
 }
 
 .dropbtn {
@@ -122,13 +126,13 @@ header {
 }
 
 .dropdown-content {
-  position: relative;
   background-color: rgb(255, 255, 255);
   box-shadow: 0 8px 16px 0 $boxshadow;
   display: none;
-  right: 1%;
   min-width: 8em;
+  position: relative;
   position: absolute;
+  right: 1%;
   top: 3em;
   z-index: 1;
 }
@@ -144,9 +148,11 @@ header {
 .dropdown-content button:hover {
   text-decoration: underline;
 }
+
 .hoverstuff:hover {
   cursor: pointer;
 }
+
 .hoverstuff:hover .dropdown-content {
   display: block;
 }
