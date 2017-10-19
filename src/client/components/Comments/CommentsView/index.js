@@ -6,7 +6,12 @@ class CommentsView extends React.Component {
     super(props);
   }
   render() {
-    let lists = <Comment />;
+    let lists = this.props.commentInfos.map(((value) => (
+      <Comment
+        commentInfo={value}
+        key={value.commentId}
+      />
+    )));
 
     return (
       <ul className="comments-ul">

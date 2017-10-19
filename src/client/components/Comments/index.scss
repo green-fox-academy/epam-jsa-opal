@@ -1,25 +1,26 @@
 .comment {
-  margin: 20px 0;
   display: flex;
+  margin: 20px 0;
+
   button {
     background-color: #fff;
     cursor: pointer;
   }
 
   img {
-    width: 48px;
-    height: 48px;
     border-radius: 48px;
     display: block;
+    height: 48px;
+    width: 48px;
   }
 
   .comment-container {
-    width: 100%;
     background-color: #fff;
-    position: relative;
-    padding-bottom: 1.5rem;
     border-bottom: 1px solid #979797;
     margin-left: 20px;
+    padding-bottom: 1.5rem;
+    position: relative;
+    width: 100%;
 
     .username {
       font-weight: bold;
@@ -30,64 +31,71 @@
       margin: 10px 0;
       width: 80%;
     }
+
     .like-button {
-      width: 17px;
-      height: 16px;
       background-image: url('./assets/thumb.png');
       background-repeat: no-repeat;
       background-size: contain;
+      height: 16px;
+      width: 17px;
     }
+
     .dislike-button {
-      width: 17px;
-      height: 16px;
       background-image: url('./assets/thumb.png');
       background-repeat: no-repeat;
       background-size: contain;
+      height: 16px;
       transform: rotate(180deg);
+      width: 17px;
     }
+
     .clicked {
       background-image: url('./assets/thumb-clicked.png');
     }
-    .clicked + span{
+
+    .clicked + span {
       visibility: visible;
     }
-    .like-num, .dislike-num{
-      display: inline-block;
-      margin: 0 .5rem;
-      line-height: 16px;
-      height: 16px;
-      font-size: 14px;
-      visibility: hidden;
+
+    .like-num,
+    .dislike-num {
       color: #d93738;
+      display: inline-block;
+      font-size: 14px;
+      height: 16px;
+      line-height: 16px;
+      margin: 0 .5rem;
+      visibility: hidden;
     }
+
     .input-comment {
-      display: block;
-      width: 100px;
-      height: 41px;
       background-color: #f6f6f6;
       border-radius: 4px;
-      line-height: 19px;
       color: #333;
+      display: block;
+      height: 41px;
+      line-height: 19px;
       margin-top: 10px;
+      width: 100px;
     }
+
     .comment-time {
-      position: absolute;
-      top: 29px;
-      right: 30px;
-      font-size: 14px;
       color: rgba(0, 0, 0, .38);
+      font-size: 14px;
+      position: absolute;
+      right: 30px;
+      top: 29px;
     }
+
     .comment-setting {
-      position:  absolute;
-      top: 5px;
-      right: 0;
       background-image: url('./assets/Top right.png');
-      width: 6px;
-      height: 24px;
       background-repeat: no-repeat;
-      background-size: contain
+      background-size: contain;
+      height: 24px;
+      position: absolute;
+      right: 0;
+      top: 5px;
+      width: 6px;
     }
   }
 }
-
-

@@ -1,6 +1,5 @@
 import React from 'react';
 import InputComment from '../InputComment';
-import avatar from '../assets/avatar.png';
 
 class Comment extends React.Component {
   constructor(props) {
@@ -45,11 +44,13 @@ class Comment extends React.Component {
   }
   render() {
     return (
-      <li className="comment">
-        <img src={avatar} alt=""/>
+      <div className="comment">
+        <img src={this.props.commentInfo.avatar} alt=""/>
         <div className="comment-container">
-          <p className="username">Zoe</p>
-          <p className="comment-content">oh!! i love this video amazing</p>
+          <p className="username">{this.props.commentInfo.username}</p>
+          <p className="comment-content">
+            {this.props.commentInfo.commentContent}
+          </p>
           <button
             className={this.state.likeState.clickLike ?
               'clicked like-button' :
@@ -57,7 +58,7 @@ class Comment extends React.Component {
             }
             onClick={this.onClickLikeButton}>
           </button>
-          <span className="like-num">123</span>
+          <span className="like-num">{this.props.commentInfo.likeNum}</span>
           <button
             className={this.state.likeState.clickDislike ?
               'clicked dislike-button' :
@@ -65,17 +66,19 @@ class Comment extends React.Component {
             }
             onClick={this.onClickDislikeButton}>
           </button>
-          <span className="dislike-num">12</span>
+          <span className="dislike-num">
+            {this.props.commentInfo.dislikeNum}
+          </span>
           <button className="input-comment"
             onClick={this.onClickComment}>Comment</button>
-          <p className="comment-time">3 hrs ago</p>
+          <p className="comment-time">{this.props.commentInfo.commentTime}</p>
           <button className="comment-setting"></button>
           <InputComment
             clicked={this.state.clickComment}
             onClickCancel={this.onClickCancel}
           />
         </div>
-      </li>
+      </div>
     );
   }
 }
