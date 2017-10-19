@@ -1,4 +1,13 @@
 .suggested-video-container {
+
+  h1 {
+    font-size: 1rem;
+    letter-spacing: 0;
+    line-height: 19px;
+    margin-bottom: .5rem;
+    padding: 0 12.5px;
+  }
+
   .show-more-button {
     $font-color: #4a4a4a;
     color: $font-color;
@@ -9,18 +18,15 @@
     line-height: 1rem;
     width: 247px;
   }
+
+  .show-more-button-clicked {
+    display: none;
+  }
 }
 
 .suggested-video-ul {
   width: 220px;
 
-  h1 {
-    font-size: 1rem;
-    letter-spacing: 0;
-    line-height: 19px;
-    margin-bottom: .5rem;
-    padding: 0 12.5px;
-  }
 }
 
 .suggested-video-list {
@@ -34,7 +40,6 @@
   width: 220px;
 
   .suggested-video {
-    background-color: rgb(255, 136, 0);
     height: 138px;
     position: relative;
     width: 220px;
