@@ -7,11 +7,9 @@ class VideoPlayer extends React.Component {
   }
   render() {
     return (
-      <div className="video-player">
-        <video controls
-          src="http://nettuts.s3.amazonaws.com/763_sammyJSIntro/trailer_test.mp4" type="video/mp4"
-        />
-      </div>
+      <video controls
+        src="http://nettuts.s3.amazonaws.com/763_sammyJSIntro/trailer_test.mp4" type="video/mp4"
+      />
     );
   }
 }
