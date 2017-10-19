@@ -70,7 +70,7 @@ class Comment extends React.Component {
             {this.props.commentInfo.dislikeNum}
           </span>
           <button className="input-comment"
-            onClick={this.onClickComment}>Comment</button>
+            onClick={this.onClickComment}>Reply</button>
           <p className="comment-time">{this.props.commentInfo.commentTime}</p>
           <button className="comment-setting"></button>
           <InputComment

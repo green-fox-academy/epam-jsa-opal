@@ -25,9 +25,9 @@ class InputComment extends React.Component {
           <input type="text" name="add-comment" onChange={this.onchangeInput}
           />
           <div className="buttons">
-            <input type="button" value="cancel"
+            <input type="button" value="CANCEL"
               onClick={this.props.onClickCancel}/>
-            <input type="submit" value="apply"
+            <input type="submit" value="REPLY"
               className={this.state.empty ? '' : 'active'}
               disabled={this.state.empty ? true : false}
             />
