@@ -58,7 +58,6 @@
     "stylelint-config-sass-guidelines": "^3.1.0",
     "supertest": "^3.0.0",
     "uglifyjs-webpack-plugin": "^0.4.6",
-    "video-react": "^0.8.8",
     "webpack": "^3.6.0",
     "webpack-dev-server": "^2.8.2",
     "webpack-merge": "^4.1.0"
