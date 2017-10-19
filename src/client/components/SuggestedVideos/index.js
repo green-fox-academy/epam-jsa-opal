@@ -7,23 +7,23 @@ class SuggesstedVideos extends React.Component {
   constructor(props) {
     super(props);
     this.onClickShowMore = this.onClickShowMore.bind(this);
-    this.state = {suggestedVidesNum: 4};
+    this.state = {suggestedVideosNum: 4};
   }
   onClickShowMore() {
-    this.setState({suggestedVidesNum: 10});
+    this.setState({suggestedVideosNum: 10});
   }
   render() {
     const defaultNum = 4;
-    const suggestedVidesNum = this.state.suggestedVidesNum;
+    const suggestedVideosNum = this.state.suggestedVideosNum;
 
     return (
       <aside className="suggested-video-container">
         <h1>Up next</h1>
         <SuggestedVideosView
           videoInfos={this.props.videoInfos}
-          suggestedVidesNum={this.state.suggestedVidesNum}
+          suggestedVideosNum={this.state.suggestedVideosNum}
         />
-        <button className={suggestedVidesNum > defaultNum ?
+        <button className={suggestedVideosNum > defaultNum ?
           'show-more-button-clicked' : 'show-more-button'}
         onClick={this.onClickShowMore}>show more</button>
       </aside>

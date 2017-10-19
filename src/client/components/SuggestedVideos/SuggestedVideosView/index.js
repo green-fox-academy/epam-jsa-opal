@@ -2,9 +2,8 @@ import React from 'react';
 import VideoPreview from '../../VideoPreview';
 
 const SuggestedVideosView = (props) => {
-  const suggestedVidesNum = props.suggestedVidesNum;
-  let suggestedVidesLists = props.videoInfos.map((value, index) => {
-    if (index < suggestedVidesNum) {
+  let suggestedVideosLists = props.videoInfos.map((value, index) => {
+    if (index < props.suggestedVideosNum) {
       return (
         <VideoPreview
           videoInfo={value}
@@ -15,7 +14,7 @@ const SuggestedVideosView = (props) => {
 
   return (
     <ul className="suggested-video-ul">
-      {suggestedVidesLists}
+      {suggestedVideosLists}
     </ul>
   );
 };
