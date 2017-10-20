@@ -4,6 +4,7 @@ import React from 'react';
 import Header from '../header';
 import NavigationBar from '../NavigationBar';
 import SuggestedVideos from '../SuggestedVideos';
+import Comments from '../Comments';
 import './index.scss';
 
 class Home extends React.Component {
@@ -11,8 +12,11 @@ class Home extends React.Component {
     return (
       <div className='homecontainer'>
         <Header className='header'/>
-        <NavigationBar className='navigationBar'/>
-        <div className='suggestedVideos'> <SuggestedVideos /> </div>
+        <div className='main'>
+          <NavigationBar className='navigationBar'/>
+          <div className='commentarea'> <Comments /> </div>
+          <div className='suggestedVideos'> <SuggestedVideos /> </div>
+        </div>
       </div>
     );
   }
