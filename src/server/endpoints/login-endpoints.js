@@ -90,4 +90,23 @@ function login(req, res) {
   }
 }
 
-module.exports = {login: login};
+function logout(req, res) {
+  let obj = {};
+  let token = req.get('Authorization');
+
+  if (token === undefined) {
+    res.status(401).json(obj);
+    return;
+  }
+  tokensDb.deleteToken(token, (deleteInfo) => {
+    if (deleteInfo === undefined) {
+      res.status(500).json(obj);
+    } else if (deleteInfo === false) {
+      res.status(403).json(obj);
+    } else {
+      res.status(204).json(obj);
+    }
+  });
+}
+
+module.exports = {login: login, logout: logout};

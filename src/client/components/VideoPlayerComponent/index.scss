@@ -1,15 +1,18 @@
 video {
   width: 100%;
 }
+
 video::-webkit-media-controls-enclosure {
   opacity: 0.7;
   overflow:hidden;
 }
+
 video::-webkit-media-controls-panel {
   background-color:black;
   width: calc(100% + 30px); /* Adjust as needed */
   
 }
+
 video::-internal-media-controls-download-button {
   display:none;
 }

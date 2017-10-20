@@ -7,14 +7,14 @@ $uploadnamecolor: #868686;
 
 
 header {
-  position: relative;
-  z-index: 1;
   align-items: center;
   background-color: $navbackgroundcolor;
   box-shadow: 0 2px 7px 0 $navboxshadow;
   display: flex;
   height: 4.375em;
+  position: relative;
   width: 100%;
+  z-index: 1;
 
   form {
     align-items: center;
