@@ -1,18 +1,19 @@
 import React from 'react';
 import './index.scss';
-import avatar from '../assets/avatar.png';
 
 class InputComment extends React.Component {
   constructor(props) {
     super(props);
     this.onchangeInput = this.onchangeInput.bind(this);
-    this.state = {empty: true};
+    this.state = {empty: true, value: ''};
   }
   onchangeInput(ev) {
     if (ev.target.value.trim().length > 0) {
       this.setState({empty: false});
+      this.setState({value: ev.target.value});
     } else {
       this.setState({empty: true});
+      this.setState({value: ev.target.value});
     }
   }
   render() {
@@ -20,7 +21,7 @@ class InputComment extends React.Component {
       <div className={this.props.clicked ?
         'add-comment clicked-comment' : 'add-comment'}
       >
-        <img src={avatar} alt=""/>
+        <img src={this.props.avatar} alt="11"/>
         <div className="add-comment-content">
           <input type="text" name="add-comment" onChange={this.onchangeInput}
             placeholder={this.props.isComment ?
@@ -37,6 +38,7 @@ class InputComment extends React.Component {
             }
             className={this.state.empty ? '' : 'active'}
             disabled={this.state.empty ? true : false}
+            onClick={() => this.props.addComment(this.state.value)}
             />
           </div>
         </div>

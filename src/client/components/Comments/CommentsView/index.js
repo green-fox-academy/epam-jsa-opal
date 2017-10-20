@@ -25,6 +25,8 @@ class CommentsView extends React.Component {
           clicked={this.state.clickComment}
           onClickCancel={this.onClickCancel}
           isComment={true}
+          addComment={this.props.addComment}
+          avatar={this.props.avatar}
         />
         <ul className="comments-ul">
           {lists}
