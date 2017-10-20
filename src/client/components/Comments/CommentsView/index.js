@@ -16,6 +16,7 @@ class CommentsView extends React.Component {
       <Comment
         commentInfo={value}
         key={value.commentId}
+        avatar={this.props.avatar}
       />
     ));
 
