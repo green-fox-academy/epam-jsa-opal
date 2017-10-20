@@ -16,6 +16,7 @@ let portNum = process.env.PORT || defaultPortNum;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static('dist'));
+app.delete('/api/login', loginController.logout);
 app.post('/api/signup', signUp.signupUser);
 app.post('/api/login', jsonParser, loginController.login);
 app.get('/heartbeat', DatabaseHealth.checkDatabaseHealth);

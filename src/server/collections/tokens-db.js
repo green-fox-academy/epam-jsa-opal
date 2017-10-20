@@ -75,21 +75,29 @@ function createToken(userId, userAgent) {
 }
 
 // delete Token from db
-function deleteToken(token) {
+function deleteToken(token, callback) {
   /* eslint no-console: "off" */
   MongoClient.connect(url, (err, db) => {
     try {
       if (err) {
         console.log(err);
+        return callback(undefined);
       }
       let tokensDb = db.collection('tokenDescriptors');
 
-      tokensDb.remove({'token': token}, (err) => {
-        if (err !== null) {
+      tokensDb.findOne({'token': token}, (err, result) => {
+        if (err) {
           console.log(err.name + ':' + err.message);
           return;
         }
-        db.close();
+        if (result === null) {
+          db.close();
+          return callback(false);
+        }
+        tokensDb.remove({'token': token}, () => {
+          db.close();
+          return callback(true);
+        });
       });
     } catch (e) {
       console.log(e.name + ':' + e.message);
