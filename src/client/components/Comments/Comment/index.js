@@ -76,6 +76,7 @@ class Comment extends React.Component {
           <InputComment
             clicked={this.state.clickComment}
             onClickCancel={this.onClickCancel}
+            avatar={this.props.avatar}
           />
         </div>
       </div>
