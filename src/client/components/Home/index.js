@@ -4,7 +4,7 @@ import React from 'react';
 import Header from '../header';
 import NavigationBar from '../NavigationBar';
 import SuggestedVideos from '../SuggestedVideos';
-import Comments from '../Comments';
+import VideoComponent from '../VideoComponent';
 import './index.scss';
 
 class Home extends React.Component {
@@ -14,7 +14,7 @@ class Home extends React.Component {
         <Header className='header'/>
         <div className='main'>
           <NavigationBar className='navigationBar'/>
-          <div className='commentarea'> <Comments /> </div>
+          <div className='commentarea'> <VideoComponent /> </div>
           <div className='suggestedVideos'> <SuggestedVideos /> </div>
         </div>
       </div>

@@ -27,7 +27,7 @@ class NavigationBar extends React.Component {
         <Link className="watchbutton" to="/wahtchlater">Watch later</Link>
         <Link className="likedbutton" to="/liked">Liked</Link>
         <div className="obstaclehorizantal"></div>
-        <span>subscription</span>
+        <span>Subscription</span>
         {subscription}
         <Link className="setting" to="/setting">setting</Link>
       </nav>
