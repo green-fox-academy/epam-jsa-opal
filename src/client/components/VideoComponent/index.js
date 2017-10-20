@@ -73,7 +73,7 @@ VideoComponent.defaultProps = {
   videoname: 'Midnight Starr - Slow Jam',
   viewnum: '4,250,633',
   username: 'Chill boy',
-  publishdate: 'Published on Jun 222,008',
+  publishdate: 'Published on Jun 22,2008',
   subscribenum: '3.8k',
   likenum: 'like 5k+',
   dislikenum: 'dislike',
