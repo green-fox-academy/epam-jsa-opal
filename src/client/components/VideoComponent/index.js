@@ -55,11 +55,11 @@ class VideoComponent extends React.Component {
               <button className="thumb-up" onClick={this.handleThumbup.bind(this)}
                 className={this.state.changeupColor ? 'changeupcolor thumb-up' : 'thumb-up'}
               >
-                {this.props.likenum}
+                like<span>{this.props.likenum}</span>
               </button>
               <button className="thumb-down" onClick={this.handleThumbdown.bind(this)}
                 className={this.state.changedownColor ? 'changedowncolor thumb-down' : 'thumb-down'}>
-                {this.props.dislikenum}
+                dislike
               </button>
             </div>
           </div>
@@ -75,8 +75,7 @@ VideoComponent.defaultProps = {
   username: 'Chill boy',
   publishdate: 'Published on Jun 22,2008',
   subscribenum: '3.8k',
-  likenum: 'like 5k+',
-  dislikenum: 'dislike',
+  likenum: '5k+',
   userImg: userImg,
 };
 
