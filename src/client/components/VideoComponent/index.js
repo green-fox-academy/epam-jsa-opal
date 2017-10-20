@@ -35,7 +35,7 @@ class VideoComponent extends React.Component {
               <button className="share" onClick={this.share.bind(this)}></button>
             </div>
             <div>
-              <span className="view-num">{this.props.viewnum}</span> <span>views</span>
+              <span className="view-num">{this.props.viewnum}</span> <span className="view">views</span>
             </div>
           </div>
           <div className="user-info">
