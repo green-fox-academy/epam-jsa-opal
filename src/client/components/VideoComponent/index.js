@@ -1,7 +1,6 @@
 import React from 'react';
 import './index.scss';
 import userImg from './assets/Oval_2.png';
-import share from './assets/share.png';
 import VideoPlayer from '../VideoPlayerComponent/index';
 
 class VideoComponent extends React.Component {
@@ -12,11 +11,17 @@ class VideoComponent extends React.Component {
       'changedownColor': false,
     };
   }
-  changeupColor() {
+  handleThumbup() {
     this.setState({'changeupColor': !this.state.changeupColor});
   }
-  changedownColor() {
+  handleThumbdown() {
     this.setState({'changedownColor': !this.state.changedownColor});
+  }
+  share() {
+
+  }
+  subscribe() {
+
   }
   render() {
     return (
@@ -25,36 +30,36 @@ class VideoComponent extends React.Component {
         <div className="video-below">
           <div className="video-info">
             <div className="video-name">
-              <span>Midnight Starr - Slow Jam</span>
-              <img className="share" src={share}></img>
+              <span>{this.props.videoname}</span>
+              <button className="share" onClick={this.share.bind(this)}></button>
             </div>
             <div>
-              <span className="view-num">4,250,633</span> <span>views</span>
+              <span className="view-num">{this.props.viewnum}</span> <span>views</span>
             </div>
           </div>
           <div className="user-info">
             <div className="userinfo-left">
-              <img className="user-img" src={userImg}></img>
+              <img className="user-img" src={this.props.userImg}></img>
               <div className="name-publishtime">
-                <span className="user-name">Chill boy</span>
-                <span>Published on Jun 222,008</span>
+                <span className="user-name">{this.props.username}</span>
+                <span>{this.props.publishdate}</span>
               </div>
               <div className="subcribe-number">
-                <button className="subscribe">
-              SUBSCRIBE
+                <button className="subscribe" onClick={this.subscribe.bind(this)}>
+              subcribe
                 </button>
-                <span className="subscribe-num">3.8k</span>
+                <span className="subscribe-num">{this.props.subscribenum}</span>
               </div>
             </div>
             <div className="thumb">
-              <button className="thumb-up" onClick={this.changeupColor.bind(this)}
+              <button className="thumb-up" onClick={this.handleThumbup.bind(this)}
                 className={this.state.changeupColor ? 'changeupcolor thumb-up' : 'thumb-up'}
               >
-                like 5k+
+                {this.props.likenum}
               </button>
-              <button className="thumb-down" onClick={this.changedownColor.bind(this)}
+              <button className="thumb-down" onClick={this.handleThumbdown.bind(this)}
                 className={this.state.changedownColor ? 'changedowncolor thumb-down' : 'thumb-down'}>
-                dislike
+                {this.props.dislikenum}
               </button>
             </div>
           </div>
@@ -63,4 +68,16 @@ class VideoComponent extends React.Component {
     );
   }
 }
+
+VideoComponent.defaultProps = {
+  videoname: 'Midnight Starr - Slow Jam',
+  viewnum: '4,250,633',
+  username: 'Chill boy',
+  publishdate: 'Published on Jun 222,008',
+  subscribenum: '3.8k',
+  likenum: 'like 5k+',
+  dislikenum: 'dislike',
+  userImg: userImg,
+};
+
 export default VideoComponent;
