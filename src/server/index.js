@@ -2,6 +2,7 @@
 
 require('dotenv').config();
 
+const commentlike = require('./endpoints/comments-like-endpoint');
 const signUp = require('./endpoints/signup-endpoints');
 const bodyParser = require('body-parser');
 const DatabaseHealth = require('./endpoints/heartbeat');
@@ -14,6 +15,7 @@ let defaultPortNum = 3000;
 let portNum = process.env.PORT || defaultPortNum;
 const homeController = require('./endpoints/home-screen-endpoints');
 
+app.put('/api/:videoId/:commentsId/:votetype',commentlike.commentLikeOrDislike);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static('dist'));
