@@ -19,7 +19,7 @@ class VideoComponent extends React.Component {
     });
   }
   fetchVideoInfos(videoId, callback) {
-    fetch('/api/videos/' + '59ed7f1f1707c6894c13e013')
+    fetch('/api/videos/' + videoId)
       .then((response) => response.json())
       .then((result) => callback(result));
   }
