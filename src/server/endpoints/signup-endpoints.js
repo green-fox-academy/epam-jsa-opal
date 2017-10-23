@@ -1,8 +1,6 @@
 'use strict';
 
 const signupData = require('../collections/users-db');
-const usersDb = require('../collections/users-db');
-const tokensDb = require('../collections/tokens-db');
 
 const EMAIL_REGEXP = /\S+@\S+\.\S+/;
 
@@ -61,10 +59,6 @@ function checkInfoValid(userData) {
   validatePassword(userData.password);
 }
 
-function createToken(userinfo, userAgent, callback) {
-  callback(tokensDb.createToken(userinfo._id, userAgent));
-}
-
 function signupUser(req, res) {
   try {
     checkInfoValid({
@@ -75,14 +69,6 @@ function signupUser(req, res) {
       password: req.body.password,
     });
     signupData.storeUser(req, res);
-    usersDb.findUserInfo(req.body.email, (userinfo) => {
-      createToken(userinfo, req.headers['user-agent'], (tokenData) => {
-        res.status(200).json({
-          expiresAt: tokenData.expiresAt,
-          token: tokenData.token,
-        });
-      });
-    });
   } catch (error) {
     sendBadRequest(res, error.message);
   }

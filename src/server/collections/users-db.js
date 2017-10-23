@@ -2,6 +2,7 @@
 
 require('dotenv').config();
 const cryptoJs = require('../modules/crypt-data');
+const tokensDb = require('../collections/tokens-db');
 const RETURN_FAILS = -1;
 let protocol = process.env.DB_PROTOCOL;
 let host = process.env.DB_HOST;
@@ -19,12 +20,23 @@ if (password !== undefined) {
 let mongodb = require('mongodb');
 let MongoClient = mongodb.MongoClient;
 
-function notFind(res, db, sendContent) {
+function createToken(userinfo, userAgent, callback) {
+  callback(tokensDb.createToken(userinfo._id, userAgent));
+}
+
+function notFind(req, res, db, sendContent) {
   db.collection('users').insert(sendContent, function() {
     let objectId = sendContent._id;
 
-    res.set('location', '/api/signup/' + objectId);
-    res.setHeader('content-type', 'application/json');
+    createToken(objectId, req.headers['user-agent'], (tokenData) => {
+      res.set('location', '/api/signup/' + objectId);
+      res.setHeader('content-type', 'application/json');
+      res.status(201).json({
+        expiresAt: tokenData.expiresAt,
+        token: tokenData.token,
+      });
+    });
+
     res.status(201).send();
     db.close();
     return RETURN_FAILS;
@@ -96,7 +108,7 @@ function dbInsert(req, res) {
         console.log(err);
         return;
       } else if (items.length === 0) {
-        notFind(res, db, sendContent);
+        notFind(req, res, db, sendContent);
       } else if (items[0].username === req.body.username) {
         userNameConflict(res, db, sendContent);
       } else if (items[0].email === req.body.email) {
