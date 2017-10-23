@@ -1,5 +1,5 @@
 import React from 'react';
-import VideoPreview from '../../VideoPreview';
+import VideoPreview from '../../VideoPreviewComponent';
 
 const SuggestedVideosView = (props) => {
   let suggestedVideosLists = props.videoInfos.map((value, index) => {

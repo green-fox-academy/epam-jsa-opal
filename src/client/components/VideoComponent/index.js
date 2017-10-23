@@ -2,7 +2,7 @@ import React from 'react';
 import './index.scss';
 import userImg from './assets/Oval_2.png';
 import VideoPlayer from '../VideoPlayerComponent/index';
-import Comments from '../Comments';
+import Comments from '../CommentsComponent';
 
 class VideoComponent extends React.Component {
   constructor(props) {

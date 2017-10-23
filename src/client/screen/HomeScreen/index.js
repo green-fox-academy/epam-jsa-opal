@@ -1,10 +1,10 @@
 'use strict';
 
 import React from 'react';
-import Header from '../header';
-import NavigationBar from '../NavigationBar';
-import SuggestedVideos from '../SuggestedVideos';
-import VideoComponent from '../VideoComponent';
+import Header from '../../components/HeaderComponent';
+import NavigationBar from '../../components/NavigationBarComponent';
+import SuggestedVideos from '../../components/SuggestedVideosComponent';
+import VideoComponent from '../../components/VideoComponent';
 import './index.scss';
 
 class Home extends React.Component {
