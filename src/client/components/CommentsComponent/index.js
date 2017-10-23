@@ -1,7 +1,6 @@
 import React from 'react';
 import './index.scss';
 import CommentsView from './CommentsView';
-import avatar from './assets/avatar.png';
 import userAvatar from './assets/Oval 4.png';
 
 class Comments extends React.Component {
@@ -9,6 +8,9 @@ class Comments extends React.Component {
     super(props);
     this.addComment = this.addComment.bind(this);
     this.state = {commentInfos: this.props.commentInfos};
+  }
+  componentWillReceiveProps(nextProps) {
+    this.state = {commentInfos: nextProps.commentInfos};
   }
   addComment(value) {
     let commentInfos = this.state.commentInfos;
@@ -39,30 +41,5 @@ class Comments extends React.Component {
     );
   }
 }
-
-Comments.defaultProps = {
-  commentInfos: [
-    {
-      'avatar': avatar,
-      'username': 'zoe1',
-      'commentContent': 'oh!! i love this video amazing',
-      'likeNum': 123,
-      'clickedLike': true,
-      'clickedDislike': false,
-      'dislikeNum': 99,
-      'commentTime': '1 hrs ago',
-      'commentId': 1,
-    },
-    {
-      'avatar': avatar,
-      'username': 'zoe2',
-      'commentContent': 'oh!! i love this video amazing',
-      'likeNum': 123,
-      'dislikeNum': 99,
-      'commentTime': '2 hrs ago',
-      'commentId': 2,
-    },
-  ],
-};
 
 export default Comments;

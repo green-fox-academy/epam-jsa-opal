@@ -24,9 +24,10 @@ function findVideoInfo(videoId, callback) {
       if (err) {
         throw err;
       }
+      if (videoId.length !== 24) {
+        return callback([]);
+      }
       let videosDB = db.collection('videos');
-
-      console.log(typeof (videoId) + ':' + videoId);
 
       videosDB.findOne({'_id': ObjectId(videoId)}, (err, result) => {
         if (err) {
@@ -47,5 +48,52 @@ function findVideoInfo(videoId, callback) {
   });
 }
 
-module.exports = {findVideoInfo: findVideoInfo};
+function addComment(videoId, callback) {
+  MongoClient.connect(url, (err, db) => {
+    try {
+      if (err) {
+        throw err;
+      }
+      if (videoId.length !== 24) {
+        return callback([]);
+      }
+      let videosDB = db.collection('videos');
+
+      let obj = {
+        'username': 'zoe3',
+        'userId': '003',
+        'avatar': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLDxSdH8lLX-y9TJzLDWZPvoLexXrE8Ft5EAAWaZNyQHVM-yh-3A',
+        'commentTime': 1508743106105,
+        'likeNum': 0,
+        'dislikeNum': 0,
+        'clickedLike': false,
+        'clickedDislike': false,
+        'commentContent': 'hahaha i like it',
+        'commentId': 3,
+      };
+
+      videosDB.update({'_id': ObjectId(videoId)}, {$push: {'commentInfos': obj}},
+        (err, result) => {
+          if (err) {
+            console.log(err);
+          }
+          db.close();
+          if (result === null) {
+            return callback([]);
+          }
+          let insertInfos = result;
+
+          return callback(insertInfos);
+        });
+    } catch (e) {
+      console.log(e.name + ':' + e.message);
+      return callback(undefined);
+    }
+  });
+}
+
+module.exports = {
+  findVideoInfo: findVideoInfo,
+  addComment: addComment,
+};
 

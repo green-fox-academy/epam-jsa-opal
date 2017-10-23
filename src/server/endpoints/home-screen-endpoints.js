@@ -28,35 +28,45 @@ function getHomeInfos(req, res) {
         'avatar': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLDxSdH8lLX-y9TJzLDWZPvoLexXrE8Ft5EAAWaZNyQHVM-yh-3A',
         'subscribers': 1000,
       },
-      'commentInfos': [
-        {
-          'username': 'zoe',
-          'userId': '59e02b5d120d8b14a06816b6',
-          'avatar': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLDxSdH8lLX-y9TJzLDWZPvoLexXrE8Ft5EAAWaZNyQHVM-yh-3A',
-          'commentTime': 1508743106105,
-          'likeNum': 100,
-          'dislikeNum': 90,
-          'clickedLike': true,
-          'clickedDislike': false,
-          'commentContent': 'hahaha i like it',
-          'commentId': 1,
-        },
-        {
-          'username': 'zoe-2',
-          'userId': '59e5b7c114d5a536988a0bb1',
-          'avatar': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLDxSdH8lLX-y9TJzLDWZPvoLexXrE8Ft5EAAWaZNyQHVM-yh-3A',
-          'commentTime': 1508743106305,
-          'likeNum': 100,
-          'dislikeNum': 90,
-          'clickedLike': true,
-          'clickedDislike': false,
-          'commentContent': 'hahaha i like it',
-          'commentId': 2,
-        },
-      ],
+      // 'commentInfos': [
+      //   {
+      //     'username': 'zoe',
+      //     'userId': '59e02b5d120d8b14a06816b6',
+      //     'avatar': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLDxSdH8lLX-y9TJzLDWZPvoLexXrE8Ft5EAAWaZNyQHVM-yh-3A',
+      //     'commentTime': 1508743106105,
+      //     'likeNum': 100,
+      //     'dislikeNum': 90,
+      //     'clickedLike': true,
+      //     'clickedDislike': false,
+      //     'commentContent': 'hahaha i like it',
+      //     'commentId': 1,
+      //   },
+      //   {
+      //     'username': 'zoe-2',
+      //     'userId': '59e5b7c114d5a536988a0bb1',
+      //     'avatar': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLDxSdH8lLX-y9TJzLDWZPvoLexXrE8Ft5EAAWaZNyQHVM-yh-3A',
+      //     'commentTime': 1508743106305,
+      //     'likeNum': 100,
+      //     'dislikeNum': 90,
+      //     'clickedLike': true,
+      //     'clickedDislike': false,
+      //     'commentContent': 'hahaha i like it',
+      //     'commentId': 2,
+      //   },
+      // ],
+      'commentInfos': videoInfos.commentInfos,
     });
   });
 }
 
-module.exports = {getHomeInfos: getHomeInfos};
+function postComment(req, res) {
+  videosDb.addComment(req.params.videoId, (insertInfos) => {
+    res.status(200).json({'success': 'insert success'});
+  });
+}
+
+module.exports = {
+  getHomeInfos: getHomeInfos,
+  postComment: postComment,
+};
 
