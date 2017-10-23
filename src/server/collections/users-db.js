@@ -24,12 +24,12 @@ function createToken(userinfo, userAgent, callback) {
   callback(tokensDb.createToken(userinfo._id, userAgent));
 }
 
-function notFind(req, res, db, sendContent) {
+function notFound(req, res, db, sendContent) {
   db.collection('users').insert(sendContent, function() {
-    let objectId = sendContent._id;
+    let userId = sendContent._id;
 
-    createToken(objectId, req.headers['user-agent'], (tokenData) => {
-      res.set('location', '/api/signup/' + objectId);
+    createToken(userId, req.headers['user-agent'], (tokenData) => {
+      res.set('location', '/api/signup/' + userId);
       res.setHeader('content-type', 'application/json');
       res.status(201).json({
         expiresAt: tokenData.expiresAt,
@@ -107,7 +107,7 @@ function dbInsert(req, res) {
         console.log(err);
         return;
       } else if (items.length === 0) {
-        notFind(req, res, db, sendContent);
+        notFound(req, res, db, sendContent);
       } else if (items[0].username === req.body.username) {
         userNameConflict(res, db, sendContent);
       } else if (items[0].email === req.body.email) {
