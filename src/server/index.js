@@ -12,6 +12,7 @@ const jsonParser = bodyParser.json();
 const loginController = require('./endpoints/login-endpoints');
 let defaultPortNum = 3000;
 let portNum = process.env.PORT || defaultPortNum;
+const homeController = require('./endpoints/home-screen-endpoints');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -20,6 +21,7 @@ app.delete('/api/login', loginController.logout);
 app.post('/api/signup', signUp.signupUser);
 app.post('/api/login', jsonParser, loginController.login);
 app.get('/heartbeat', DatabaseHealth.checkDatabaseHealth);
+app.get('/api/videos/:videoId', homeController.getHomeInfos);
 app.get('*', (req, res) =>{
   res.sendFile('index.html', {root: path.join(__dirname, '../../dist')});
 });
