@@ -8,6 +8,7 @@ let name = process.env.DB_NAME;
 let username = process.env.Username;
 let password = process.env.Password;
 let url;
+let ObjectId = require('mongodb').ObjectID;
 
 if (password !== undefined) {
   url = protocol + '://' + username + ':' + password + '@' + host + ':' + port + '/' + name;
@@ -25,7 +26,9 @@ function findVideoInfo(videoId, callback) {
       }
       let videosDB = db.collection('videos');
 
-      videosDB.findOne({'videoId': videoId}, (err, result) => {
+      console.log(typeof (videoId) + ':' + videoId);
+
+      videosDB.findOne({'_id': ObjectId(videoId)}, (err, result) => {
         if (err) {
           console.log(err);
         }
