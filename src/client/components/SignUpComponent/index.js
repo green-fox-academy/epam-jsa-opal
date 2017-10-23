@@ -5,6 +5,7 @@ const statusCodes = {
   'contentWrong': 400,
   'conflict': 409,
   'severError': 500,
+  'success': 201,
 };
 
 class SignUpComponent extends React.Component {
@@ -123,12 +124,24 @@ class SignUpComponent extends React.Component {
     }
   }
 
+  signupSuccess(response) {
+    localStorage.setItem('token', response.token);
+    localStorage.setItem('expiresAt', response.expiresAt);
+
+    window.location.href = '/home';
+  }
+
   sendData(jsonData) {
     let xhr = new XMLHttpRequest();
 
     xhr.addEventListener('readystatechange', function() {
       if (xhr.readyState === XMLHttpRequest.DONE) {
         this.setState({'status': 'being'});
+        if (xhr.status === statusCodes.success) {
+          const resultObj = JSON.parse(xhr.responseText);
+
+          this.signupSuccess(resultObj);
+        }
         this.judge409Error(xhr);
         this.judge400Error(xhr);
         this.judge500Error(xhr);
