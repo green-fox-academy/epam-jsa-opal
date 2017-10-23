@@ -1,5 +1,5 @@
 import React from 'react';
-import SignUpComponent from '../../components/SignUpComponent';
+import SignUpComponent from './SignUpComponent';
 import './index.scss';
 
 class SignUpScreen extends React.Component {
