@@ -12,7 +12,7 @@ function getHomeInfos(req, res) {
       // videoId should be same with _id, here just for testing
       // in your PC please change here
       'videoId': '59ed7f1f1707c6894c13e013',
-      'videoUrl': 'www.video.com',
+      'videoUrl': 'http://nettuts.s3.amazonaws.com/763_sammyJSIntro/trailer_test.mp4',
       'videoDetails': {
         'title': 'test video',
         'views': '1',
@@ -25,14 +25,14 @@ function getHomeInfos(req, res) {
       'uploader': {
         'name': 'uploader name',
         'userId': '59e02b5d120d8b14a06816b6',
-        'avatar': 'avatar',
+        'avatar': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLDxSdH8lLX-y9TJzLDWZPvoLexXrE8Ft5EAAWaZNyQHVM-yh-3A',
         'subscribers': 1000,
       },
       'commentInfos': [
         {
           'username': 'zoe',
           'userId': '59e02b5d120d8b14a06816b6',
-          'avatar': 'avatar',
+          'avatar': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLDxSdH8lLX-y9TJzLDWZPvoLexXrE8Ft5EAAWaZNyQHVM-yh-3A',
           'commentTime': 1508743106105,
           'likeNum': 100,
           'dislikeNum': 90,
@@ -44,7 +44,7 @@ function getHomeInfos(req, res) {
         {
           'username': 'zoe-2',
           'userId': '59e5b7c114d5a536988a0bb1',
-          'avatar': 'avatar',
+          'avatar': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLDxSdH8lLX-y9TJzLDWZPvoLexXrE8Ft5EAAWaZNyQHVM-yh-3A',
           'commentTime': 1508743106305,
           'likeNum': 100,
           'dislikeNum': 90,
