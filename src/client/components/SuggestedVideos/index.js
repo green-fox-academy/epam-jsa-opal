@@ -2,10 +2,6 @@ import React from 'react';
 import './index.scss';
 import noPreview from './404.png';
 import SuggestedVideosView from './SuggestedVideosView';
-import movie1 from './movie1.jpg'
-import movie2 from './movie2.jpg'
-import movie3 from './movie3.jpg'
-import movie4 from './movie4.jpg'
 
 class SuggesstedVideos extends React.Component {
   constructor(props) {
@@ -41,7 +37,7 @@ SuggesstedVideos.defaultProps = {
       'title': 'video1',
       'author': 'author1',
       'viewNumber': 100,
-      'previewSrc': movie2,
+      'previewSrc': noPreview,
       'videoTime': '1:00',
       'videoId': '001',
     },
@@ -49,7 +45,7 @@ SuggesstedVideos.defaultProps = {
       'title': 'video2',
       'author': 'author2',
       'viewNumber': 200,
-      'previewSrc': movie1,
+      'previewSrc': noPreview,
       'videoTime': '2:00',
       'videoId': '002',
     },
@@ -57,7 +53,7 @@ SuggesstedVideos.defaultProps = {
       'title': 'video3',
       'author': 'author3',
       'viewNumber': 300,
-      'previewSrc': movie3,
+      'previewSrc': noPreview,
       'videoTime': '3:00',
       'videoId': '003',
     },
@@ -65,7 +61,7 @@ SuggesstedVideos.defaultProps = {
       'title': 'video4',
       'author': 'author4',
       'viewNumber': 400,
-      'previewSrc': movie4,
+      'previewSrc': noPreview,
       'videoTime': '4:00',
       'videoId': '004',
     },
