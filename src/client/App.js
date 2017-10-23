@@ -1,8 +1,8 @@
 import React from 'react';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
 import Signup from '../client/screen/SignUpScreen';
-import Login from '../client/components/Login';
-import Home from '../client/components/Home';
+import Login from '../client/screen/LoginScreen';
+import Home from '../client/screen/HomeScreen';
 
 class App extends React.Component {
   render() {
