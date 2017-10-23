@@ -24,14 +24,14 @@ function getHomeInfos(req, res) {
       },
       'uploader': {
         'name': 'uploader name',
-        'userId': 'uploader Id',
+        'userId': '59e02b5d120d8b14a06816b6',
         'avatar': 'avatar',
         'subscribers': 1000,
       },
       'commentInfos': [
         {
           'username': 'zoe',
-          'userId': '001',
+          'userId': '59e02b5d120d8b14a06816b6',
           'avatar': 'avatar',
           'commentTime': 1508743106105,
           'likeNum': 100,
@@ -43,6 +43,7 @@ function getHomeInfos(req, res) {
         },
         {
           'username': 'zoe-2',
+          'userId': '59e5b7c114d5a536988a0bb1',
           'avatar': 'avatar',
           'commentTime': 1508743106305,
           'likeNum': 100,
