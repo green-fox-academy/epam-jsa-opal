@@ -3,10 +3,10 @@
 import React from 'react';
 import './index.scss';
 import {Link} from 'react-router-dom';
-import subscription1 from '../NavigationBar/assets/subscription_1.png';
-import subscription2 from '../NavigationBar/assets/subscription_2.png';
-import subscription3 from '../NavigationBar/assets/subscription_3.png';
-import subscription4 from '../NavigationBar/assets/subscription_4.png';
+import subscription1 from '../NavigationBarComponent/assets/subscription_1.png';
+import subscription2 from '../NavigationBarComponent/assets/subscription_2.png';
+import subscription3 from '../NavigationBarComponent/assets/subscription_3.png';
+import subscription4 from '../NavigationBarComponent/assets/subscription_4.png';
 
 class NavigationBar extends React.Component {
   render() {
@@ -27,7 +27,7 @@ class NavigationBar extends React.Component {
         <Link className="watchbutton" to="/wahtchlater">Watch later</Link>
         <Link className="likedbutton" to="/liked">Liked</Link>
         <div className="obstaclehorizantal"></div>
-        <span>subscription</span>
+        <span>Subscription</span>
         {subscription}
         <Link className="setting" to="/setting">setting</Link>
       </nav>
