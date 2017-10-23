@@ -47,7 +47,7 @@ class LoginComponent extends React.Component {
   loginSuccess(response) {
     localStorage.setItem('token', response.token);
     localStorage.setItem('expiresAt', response.expiresAt);
-    window.location.href = '/feed';
+    window.location.href = '/home';
   }
   loginFailed(response) {
     let errorMessage;
