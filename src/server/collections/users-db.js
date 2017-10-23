@@ -135,7 +135,36 @@ function findUserInfo(email, callback) {
     }
   });
 }
+
+// find userinfo throw userId
+function findUserInfoById(userId, callback) {
+  MongoClient.connect(url, (err, db) => {
+    try {
+      if (err) {
+        throw err;
+      }
+      let usersDB = db.collection('users');
+
+      usersDB.findOne({'_id': userId}, (err, result) => {
+        if (err) {
+          console.log(err);
+        }
+        db.close();
+        if (result === null) {
+          return callback([]);
+        }
+        let userinfo = result;
+
+        return callback(userinfo);
+      });
+    } catch (e) {
+      console.log(e.name + ':' + e.message);
+      return callback(undefined);
+    }
+  });
+}
 module.exports = {
   storeUser: dbInsert,
   findUserInfo: findUserInfo,
+  findUserInfoById: findUserInfoById,
 };
