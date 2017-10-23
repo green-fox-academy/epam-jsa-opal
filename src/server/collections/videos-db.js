@@ -50,7 +50,7 @@ function findVideoInfo(videoId, callback) {
   });
 }
 
-function addComment(videoId, token, callback) {
+function addComment(videoId, token, content, callback) {
   tokensDb.getToken(token, (tokenInfo) => {
     usersDb.findUserInfoById(tokenInfo.userId, (userInfo) => {
       MongoClient.connect(url, (err, db) => {
@@ -72,12 +72,12 @@ function addComment(videoId, token, callback) {
               'username': userInfo.username,
               'userId': userInfo._id,
               'avatar': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLDxSdH8lLX-y9TJzLDWZPvoLexXrE8Ft5EAAWaZNyQHVM-yh-3A',
-              'commentTime': 1508743106105,
+              'commentTime': new Date().getTime(),
               'likeNum': 0,
               'dislikeNum': 0,
               'clickedLike': false,
               'clickedDislike': false,
-              'commentContent': 'hahaha i like it',
+              'commentContent': content,
               'commentId': commentId,
             };
 

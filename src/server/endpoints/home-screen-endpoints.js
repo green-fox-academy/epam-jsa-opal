@@ -34,7 +34,7 @@ function getHomeInfos(req, res) {
 }
 
 function postComment(req, res) {
-  videosDb.addComment(req.params.videoId, req.headers.authorization, (insertInfos) => {
+  videosDb.addComment(req.params.videoId, req.headers.authorization, req.body.content, (insertInfos) => {
     res.status(200).json({'success': 'insert success'});
   });
 }

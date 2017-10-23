@@ -12,8 +12,10 @@ class Comments extends React.Component {
   componentWillReceiveProps(nextProps) {
     this.state = {commentInfos: nextProps.commentInfos};
   }
-  addComment(value) {
+  addComment(value, videoId) {
     let commentInfos = this.state.commentInfos;
+    let oldCommentInfos = commentInfos;
+    let statusCode;
     let inputValue = value;
     let addCommentInfo = [
       {
@@ -31,6 +33,23 @@ class Comments extends React.Component {
 
     commentInfos = commentInfos.concat(addCommentInfo);
     this.setState({commentInfos: commentInfos});
+    fetch('/api/videos/' + videoId + '/comments/', {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': localStorage.getItem('token'),
+      },
+      body: JSON.stringify({'content': value}),
+    })
+      .then((response) => {
+        statusCode = response.status;
+        response.json();
+      })
+      .then((result) => {
+        if (statusCode !== 200) {
+          this.setState({commentInfos: oldCommentInfos});
+        }
+      });
   }
   render() {
     return (
