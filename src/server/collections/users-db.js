@@ -37,7 +37,6 @@ function notFind(req, res, db, sendContent) {
       });
     });
 
-    res.status(201).send();
     db.close();
     return RETURN_FAILS;
   });
