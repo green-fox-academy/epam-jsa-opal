@@ -28,6 +28,7 @@ class InputComment extends React.Component {
               'Leave a comment about this video' :
               'reply a message to this message'
             }
+            value={this.state.value}
           />
           <div className="buttons">
             <input type="button" value="CANCEL"
@@ -38,7 +39,11 @@ class InputComment extends React.Component {
             }
             className={this.state.empty ? '' : 'active'}
             disabled={this.state.empty ? true : false}
-            onClick={() => this.props.addComment(this.state.value)}
+            onClick={() => {
+              this.props.addComment(this.state.value);
+              this.setState({value: ''});
+              this.setState({empty: true});
+            }}
             />
           </div>
         </div>
