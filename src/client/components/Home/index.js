@@ -14,7 +14,7 @@ class Home extends React.Component {
         <Header className='header'/>
         <div className='main'>
           <NavigationBar className='navigationBar'/>
-          <div className='commentarea'> <VideoComponent /> </div>
+          <div className='videoComponent'> <VideoComponent /> </div>
           <div className='suggestedVideos'> <SuggestedVideos /> </div>
         </div>
       </div>
