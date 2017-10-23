@@ -29,7 +29,7 @@ function notFound(req, res, db, sendContent) {
     let userId = sendContent._id;
 
     createToken(userId, req.headers['user-agent'], (tokenData) => {
-      res.set('location', '/api/signup/' + userId);
+      res.set('location', '/api/users/' + userId);
       res.setHeader('content-type', 'application/json');
       res.status(201).json({
         expiresAt: tokenData.expiresAt,
