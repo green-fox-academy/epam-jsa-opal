@@ -13,6 +13,7 @@ const loginController = require('./endpoints/login-endpoints');
 let defaultPortNum = 3000;
 let portNum = process.env.PORT || defaultPortNum;
 const homeController = require('./endpoints/home-screen-endpoints');
+const thumbupController = require('./endpoints/video-thumb');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -22,6 +23,10 @@ app.post('/api/signup', signUp.signupUser);
 app.post('/api/login', jsonParser, loginController.login);
 app.get('/heartbeat', DatabaseHealth.checkDatabaseHealth);
 app.get('/api/videos/:videoId', homeController.getHomeInfos);
+app.put('/api/videosthumb/:videoId/:votetype', thumbupController.judgeVotetype);
+// app.put('/api/videosthumbdown/:videoId', thumbupController.thumbDown);
+// app.put('/api/cancelvideosthumbup/:videoId', thumbupController.cancelthumbUp);
+// app.put('/api/cancelvideosthumbdown/:videoId', thumbupController.cancelthumbDown);
 app.get('*', (req, res) =>{
   res.sendFile('index.html', {root: path.join(__dirname, '../../dist')});
 });

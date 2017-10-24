@@ -18,6 +18,106 @@ if (password !== undefined) {
 let mongodb = require('mongodb');
 let MongoClient = mongodb.MongoClient;
 
+// function thumbupVideo(videoId, userId) {
+//   MongoClient.connect(url, (err, db) => {
+//     try {
+//       if (err) {
+//         throw err;
+//       }
+//       let videosDB = db.collection('videos');
+
+//       videosDB.update({'_id': ObjectId(videoId), 'likeDetails.likeStatus.userId': userId}, {'videoDetails.likeStatus.userId': userId, 'videoDetails.likeStatus.liked': true, 'videoDetails.likeStatus.disliked': false}, (err, result) => {
+//         if (err) {
+//           console.log(err);
+//         }
+//         db.close();
+//       });
+//     } catch (e) {
+//       console.log(e.name + ':' + e.message);
+//     }
+//   });
+// }
+
+// function thumbdownVideo(videoId) {
+//   MongoClient.connect(url, (err, db) => {
+//     try {
+//       if (err) {
+//         throw err;
+//       }
+//       let videosDB = db.collection('videos');
+
+//       videosDB.update({'_id': ObjectId(videoId)}, {'$inc': {'videoDetails.dislikeNum': 1}}, (err, result) => {
+//         if (err) {
+//           console.log(err);
+//         }
+//         db.close();
+//       });
+//     } catch (e) {
+//       console.log(e.name + ':' + e.message);
+//     }
+//   });
+// }
+
+// function cancelthumbupVideo(videoId) {
+//   MongoClient.connect(url, (err, db) => {
+//     try {
+//       if (err) {
+//         throw err;
+//       }
+//       let videosDB = db.collection('videos');
+
+//       videosDB.update({'_id': ObjectId(videoId)}, {'$inc': {'videoDetails.likesNum': -1}}, (err, result) => {
+//         if (err) {
+//           console.log(err);
+//         }
+//         db.close();
+//       });
+//     } catch (e) {
+//       console.log(e.name + ':' + e.message);
+//     }
+//   });
+// }
+
+// function cancelthumbdownVideo(videoId) {
+//   MongoClient.connect(url, (err, db) => {
+//     try {
+//       if (err) {
+//         throw err;
+//       }
+//       let videosDB = db.collection('videos');
+
+//       videosDB.update({'_id': ObjectId(videoId)}, {'$inc': {'videoDetails.dislikeNum': -1}}, (err, result) => {
+//         if (err) {
+//           console.log(err);
+//         }
+//         db.close();
+//       });
+//     } catch (e) {
+//       console.log(e.name + ':' + e.message);
+//     }
+//   });
+// }
+
+function updateVideoInfo(videoInfos, videoId) {
+  MongoClient.connect(url, (err, db) => {
+    try {
+      if (err) {
+        throw err;
+      }
+      let videosDB = db.collection('videos');
+
+      videosDB.update({'_id': ObjectId(videoId)}, {'$set': videoInfos}, (err, result) => {
+        if (err) {
+          console.log(err);
+        }
+        db.close();
+      });
+    } catch (e) {
+      // console.log(e.name + ':' + e.message);
+    }
+  });
+}
+
 function findVideoInfo(videoId, callback) {
   MongoClient.connect(url, (err, db) => {
     try {
@@ -47,5 +147,12 @@ function findVideoInfo(videoId, callback) {
   });
 }
 
-module.exports = {findVideoInfo: findVideoInfo};
+module.exports = {
+  findVideoInfo: findVideoInfo,
+  // thumbupVideo: thumbupVideo,
+  // thumbdownVideo: thumbdownVideo,
+  // cancelthumbupVideo: cancelthumbupVideo,
+  // cancelthumbdownVideo: cancelthumbdownVideo,
+  updateVideoInfo: updateVideoInfo,
+};
 

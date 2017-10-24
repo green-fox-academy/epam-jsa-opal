@@ -11,7 +11,11 @@ $design-red: #d93738;
 video {
   border-radius: 3px;
 }
-
+.userimg-username {
+  display: flex;
+  width: 70%;
+  
+}
 .video-info {
   display: flex;
   justify-content: space-between;
@@ -60,10 +64,7 @@ video {
   color: #aaa;
 }
 
-.name-publishtime span:nth-child(2) {
-  color: #aaa;
-  font-size: .7em;
-}
+
 
 .user-info {
   align-items: center;
@@ -74,15 +75,24 @@ video {
   .userinfo-left {
     display: flex;
     justify-content: space-between;
-
-    img {
-      height: 70%;
-      width: 12%;
-    }
+    width: 40%;
+    max-width: 270px;
+    img{
+      width:40px;
+      height:40px;
+      max-width:100%;
+      max-height:100%;
+     }
 
     span {
       display: block;
+      font-size: 1.1em;
     }
+  }
+
+  .name-publishtime span:nth-child(2) {
+    color: #aaa;
+    font-size: .7em;
   }
 
   .subcribe-number {
