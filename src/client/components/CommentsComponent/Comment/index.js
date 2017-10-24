@@ -26,6 +26,7 @@ class Comment extends React.Component {
     const likeState = this.state.likeState;
 
     if (likeState.clickDislike) {
+      
       likeState.clickDislike = !likeState.clickDislike;
     } else {
       likeState.clickLike = !likeState.clickLike;

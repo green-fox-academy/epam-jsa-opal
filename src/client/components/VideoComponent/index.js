@@ -15,7 +15,7 @@ class VideoComponent extends React.Component {
     this.updateVideoInfos = this.updateVideoInfos.bind(this);
   }
   componentDidMount() {
-    this.fetchVideoInfos('59ed7f1f1707c6894c13e013', (result) => {
+    this.fetchVideoInfos('59eeffcf8587af5baccc4c68', (result) => {
       this.setState({videoInfos: result});
     });
   }

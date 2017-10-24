@@ -1,5 +1,4 @@
 'use strict';
-
 let mongodb = require('mongodb');
 let MongoClient = mongodb.MongoClient;
 let protocol = process.env.DB_PROTOCOL;
@@ -70,7 +69,7 @@ function pushIntoLikeStatusField(votetype,db,videosId,userId,VideoObject,res,com
   let tempArray = VideoObject.commentInfos[commentId-1].LikeStatus;
   if(votetype === 'likeenable'){
     let objInsert = {
-      "userId" : userId,
+      "userId" : userId.toString(),
       "liked" : true,
       "disliked" : false
     }
@@ -80,18 +79,32 @@ function pushIntoLikeStatusField(votetype,db,videosId,userId,VideoObject,res,com
   }
   else if(votetype === 'dislikeenable'){
     let objInsert = {
-      "userId" : userId,
+      "userId" : userId.toString(),
       "liked" : false,
       "disliked" : true
     }
-    tempArray.push(objInsert);
+    tempArray.push(objInsert);//tempArray is Likestatus array
     VideoObject.commentInfos[commentId-1].LikeStatus = tempArray;
     db.collection('videos').update({'videoId': videosId }, {$set: {'commentInfos':  VideoObject.commentInfos}} );
   }
-  else if(votetype === 'likediable'){
-
+  else if(votetype === 'likedisable'){
+    for(let i = 0 ; i < tempArray.length ; i++){
+      if(tempArray[i].userId === userId.toString()){
+        tempArray[i].liked = false;
+        break;
+      }
+    }
+    VideoObject.commentInfos[commentId-1].LikeStatus = tempArray;
+    db.collection('videos').update({'videoId': videosId }, {$set: {'commentInfos':  VideoObject.commentInfos}} );
   }else if(votetype === 'dislikedisable'){
-
+    for(let i = 0 ; i < tempArray.length ; i++){
+      if(tempArray[i].userId === userId.toString()){
+        tempArray[i].disliked = false;
+        break;
+      }
+    }
+    VideoObject.commentInfos[commentId-1].LikeStatus = tempArray;
+    db.collection('videos').update({'videoId': videosId }, {$set: {'commentInfos':  VideoObject.commentInfos}} );
   }
   let sendobj = CountLikeAndDislikedNumber(tempArray);
   res.setHeader('content-type', 'application/json');
@@ -99,15 +112,15 @@ function pushIntoLikeStatusField(votetype,db,videosId,userId,VideoObject,res,com
   db.close();
 }
 
-function enableOrDisable(db,videosId,userId,VideoObject,tempArray,liked,disliked){
-  let objInsert = {
-    "userId" : userId,
-    "liked" : true,
-    "disliked" : false
-  }
-  tempArray.push(objInsert);
-  VideoObject.commentInfos[commentId-1].LikeStatus = tempArray;
-  db.collection('videos').update({'videoId': videosId }, {$set: {'commentInfos':  VideoObject.commentInfos}} );
-}
+// function enableOrDisable(db,videosId,userId,VideoObject,tempArray,liked,disliked){
+//   let objInsert = {
+//     "userId" : userId,
+//     "liked" : true,
+//     "disliked" : false
+//   }
+//   tempArray.push(objInsert);
+//   VideoObject.commentInfos[commentId-1].LikeStatus = tempArray;
+//   db.collection('videos').update({'videoId': videosId }, {$set: {'commentInfos':  VideoObject.commentInfos}} );
+// }
 
 module.exports = {updateComments: update};
