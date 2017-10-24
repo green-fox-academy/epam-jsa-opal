@@ -19,15 +19,14 @@ class CommentsView extends React.Component {
         avatar={this.props.avatar}
       />
     ));
-    let posting = this.props.posting;
-    let loader = null;
 
-    if (posting) {
-      loader = <div className="loader"></div>;
-    }
     return (
       <div className="comments-lists">
-        {loader}
+        { this.props.posting ?
+          <div className="loader"></div>
+          :
+          null
+        }
         <InputComment
           clicked={this.state.clickComment}
           onClickCancel={this.onClickCancel}

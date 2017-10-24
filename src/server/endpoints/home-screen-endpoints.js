@@ -8,6 +8,27 @@ function getHomeInfos(req, res) {
       res.status(404).json({'error': 'not found'});
       return;
     }
+    videoInfos.commentInfos.forEach((comment) => {
+      let likeNums = 0;
+      let dislikeNums = 0;
+
+      if (comment.LikeStatus.length === 0) {
+        comment.likeNums = likeNums;
+        comment.dislikeNums = dislikeNums;
+      }
+      comment.LikeStatus.forEach((value, index) => {
+        if (value.liked) {
+          likeNums++;
+        }
+        if (value.disliked) {
+          dislikeNums++;
+        }
+        if (index >= comment.LikeStatus.length - 1) {
+          comment.likeNums = likeNums;
+          comment.dislikeNums = dislikeNums;
+        }
+      });
+    });
     res.status(200).json({
       // videoId should be same with _id, here just for testing
       // in your PC please change here

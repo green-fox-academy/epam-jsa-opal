@@ -22,31 +22,22 @@ const usersDb = require('./users-db');
 
 function findVideoInfo(videoId, callback) {
   MongoClient.connect(url, (err, db) => {
-    try {
-      if (err) {
-        throw err;
-      }
-      if (videoId.length !== 24) {
-        return callback([]);
-      }
-      let videosDB = db.collection('videos');
-
-      videosDB.findOne({'_id': ObjectId(videoId)}, (err, result) => {
-        if (err) {
-          console.log(err);
-        }
-        db.close();
-        if (result === null) {
-          return callback([]);
-        }
-        let videoInfos = result;
-
-        return callback(videoInfos);
-      });
-    } catch (e) {
-      console.log(e.name + ':' + e.message);
+    if (err) {
+      console.log(err.name + ':' + err.message);
       return callback(undefined);
     }
+    let videosDB = db.collection('videos');
+
+    videosDB.findOne({'_id': ObjectId(videoId)}, (err, result) => {
+      if (err) {
+        console.log(err);
+      }
+      db.close();
+      if (result === null) {
+        return callback([]);
+      }
+      return callback(result);
+    });
   });
 }
 
