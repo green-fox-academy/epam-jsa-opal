@@ -1,68 +1,54 @@
 import React from 'react';
 import './index.scss';
 import CommentsView from './CommentsView';
-import avatar from './assets/avatar.png';
 import userAvatar from './assets/Oval 4.png';
 
 class Comments extends React.Component {
   constructor(props) {
     super(props);
     this.addComment = this.addComment.bind(this);
-    this.state = {commentInfos: this.props.commentInfos};
+    this.state = {'posting': false};
   }
-  addComment(value) {
-    let commentInfos = this.state.commentInfos;
-    let inputValue = value;
-    let addCommentInfo = [
-      {
-        'avatar': userAvatar,
-        'username': 'zoe',
-        'commentContent': inputValue,
-        'likeNum': 1,
-        'clickedLike': false,
-        'clickedDislike': false,
-        'dislikeNum': 1,
-        'commentTime': new Date().toLocaleString(),
-        'commentId': commentInfos.length + 1,
-      },
-    ];
+  addComment(value, videoId) {
+    let statusCode;
 
-    commentInfos = commentInfos.concat(addCommentInfo);
-    this.setState({commentInfos: commentInfos});
+    this.setState({'posting': true});
+    fetch('/api/videos/' + videoId + '/comments/', {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': localStorage.getItem('token'),
+      },
+      body: JSON.stringify({'content': value}),
+    })
+      .then((response) => {
+        statusCode = response.status;
+        response.json();
+      })
+      .then((result) => {
+        if (statusCode === 200) {
+          this.fetchVideoInfos('59ed7f1f1707c6894c13e013', (videoInfos) => {
+            this.props.updateVideoInfos(videoInfos);
+            this.setState({'posting': false});
+          });
+        }
+      });
+  }
+  fetchVideoInfos(videoId, callback) {
+    fetch('/api/videos/' + videoId)
+      .then((response) => response.json())
+      .then((result) => callback(result));
   }
   render() {
     return (
-      <CommentsView commentInfos={this.state.commentInfos}
+      <CommentsView commentInfos={this.props.commentInfos}
         addComment={this.addComment}
         avatar={userAvatar}
+        videoId={this.props.videoId}
+        posting={this.state.posting}
       />
     );
   }
 }
-
-Comments.defaultProps = {
-  commentInfos: [
-    {
-      'avatar': avatar,
-      'username': 'zoe1',
-      'commentContent': 'oh!! i love this video amazing',
-      'likeNum': 123,
-      'clickedLike': true,
-      'clickedDislike': false,
-      'dislikeNum': 99,
-      'commentTime': '1 hrs ago',
-      'commentId': 1,
-    },
-    {
-      'avatar': avatar,
-      'username': 'zoe2',
-      'commentContent': 'oh!! i love this video amazing',
-      'likeNum': 123,
-      'dislikeNum': 99,
-      'commentTime': '2 hrs ago',
-      'commentId': 2,
-    },
-  ],
-};
 
 export default Comments;
