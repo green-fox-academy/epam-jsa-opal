@@ -12,6 +12,7 @@ class VideoComponent extends React.Component {
       'changedownColor': false,
       'videoInfos': {commentInfos: []},
     };
+    this.updateVideoInfos = this.updateVideoInfos.bind(this);
   }
   componentDidMount() {
     this.fetchVideoInfos('59ed7f1f1707c6894c13e013', (result) => {
@@ -34,6 +35,9 @@ class VideoComponent extends React.Component {
   }
   subscribe() {
 
+  }
+  updateVideoInfos(videoInfos) {
+    this.setState({videoInfos: videoInfos});
   }
   render() {
     return (
@@ -77,7 +81,8 @@ class VideoComponent extends React.Component {
           </div>
         </div>
         <Comments commentInfos={this.state.videoInfos.commentInfos}
-          videoId={this.state.videoInfos.videoId}/>
+          videoId={this.state.videoInfos.videoId}
+          updateVideoInfos={this.updateVideoInfos}/>
       </div>
     );
   }

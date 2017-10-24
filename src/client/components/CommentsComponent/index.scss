@@ -104,3 +104,22 @@
   background: #fff;
   display: flex;  
 }
+
+.comments-lists {
+  position: relative;
+  .loader {
+    border: 16px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 16px solid #d93738;
+    width: 100px;
+    height: 100px;
+    animation: spin 1.5s linear infinite;
+    position: absolute;
+    top: 65px;
+    left: calc(50% - 100px)
+  }
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+}

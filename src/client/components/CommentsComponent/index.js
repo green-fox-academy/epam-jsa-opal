@@ -7,31 +7,12 @@ class Comments extends React.Component {
   constructor(props) {
     super(props);
     this.addComment = this.addComment.bind(this);
-    this.state = {commentInfos: this.props.commentInfos};
-  }
-  componentWillReceiveProps(nextProps) {
-    this.state = {commentInfos: nextProps.commentInfos};
+    this.state = {'posting': false};
   }
   addComment(value, videoId) {
-    let commentInfos = this.state.commentInfos;
-    let oldCommentInfos = commentInfos;
     let statusCode;
-    let inputValue = value;
-    let addCommentInfo = [
-      {
-        'avatar': userAvatar,
-        'username': 'zoe',
-        'commentContent': inputValue,
-        'clickedLike': false,
-        'clickedDislike': false,
-        'LikeStatus': [],
-        'commentTime': Date.now(),
-        'commentId': commentInfos.length + 1,
-      },
-    ];
 
-    commentInfos = commentInfos.concat(addCommentInfo);
-    this.setState({commentInfos: commentInfos});
+    this.setState({'posting': true});
     fetch('/api/videos/' + videoId + '/comments/', {
       method: 'post',
       headers: {
@@ -45,17 +26,26 @@ class Comments extends React.Component {
         response.json();
       })
       .then((result) => {
-        if (statusCode !== 200) {
-          this.setState({commentInfos: oldCommentInfos});
+        if (statusCode === 200) {
+          this.fetchVideoInfos('59ed7f1f1707c6894c13e013', (videoInfos) => {
+            this.props.updateVideoInfos(videoInfos);
+            this.setState({'posting': false});
+          });
         }
       });
   }
+  fetchVideoInfos(videoId, callback) {
+    fetch('/api/videos/' + videoId)
+      .then((response) => response.json())
+      .then((result) => callback(result));
+  }
   render() {
     return (
-      <CommentsView commentInfos={this.state.commentInfos}
+      <CommentsView commentInfos={this.props.commentInfos}
         addComment={this.addComment}
         avatar={userAvatar}
         videoId={this.props.videoId}
+        posting={this.state.posting}
       />
     );
   }
