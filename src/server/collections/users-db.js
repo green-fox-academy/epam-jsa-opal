@@ -136,7 +136,7 @@ function findUserInfo(email, callback) {
   });
 }
 
-// find userinfo throw userId
+// find userinfo through userId
 function findUserInfoById(userId, callback) {
   MongoClient.connect(url, (err, db) => {
     try {
