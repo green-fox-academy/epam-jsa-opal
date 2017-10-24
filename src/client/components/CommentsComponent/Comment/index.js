@@ -58,7 +58,7 @@ class Comment extends React.Component {
             }
             onClick={this.onClickLikeButton}>
           </button>
-          <span className="like-num">{this.props.commentInfo.likeNum}</span>
+          <span className="like-num">{this.props.commentInfo.likeNums}</span>
           <button
             className={this.state.likeState.clickDislike ?
               'clicked dislike-button' :
@@ -67,7 +67,7 @@ class Comment extends React.Component {
             onClick={this.onClickDislikeButton}>
           </button>
           <span className="dislike-num">
-            {this.props.commentInfo.dislikeNum}
+            {this.props.commentInfo.dislikeNums}
           </span>
           <button className="input-comment"
             onClick={this.onClickComment}>Reply</button>

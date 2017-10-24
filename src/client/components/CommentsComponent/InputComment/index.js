@@ -40,7 +40,7 @@ class InputComment extends React.Component {
             className={this.state.empty ? '' : 'active'}
             disabled={this.state.empty ? true : false}
             onClick={() => {
-              this.props.addComment(this.state.value);
+              this.props.addComment(this.state.value, this.props.videoId);
               this.setState({value: ''});
               this.setState({empty: true});
             }}
