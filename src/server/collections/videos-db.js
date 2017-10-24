@@ -50,62 +50,53 @@ function findVideoInfo(videoId, callback) {
   });
 }
 
-function addCommentBuilder(userInfo, videoId, content, callback) {
+function addCommentToVideo(userInfo, videoId, content, callback) {
   MongoClient.connect(url, (err, db) => {
-    try {
-      if (err) {
-        throw err;
-      }
-      if (videoId.length !== 24) {
-        return callback([]);
-      }
-      let videosDB = db.collection('videos');
-
-      videosDB.findOne({'_id': ObjectId(videoId)}, (err, videoInfo) => {
-        if (err) {
-          console.log(err);
-        }
-        let commentId = videoInfo
-          .commentInfos[videoInfo.commentInfos.length - 1].commentId + 1;
-        let obj = {
-          'username': userInfo.username,
-          'userId': userInfo._id,
-          'avatar': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLDxSdH8lLX-y9TJzLDWZPvoLexXrE8Ft5EAAWaZNyQHVM-yh-3A',
-          'commentTime': new Date().getTime(),
-          'likeNum': 0,
-          'dislikeNum': 0,
-          'clickedLike': false,
-          'clickedDislike': false,
-          'commentContent': content,
-          'commentId': commentId,
-        };
-
-        videosDB.update({'_id': ObjectId(videoId)},
-          {$push: {'commentInfos': obj}},
-          (err, result) => {
-            if (err) {
-              console.log(err);
-            }
-            db.close();
-            if (result === null) {
-              return callback([]);
-            }
-            let insertInfos = result;
-
-            return callback(insertInfos);
-          });
-      });
-    } catch (e) {
-      console.log(e.name + ':' + e.message);
+    if (err) {
+      console.log(err.name + ':' + err.message);
       return callback(undefined);
     }
+    if (videoId.length !== 24) {
+      return callback([]);
+    }
+    let videosDB = db.collection('videos');
+
+    videosDB.findOne({'_id': ObjectId(videoId)}, (err, videoInfo) => {
+      if (err) {
+        console.log(err);
+      }
+      let commentId = videoInfo
+        .commentInfos[videoInfo.commentInfos.length - 1].commentId + 1;
+      let obj = {
+        'username': userInfo.username,
+        'userId': userInfo._id,
+        'avatar': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLDxSdH8lLX-y9TJzLDWZPvoLexXrE8Ft5EAAWaZNyQHVM-yh-3A',
+        'commentTime': Date.now(),
+        'LikeStatus': [],
+        'commentContent': content,
+        'commentId': commentId,
+      };
+
+      videosDB.update({'_id': ObjectId(videoId)},
+        {$push: {'commentInfos': obj}},
+        (err, result) => {
+          if (err) {
+            console.log(err);
+          }
+          db.close();
+          if (result === null) {
+            return callback([]);
+          }
+          return callback(result);
+        });
+    });
   });
 }
 
 function addComment(videoId, token, content, callback) {
   tokensDb.getToken(token, (tokenInfo) => {
     usersDb.findUserInfoById(tokenInfo.userId, (userInfo) => {
-      addCommentBuilder(userInfo, videoId, content, callback);
+      addCommentToVideo(userInfo, videoId, content, callback);
     });
   });
 }
