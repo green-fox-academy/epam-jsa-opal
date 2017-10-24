@@ -56,6 +56,7 @@ class Comments extends React.Component {
       <CommentsView commentInfos={this.state.commentInfos}
         addComment={this.addComment}
         avatar={userAvatar}
+        videoId={this.props.videoId}
       />
     );
   }

@@ -76,7 +76,8 @@ class VideoComponent extends React.Component {
             </div>
           </div>
         </div>
-        <Comments commentInfos={this.state.videoInfos.commentInfos}/>
+        <Comments commentInfos={this.state.videoInfos.commentInfos}
+          videoId={this.state.videoInfos.videoId}/>
       </div>
     );
   }

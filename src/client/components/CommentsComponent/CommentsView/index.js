@@ -28,6 +28,7 @@ class CommentsView extends React.Component {
           isComment={true}
           addComment={this.props.addComment}
           avatar={this.props.avatar}
+          videoId={this.props.videoId}
         />
         <ul className="comments-ul">
           {lists}
