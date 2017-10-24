@@ -8,6 +8,27 @@ function getHomeInfos(req, res) {
       res.status(404).json({'error': 'not found'});
       return;
     }
+    videoInfos.commentInfos.forEach((comment) => {
+      let likeNums = 0;
+      let dislikeNums = 0;
+
+      if (comment.LikeStatus.length === 0) {
+        comment.likeNums = likeNums;
+        comment.dislikeNums = dislikeNums;
+      }
+      comment.LikeStatus.forEach((value, index) => {
+        if (value.liked) {
+          likeNums++;
+        }
+        if (value.disliked) {
+          dislikeNums++;
+        }
+        if (index >= comment.LikeStatus.length - 1) {
+          comment.likeNums = likeNums;
+          comment.dislikeNums = dislikeNums;
+        }
+      });
+    });
     res.status(200).json({
       // videoId should be same with _id, here just for testing
       // in your PC please change here
@@ -28,35 +49,33 @@ function getHomeInfos(req, res) {
         'avatar': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLDxSdH8lLX-y9TJzLDWZPvoLexXrE8Ft5EAAWaZNyQHVM-yh-3A',
         'subscribers': 1000,
       },
-      'commentInfos': [
-        {
-          'username': 'zoe',
-          'userId': '59e02b5d120d8b14a06816b6',
-          'avatar': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLDxSdH8lLX-y9TJzLDWZPvoLexXrE8Ft5EAAWaZNyQHVM-yh-3A',
-          'commentTime': 1508743106105,
-          'likeNum': 100,
-          'dislikeNum': 90,
-          'clickedLike': true,
-          'clickedDislike': false,
-          'commentContent': 'hahaha i like it',
-          'commentId': 1,
-        },
-        {
-          'username': 'zoe-2',
-          'userId': '59e5b7c114d5a536988a0bb1',
-          'avatar': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLDxSdH8lLX-y9TJzLDWZPvoLexXrE8Ft5EAAWaZNyQHVM-yh-3A',
-          'commentTime': 1508743106305,
-          'likeNum': 100,
-          'dislikeNum': 90,
-          'clickedLike': true,
-          'clickedDislike': false,
-          'commentContent': 'hahaha i like it',
-          'commentId': 2,
-        },
-      ],
+      'commentInfos': videoInfos.commentInfos,
     });
   });
 }
 
-module.exports = {getHomeInfos: getHomeInfos};
+function postComment(req, res) {
+  if (req.get('Authorization') === undefined) {
+    res.status(400).json({'error': 'unauthorized'});
+    return;
+  } else if (req.params.videoId.length !== 24) {
+    res.status(400).json({'error': 'bad request'});
+    return;
+  }
+
+  videosDb.addComment(req.params.videoId,
+    req.get('Authorization'),
+    req.body.content,
+    (insertInfos) => {
+      if (insertInfos === undefined) {
+        res.status(500).json({'error': 'something went wrong'});
+      }
+      res.status(200).json({'success': 'insert success'});
+    });
+}
+
+module.exports = {
+  getHomeInfos: getHomeInfos,
+  postComment: postComment,
+};
 

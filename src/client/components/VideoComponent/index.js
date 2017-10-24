@@ -10,7 +10,19 @@ class VideoComponent extends React.Component {
     this.state = {
       'changeupColor': false,
       'changedownColor': false,
+      'videoInfos': {commentInfos: []},
     };
+    this.updateVideoInfos = this.updateVideoInfos.bind(this);
+  }
+  componentDidMount() {
+    this.fetchVideoInfos('59ed7f1f1707c6894c13e013', (result) => {
+      this.setState({videoInfos: result});
+    });
+  }
+  fetchVideoInfos(videoId, callback) {
+    fetch('/api/videos/' + videoId)
+      .then((response) => response.json())
+      .then((result) => callback(result));
   }
   handleThumbup() {
     this.setState({'changeupColor': !this.state.changeupColor});
@@ -23,6 +35,9 @@ class VideoComponent extends React.Component {
   }
   subscribe() {
 
+  }
+  updateVideoInfos(videoInfos) {
+    this.setState({videoInfos: videoInfos});
   }
   render() {
     return (
@@ -65,7 +80,9 @@ class VideoComponent extends React.Component {
             </div>
           </div>
         </div>
-        <Comments />
+        <Comments commentInfos={this.state.videoInfos.commentInfos}
+          videoId={this.state.videoInfos.videoId}
+          updateVideoInfos={this.updateVideoInfos}/>
       </div>
     );
   }
