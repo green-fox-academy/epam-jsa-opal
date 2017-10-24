@@ -50,56 +50,62 @@ function findVideoInfo(videoId, callback) {
   });
 }
 
-function addComment(videoId, token, content, callback) {
-  tokensDb.getToken(token, (tokenInfo) => {
-    usersDb.findUserInfoById(tokenInfo.userId, (userInfo) => {
-      MongoClient.connect(url, (err, db) => {
-        try {
-          if (err) {
-            throw err;
-          }
-          if (videoId.length !== 24) {
-            return callback([]);
-          }
-          let videosDB = db.collection('videos');
+function addCommentBuilder(userInfo, videoId, content, callback) {
+  MongoClient.connect(url, (err, db) => {
+    try {
+      if (err) {
+        throw err;
+      }
+      if (videoId.length !== 24) {
+        return callback([]);
+      }
+      let videosDB = db.collection('videos');
 
-          videosDB.findOne({'_id': ObjectId(videoId)}, (err, videoInfo) => {
+      videosDB.findOne({'_id': ObjectId(videoId)}, (err, videoInfo) => {
+        if (err) {
+          console.log(err);
+        }
+        let commentId = videoInfo
+          .commentInfos[videoInfo.commentInfos.length - 1].commentId + 1;
+        let obj = {
+          'username': userInfo.username,
+          'userId': userInfo._id,
+          'avatar': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLDxSdH8lLX-y9TJzLDWZPvoLexXrE8Ft5EAAWaZNyQHVM-yh-3A',
+          'commentTime': new Date().getTime(),
+          'likeNum': 0,
+          'dislikeNum': 0,
+          'clickedLike': false,
+          'clickedDislike': false,
+          'commentContent': content,
+          'commentId': commentId,
+        };
+
+        videosDB.update({'_id': ObjectId(videoId)},
+          {$push: {'commentInfos': obj}},
+          (err, result) => {
             if (err) {
               console.log(err);
             }
-            let commentId = videoInfo.commentInfos[videoInfo.commentInfos.length - 1].commentId + 1;
-            let obj = {
-              'username': userInfo.username,
-              'userId': userInfo._id,
-              'avatar': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLDxSdH8lLX-y9TJzLDWZPvoLexXrE8Ft5EAAWaZNyQHVM-yh-3A',
-              'commentTime': new Date().getTime(),
-              'likeNum': 0,
-              'dislikeNum': 0,
-              'clickedLike': false,
-              'clickedDislike': false,
-              'commentContent': content,
-              'commentId': commentId,
-            };
+            db.close();
+            if (result === null) {
+              return callback([]);
+            }
+            let insertInfos = result;
 
-            videosDB.update({'_id': ObjectId(videoId)}, {$push: {'commentInfos': obj}},
-              (err, result) => {
-                if (err) {
-                  console.log(err);
-                }
-                db.close();
-                if (result === null) {
-                  return callback([]);
-                }
-                let insertInfos = result;
-
-                return callback(insertInfos);
-              });
+            return callback(insertInfos);
           });
-        } catch (e) {
-          console.log(e.name + ':' + e.message);
-          return callback(undefined);
-        }
       });
+    } catch (e) {
+      console.log(e.name + ':' + e.message);
+      return callback(undefined);
+    }
+  });
+}
+
+function addComment(videoId, token, content, callback) {
+  tokensDb.getToken(token, (tokenInfo) => {
+    usersDb.findUserInfoById(tokenInfo.userId, (userInfo) => {
+      addCommentBuilder(userInfo, videoId, content, callback);
     });
   });
 }
