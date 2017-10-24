@@ -43,6 +43,17 @@ class Comment extends React.Component {
     this.setState({likeState: likeState});
   }
   render() {
+    let likeNum = 0;
+    let disLikeNum = 0;
+
+    this.props.commentInfo.LikeStatus.forEach(function(value) {
+      if (value.liked) {
+        likeNum++;
+      }
+      if (value.disliked) {
+        disLikeNum++;
+      }
+    }, this);
     return (
       <div className="comment">
         <img src={this.props.commentInfo.avatar} alt=""/>
@@ -58,7 +69,7 @@ class Comment extends React.Component {
             }
             onClick={this.onClickLikeButton}>
           </button>
-          <span className="like-num">{this.props.commentInfo.likeNum}</span>
+          <span className="like-num">{likeNum}</span>
           <button
             className={this.state.likeState.clickDislike ?
               'clicked dislike-button' :
@@ -67,7 +78,7 @@ class Comment extends React.Component {
             onClick={this.onClickDislikeButton}>
           </button>
           <span className="dislike-num">
-            {this.props.commentInfo.dislikeNum}
+            {disLikeNum}
           </span>
           <button className="input-comment"
             onClick={this.onClickComment}>Reply</button>

@@ -22,11 +22,10 @@ class Comments extends React.Component {
         'avatar': userAvatar,
         'username': 'zoe',
         'commentContent': inputValue,
-        'likeNum': 1,
         'clickedLike': false,
         'clickedDislike': false,
-        'dislikeNum': 1,
-        'commentTime': new Date().toLocaleString(),
+        'LikeStatus': [],
+        'commentTime': Date.now(),
         'commentId': commentInfos.length + 1,
       },
     ];
