@@ -56,14 +56,12 @@ function addCommentToVideo(userInfo, videoId, content, callback) {
       console.log(err.name + ':' + err.message);
       return callback(undefined);
     }
-    if (videoId.length !== 24) {
-      return callback([]);
-    }
     let videosDB = db.collection('videos');
 
     videosDB.findOne({'_id': ObjectId(videoId)}, (err, videoInfo) => {
       if (err) {
         console.log(err);
+        return callback(undefined);
       }
       let commentId = videoInfo
         .commentInfos[videoInfo.commentInfos.length - 1].commentId + 1;

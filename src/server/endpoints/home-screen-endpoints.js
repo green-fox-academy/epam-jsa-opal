@@ -34,10 +34,21 @@ function getHomeInfos(req, res) {
 }
 
 function postComment(req, res) {
+  if (req.get('Authorization') === undefined) {
+    res.status(400).json({'error': 'unauthorized'});
+    return;
+  } else if (req.params.videoId.length !== 24) {
+    res.status(400).json({'error': 'bad request'});
+    return;
+  }
+
   videosDb.addComment(req.params.videoId,
     req.get('Authorization'),
     req.body.content,
     (insertInfos) => {
+      if (insertInfos === undefined) {
+        res.status(500).json({'error': 'something went wrong'});
+      }
       res.status(200).json({'success': 'insert success'});
     });
 }
