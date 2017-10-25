@@ -90,8 +90,53 @@ function addComment(videoId, token, content, callback) {
   });
 }
 
+function insertVideoToDatabase(userInfo, videoInfos, token, callback) {
+  MongoClient.connect(url, (err, db) => {
+    if (err) {
+      console.log(err.name + ':' + err.message);
+      return callback(undefined);
+    }
+    let videosDB = db.collection('videos');
+    let uploadVideoInfos = {
+      'videoUrl': videoInfos.videoUrl,
+      'videoId': null,
+      'videoDetails': {
+        'title': videoInfos.videoTitle,
+        'views': 0,
+        'LikeStatus': [],
+        'publishDate': Date.now(),
+        'time': '5:00',
+        'preview': videoInfos.preview,
+      },
+      'uploader': {
+        'name': userInfo.username,
+        'userId': userInfo._id,
+        'avatar': userInfo.avatar,
+        'subscribers': userInfo.subscribers,
+      },
+      'commentInfos': [],
+    };
+
+    videosDB.insertOne(uploadVideoInfos, (err) => {
+      if (err) {
+        return callback(undefined);
+      }
+      return callback('success');
+    });
+  });
+}
+
+function addVideo(videoInfos, token, callback) {
+  tokensDb.getToken(token, (tokenInfo) => {
+    usersDb.findUserInfoById(tokenInfo.userId, (userInfo) => {
+      insertVideoToDatabase(userInfo, videoInfos, token, callback);
+    });
+  });
+}
+
 module.exports = {
   findVideoInfo: findVideoInfo,
   addComment: addComment,
+  addVideo: addVideo,
 };
 

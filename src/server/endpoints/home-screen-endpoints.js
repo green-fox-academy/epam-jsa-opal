@@ -74,8 +74,23 @@ function postComment(req, res) {
     });
 }
 
+function uploadVideo(req, res) {
+  if (req.get('Authorization') === undefined) {
+    res.status(400).json({'error': 'unauthorized'});
+    return;
+  }
+  videosDb.addVideo({videoUrl: req.body.url, preview: req.body.preview, videoTitle: req.body.title},
+    req.get('Authorization'), (uploadVideoMessage) => {
+      if (uploadVideoMessage === undefined) {
+        res.status(500).json({'error': 'something went wrong'});
+      }
+      res.status(200).json({'success': 'upload success'});
+    });
+}
+
 module.exports = {
   getHomeInfos: getHomeInfos,
   postComment: postComment,
+  uploadVideo: uploadVideo,
 };
 
