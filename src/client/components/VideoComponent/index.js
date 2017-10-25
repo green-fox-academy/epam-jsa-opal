@@ -15,12 +15,14 @@ class VideoComponent extends React.Component {
     this.updateVideoInfos = this.updateVideoInfos.bind(this);
   }
   componentDidMount() {
-    this.fetchVideoInfos('59eeffcf8587af5baccc4c68', (result) => {
+    this.fetchVideoInfos('59f01e196151e77ba4235329', (result) => {
       this.setState({videoInfos: result});
     });
   }
   fetchVideoInfos(videoId, callback) {
-    fetch('/api/videos/' + videoId)
+    fetch('/api/videos/' + videoId, {
+      headers: {'Authorization': localStorage.getItem('token')},
+    })
       .then((response) => response.json())
       .then((result) => callback(result));
   }

@@ -27,7 +27,7 @@ class Comments extends React.Component {
       })
       .then((result) => {
         if (statusCode === 200) {
-          this.fetchVideoInfos('59ed7f1f1707c6894c13e013', (videoInfos) => {
+          this.fetchVideoInfos('59f01e196151e77ba4235329', (videoInfos) => {
             this.props.updateVideoInfos(videoInfos);
             this.setState({'posting': false});
           });

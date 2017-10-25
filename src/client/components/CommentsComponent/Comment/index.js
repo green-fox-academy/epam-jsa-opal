@@ -10,8 +10,9 @@ class Comment extends React.Component {
     this.onClickDislikeButton = this.onClickDislikeButton.bind(this);
     this.state = {
       likeState: {
-        clickLike: this.props.commentInfo.clickedLike,
-        clickDislike: this.props.commentInfo.clickedDislike,
+        LikeStatus: this.props.commentInfo.LikeStatus,
+        clickLike: this.props.commentInfo.likestatus,
+        clickDislike: this.props.commentInfo.dislikestatus,
       },
       clickComment: false,
     };
@@ -26,7 +27,19 @@ class Comment extends React.Component {
     const likeState = this.state.likeState;
 
     if (likeState.clickDislike) {
-      
+      console.log('/api/'+this.props.videoId+'/'+this.props.commentId+'/likeenable');
+      fetch('/api/'+this.props.videoId+'/'+this.props.commentId+'/likeenable',{
+        'method': 'put',
+         headers: {'Authorization': localStorage.getItem('token')},
+      }).then(function(result){ 
+        return result;
+      }).then(function(obj){
+        fetch('/api'+ '59f01e196151e77ba4235329').then(function(resultFetch){
+          return resultFetch.json();
+        }).then(function(objFetch){
+          this.props.updateVideoInfos(objFetch);
+        })
+      });
       likeState.clickDislike = !likeState.clickDislike;
     } else {
       likeState.clickLike = !likeState.clickLike;
@@ -45,7 +58,7 @@ class Comment extends React.Component {
   }
   render() {
     return (
-      <div className="comment">
+      <div className="comment" >
         <img src={this.props.commentInfo.avatar} alt=""/>
         <div className="comment-container">
           <p className="username">{this.props.commentInfo.username}</p>
