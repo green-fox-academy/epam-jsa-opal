@@ -58,7 +58,7 @@ class VideoComponent extends React.Component {
               <img className="user-img" src={this.props.userImg}></img>
               <div className="name-publishtime">
                 <span className="user-name">{this.props.username}</span>
-                <span>{this.props.publishdate}</span>
+                <span>Published on {new Date(this.props.publishdate).toLocaleDateString()}</span>
               </div>
               <div className="subcribe-number">
                 <button className="subscribe" onClick={this.subscribe.bind(this)}>
@@ -92,7 +92,7 @@ VideoComponent.defaultProps = {
   videoname: 'Midnight Starr - Slow Jam',
   viewnum: '4,250,633',
   username: 'Chill boy',
-  publishdate: 'Published on Jun 22,2008',
+  publishdate: 1508842383055,
   subscribenum: '3.8k',
   likenum: '5k+',
   userImg: userImg,
