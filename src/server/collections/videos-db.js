@@ -117,11 +117,19 @@ function insertVideoToDatabase(userInfo, videoInfos, token, callback) {
       'commentInfos': [],
     };
 
-    videosDB.insertOne(uploadVideoInfos, (err) => {
+    videosDB.insertOne(uploadVideoInfos, (err, result) => {
       if (err) {
         return callback(undefined);
       }
-      return callback('success');
+      videosDB.update(
+        {_id: result.ops[0]._id},
+        {$set: {'videoId': result.ops[0]._id.toString()}}, (err) => {
+          if (err) {
+            return callback(undefined);
+          }
+          return callback('success');
+        }
+      );
     });
   });
 }
