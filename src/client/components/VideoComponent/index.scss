@@ -168,3 +168,11 @@ video {
     height: 90%;
   }
 }
+
+.like-num,
+.dislike-num {
+  visibility: hidden;
+}
+.clicked span {
+  visibility: visible;
+}

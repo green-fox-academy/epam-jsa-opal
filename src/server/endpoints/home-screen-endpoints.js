@@ -1,6 +1,7 @@
 'use strict';
 
 const videosDb = require('../collections/videos-db');
+const tokensDb = require('../collections/tokens-db');
 
 function getHomeInfos(req, res) {
   videosDb.findVideoInfo(req.params.videoId, (videoInfos) => {
@@ -8,6 +9,59 @@ function getHomeInfos(req, res) {
       res.status(404).json({'error': 'not found'});
       return;
     }
+    let videoLikeNums = 0;
+    let videoDislikeNums = 0;
+    let token = req.get('Authorization');
+    let userId;
+
+    tokensDb.getToken(token, (userInfos) => {
+      userId = userInfos.userId;
+      videoInfos.videoDetails.clickedLike = false;
+      videoInfos.videoDetails.clickedDislike = false;
+
+      videoInfos.videoDetails.LikeStatus.forEach((user) => {
+        if (user.userId.toString() === userId.toString() && user.liked === true) {
+          videoInfos.videoDetails.clickedLike = true;
+        }
+        if (user.userId.toString() === userId.toString() && user.disliked === true) {
+          videoInfos.videoDetails.clickedDislike = true;
+        }
+      });
+
+      res.status(200).json({
+        // videoId should be same with _id, here just for testing
+        // in your PC please change here
+        'videoId': '59eecd63abb2117ba6f42a15',
+        'videoUrl': 'http://nettuts.s3.amazonaws.com/763_sammyJSIntro/trailer_test.mp4',
+        'videoDetails': videoInfos.videoDetails,
+
+        'uploader': {
+          'name': 'uploader name',
+          'userId': '59e02b5d120d8b14a06816b6',
+          'avatar': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLDxSdH8lLX-y9TJzLDWZPvoLexXrE8Ft5EAAWaZNyQHVM-yh-3A',
+          'subscribers': 1000,
+        },
+        'commentInfos': videoInfos.commentInfos,
+      });
+    });
+
+    videoInfos.videoDetails.LikeStatus.forEach((videoLikeStatus, index) => {
+      if (videoInfos.videoDetails.LikeStatus === 0) {
+        videoInfos.videoDetails.videoLikeNums = videoLikeNums;
+        videoInfos.videoDetails.videoDislikeNums = videoDislikeNums;
+      }
+      if (videoLikeStatus.liked) {
+        videoLikeNums++;
+      }
+      if (videoLikeStatus.disliked) {
+        videoDislikeNums++;
+      }
+      if (index >= videoInfos.videoDetails.LikeStatus.length - 1) {
+        videoInfos.videoDetails.videoLikeNums = videoLikeNums;
+        videoInfos.videoDetails.videoDislikeNums = videoDislikeNums;
+      }
+    });
+
     videoInfos.commentInfos.forEach((comment) => {
       let likeNums = 0;
       let dislikeNums = 0;
@@ -28,28 +82,6 @@ function getHomeInfos(req, res) {
           comment.dislikeNums = dislikeNums;
         }
       });
-    });
-    res.status(200).json({
-      // videoId should be same with _id, here just for testing
-      // in your PC please change here
-      'videoId': '59ed7f1f1707c6894c13e013',
-      'videoUrl': 'http://nettuts.s3.amazonaws.com/763_sammyJSIntro/trailer_test.mp4',
-      'videoDetails': {
-        'title': 'test video',
-        'views': '1',
-        'likesNum': 100,
-        'dislikeNum': 90,
-        'clickedLike': false,
-        'clickedDislike': false,
-        'publishDate': 1508743106405,
-      },
-      'uploader': {
-        'name': 'uploader name',
-        'userId': '59e02b5d120d8b14a06816b6',
-        'avatar': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLDxSdH8lLX-y9TJzLDWZPvoLexXrE8Ft5EAAWaZNyQHVM-yh-3A',
-        'subscribers': 1000,
-      },
-      'commentInfos': videoInfos.commentInfos,
     });
   });
 }
