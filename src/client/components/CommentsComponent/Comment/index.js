@@ -28,8 +28,6 @@ class Comment extends React.Component {
   onClickLikeButton() {
     //click like button
     const likeState = this.state.likeState;
-    console.log('/api/videos/'+ this.props.objectId+'-1-1-1-fetch date');
-
     if (likeState.clickDislike) {
       fetch('/api/'+this.props.videoId+'/'+this.props.commentId+'/dislikedisable',{
         'method': 'put',
@@ -45,7 +43,6 @@ class Comment extends React.Component {
           'method': 'put',
            headers: {'Authorization': localStorage.getItem('token')},
         }).then((response)=>{
-          console.log('fired')
           let newNums = this.state.likeNums+1;
           this.setState({likeNums: newNums});
         })

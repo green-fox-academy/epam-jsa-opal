@@ -23,8 +23,6 @@ class CommentsView extends React.Component {
         avatar={this.props.avatar}
       />
     ));
-    console.log("In the comment view"+this.props.videoId);
-
     return (
       <div className="comments-lists">
         { this.props.posting ?
