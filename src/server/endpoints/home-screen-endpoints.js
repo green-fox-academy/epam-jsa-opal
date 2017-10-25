@@ -9,6 +9,7 @@ let name = process.env.DB_NAME;
 let username = process.env.Username;
 let password = process.env.Password;
 let url;
+
 if (password !== undefined) {
   url = protocol + '://' + username + ':' + password + '@' + host + ':' + port + '/' + name;
 } else {
@@ -44,39 +45,38 @@ function getHomeInfos(req, res) {
         }
       });
     });
-    let token = req.get('Authorization');//means when fetch need add token to header.
-    if(token === undefined){
-      res.status(404).send({'error':'Not login sorry!'});
+    let token = req.get('Authorization');
+
+    if (token === undefined) {
+      res.status(404).send({'error': 'Not login sorry!'});
       return;
     }
-    let likeArray = videoInfos.commentInfos.LikeStatus;
     MongoClient.connect(url, (err, db) => {
-      db.collection('tokenDescriptors').find({'token' : token}).toArray(function(err,items){
+      db.collection('tokenDescriptors').find({'token': token})
+      .toArray(function(err,items){
         if (err) {
           console.log('Unable to connect to the MongoDB server. Error:', err);
           res.status(404).send();
           db.close();
           return;
         }    
-        else {
-          if (items[0] === undefined) {
-            res.status(404).send();
-            return;
-          }
-          let userId = items[0].userId;
-          videoInfos.commentInfos.forEach((comment) => {
-            if (comment.LikeStatus.length === 0) {
-              comment.likestatus = false;
-              comment.dislikestatus = false;
-            }
-            comment.LikeStatus.forEach((value, index) => {
-              if (value.userId === userId.toString()) {
-                comment.likestatus = value.liked;
-                comment.dislikestatus = value.disliked;
-              }
-            });
-          });
+        if (items[0] === undefined) {
+          res.status(404).send();
+          return;
         }
+        let userId = items[0].userId;
+        videoInfos.commentInfos.forEach((comment) => {
+          if (comment.LikeStatus.length === 0) {
+            comment.likestatus = false;
+            comment.dislikestatus = false;
+          }
+          comment.LikeStatus.forEach((value, index) => {
+            if (value.userId === userId.toString()) {
+              comment.likestatus = value.liked;
+              comment.dislikestatus = value.disliked;
+            }
+          });
+        });
         res.status(200).json({
           // videoId should be same with _id, here just for testing
           // in your PC please change here

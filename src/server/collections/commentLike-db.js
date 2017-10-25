@@ -1,4 +1,5 @@
 'use strict';
+
 let mongodb = require('mongodb');
 let MongoClient = mongodb.MongoClient;
 let protocol = process.env.DB_PROTOCOL;
@@ -8,55 +9,58 @@ let name = process.env.DB_NAME;
 let username = process.env.Username;
 let password = process.env.Password;
 let url;
+
 if (password !== undefined) {
   url = protocol + '://' + username + ':' + password + '@' + host + ':' + port + '/' + name;
 } else {
   url = protocol + '://' + host + ':' + port + '/' + name;
 }
-function update(videosId,commentId,votetype,res,req) {
-  let number;
+function update(videosId, commentId, votetype, res, req) {
   let userId;
+
   MongoClient.connect(url, (err, db) => {
-    db.collection('videos').find({'videoId' :videosId}).toArray(function(err,items){   
+    db.collection('videos').find({'videoId': videosId})
+    .toArray(function(err,items){
       if (err) {
         console.log('Unable to connect to the MongoDB server. Error:', err);
         res.status(404).send();
         db.close();
-      }    
+      }
       let VideoObject = items[0];
       let token = req.get('Authorization');
-      db.collection('tokenDescriptors').find({'token' : token}).toArray(function(err,items){
+      db.collection('tokenDescriptors').find({'token': token})
+      .toArray(function(err,items){
         if (err) {
           console.log('Unable to connect to the MongoDB server. Error:', err);
           res.status(404).send();
           db.close();
           return;
         }    
-        if(items[0] === undefined){
+        if (items[0] === undefined) {
           console.log('Not login', err);
-          res.status(404).send({'error':'Not login sorry!'});
+          res.status(404).send({'error': 'Not login sorry!'});
           db.close();
           return;
         }
         else {
           userId = items[0].userId;
-          commentLikeCallHandler(votetype,db,videosId,userId,VideoObject,res,commentId);
+          commentLikeCallHandler(votetype, db, videosId, userId, VideoObject, res, commentId);
         }
       });
-    });  
+    });
   });
 }
 
-function CountLikeAndDislikedNumber(commentUserArray){
+function CountLikeAndDislikedNumber(commentUserArray) {
   let likednumber = 0;
   let dislikednumber = 0;
   commentUserArray.forEach(function(element) {
     if(element.liked === true){
       likednumber++;
-    }
+    };
     if(element.disliked=== true){
       dislikednumber++;
-    }
+    };
   });
   let result = {
     'likedNumber': likednumber,
@@ -65,7 +69,7 @@ function CountLikeAndDislikedNumber(commentUserArray){
   return result;
 }
 
-function commentLikeCallHandler(votetype,db,videosId,userId,VideoObject,res,commentId){
+function commentLikeCallHandler(votetype, db, videosId, userId, VideoObject, res, commentId) {
   let tempArray = VideoObject.commentInfos[commentId-1].LikeStatus;
   if(votetype === 'likeenable'){
     let whetherFind = false;
@@ -117,12 +121,12 @@ function commentLikeCallHandler(votetype,db,videosId,userId,VideoObject,res,comm
   db.close();
 }
 
-function updateCommentsInfo(VideoObject,commentId,tempArray,db,videosId){
+function updateCommentsInfo(VideoObject, commentId, tempArray, db, videosId) {
   VideoObject.commentInfos[commentId-1].LikeStatus = tempArray;
   db.collection('videos').update({'videoId': videosId }, {$set: {'commentInfos':  VideoObject.commentInfos}} );
 }
 
-function createObj(like,dislike,tempArray){
+function createObj(like, dislike, tempArray) {
   let objInsert = {
     "userId" : userId.toString(),
     "liked" : like,
