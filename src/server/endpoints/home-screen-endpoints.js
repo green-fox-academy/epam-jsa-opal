@@ -76,14 +76,13 @@ function postComment(req, res) {
 
 function getVideoInfos(req, res) {
   videosDb.getAllVideo((allVideos) => {
-    if (allVideos[0] === undefined) {
+    if (allVideos.length === 0) {
       res.status(404).json({'error': 'not found'});
       return;
     }
-    let obj = [];
 
-    allVideos.forEach((value, index) => {
-      obj[index] = {
+    res.status(200).json(allVideos.map((value) => (
+      {
         'videoId': value.videoId,
         'videoSrc': value.videoUrl,
         'previewSrc': value.videoDetails.preview,
@@ -91,9 +90,8 @@ function getVideoInfos(req, res) {
         'videoTime': value.videoDetails.time,
         'author': value.uploader.name,
         'viewNumber': value.videoDetails.views,
-      };
-    });
-    res.status(200).json(obj);
+      }
+    )));
   });
 }
 
