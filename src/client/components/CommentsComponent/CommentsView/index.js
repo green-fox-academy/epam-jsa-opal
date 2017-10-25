@@ -15,6 +15,7 @@ class CommentsView extends React.Component {
     let lists = this.props.commentInfos.map((value) => (
       <Comment
         videoId={this.props.videoId}
+        objectId={this.props.objectId}
         updateVideoInfos={this.props.updateVideoInfos}
         commentId={value.commentId}
         commentInfo={value}

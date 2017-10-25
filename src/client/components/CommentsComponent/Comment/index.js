@@ -15,6 +15,8 @@ class Comment extends React.Component {
         clickDislike: this.props.commentInfo.dislikestatus,
       },
       clickComment: false,
+      likeNums: this.props.commentInfo.likeNums,
+      dislikeNums: this.props.commentInfo.dislikeNums,
     };
   }
   onClickComment() {
@@ -24,24 +26,38 @@ class Comment extends React.Component {
     this.setState({clickComment: false});
   }
   onClickLikeButton() {
+    //click like button
     const likeState = this.state.likeState;
+    console.log('/api/videos/'+ this.props.objectId+'-1-1-1-fetch date');
 
     if (likeState.clickDislike) {
-      console.log('/api/'+this.props.videoId+'/'+this.props.commentId+'/likeenable');
-      fetch('/api/'+this.props.videoId+'/'+this.props.commentId+'/likeenable',{
+      fetch('/api/'+this.props.videoId+'/'+this.props.commentId+'/dislikedisable',{
         'method': 'put',
          headers: {'Authorization': localStorage.getItem('token')},
-      }).then(function(result){ 
-        return result;
-      }).then(function(obj){
-        fetch('/api'+ '59f01e196151e77ba4235329').then(function(resultFetch){
-          return resultFetch.json();
-        }).then(function(objFetch){
-          this.props.updateVideoInfos(objFetch);
-        })
-      });
+      }).then((response)=>{
+        let newNums = this.state.dislikeNums-1;
+        this.setState({dislikeNums: newNums});
+      })
       likeState.clickDislike = !likeState.clickDislike;
     } else {
+      if (likeState.clickLike === false) {
+        fetch('/api/'+this.props.videoId+'/'+this.props.commentId+'/likeenable',{
+          'method': 'put',
+           headers: {'Authorization': localStorage.getItem('token')},
+        }).then((response)=>{
+          console.log('fired')
+          let newNums = this.state.likeNums+1;
+          this.setState({likeNums: newNums});
+        })
+      }else{
+        fetch('/api/'+this.props.videoId+'/'+this.props.commentId+'/likedisable',{
+          'method': 'put',
+           headers: {'Authorization': localStorage.getItem('token')},
+        }).then((response)=>{
+          let newNums = this.state.likeNums-1;
+          this.setState({likeNums: newNums});
+        })
+      }
       likeState.clickLike = !likeState.clickLike;
     }
     this.setState({likeState: likeState});
@@ -50,12 +66,37 @@ class Comment extends React.Component {
     const likeState = this.state.likeState;
 
     if (likeState.clickLike) {
+      fetch('/api/'+this.props.videoId+'/'+this.props.commentId+'/likedisable',{
+        'method': 'put',
+         headers: {'Authorization': localStorage.getItem('token')},
+      }).then((response)=>{
+        let newNums = this.state.likeNums-1;
+        this.setState({likeNums: newNums});
+      })
       likeState.clickLike = !likeState.clickLike;
     } else {
+      if (likeState.clickDislike === false) {
+        fetch('/api/'+this.props.videoId+'/'+this.props.commentId+'/dislikeenable',{
+          'method': 'put',
+           headers: {'Authorization': localStorage.getItem('token')},
+        }).then((response)=>{
+          let newNums = this.state.dislikeNums+1;
+          this.setState({dislikeNums: newNums});
+        })
+      }else {
+        fetch('/api/'+this.props.videoId+'/'+this.props.commentId+'/dislikedisable',{
+          'method': 'put',
+           headers: {'Authorization': localStorage.getItem('token')},
+        }).then((response)=>{
+          let newNums = this.state.dislikeNums-1;
+          this.setState({dislikeNums: newNums});
+        })
+        console.log('111')
+      }
       likeState.clickDislike = !likeState.clickDislike;
-    }
-    this.setState({likeState: likeState});
+      this.setState({likeState: likeState});
   }
+}
   render() {
     return (
       <div className="comment" >
@@ -72,7 +113,7 @@ class Comment extends React.Component {
             }
             onClick={this.onClickLikeButton}>
           </button>
-          <span className="like-num">{this.props.commentInfo.likeNums}</span>
+          <span className="like-num">{this.state.likeNums}</span>
           <button
             className={this.state.likeState.clickDislike ?
               'clicked dislike-button' :
@@ -81,11 +122,11 @@ class Comment extends React.Component {
             onClick={this.onClickDislikeButton}>
           </button>
           <span className="dislike-num">
-            {this.props.commentInfo.dislikeNums}
+            {this.state.dislikeNums}
           </span>
           <button className="input-comment"
             onClick={this.onClickComment}>Reply</button>
-          <p className="comment-time">{this.props.commentInfo.commentTime}</p>
+          <p className="comment-time">{this.state.commentTime}</p>
           <button className="comment-setting"></button>
           <InputComment
             clicked={this.state.clickComment}

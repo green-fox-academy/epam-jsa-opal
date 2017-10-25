@@ -80,6 +80,7 @@ function getHomeInfos(req, res) {
         res.status(200).json({
           // videoId should be same with _id, here just for testing
           // in your PC please change here
+          '_id':videoInfos._id.toString(),
           'videoId': videoInfos.videoId,
           'videoUrl': videoInfos.videoUrl,
           'videoDetails': videoInfos.videoDetails,

@@ -27,7 +27,7 @@ class Comments extends React.Component {
       })
       .then((result) => {
         if (statusCode === 200) {
-          this.fetchVideoInfos('59f01e196151e77ba4235329', (videoInfos) => {
+          this.fetchVideoInfos('59f04d7d5d8c7686dea115b6', (videoInfos) => {
             this.props.updateVideoInfos(videoInfos);
             this.setState({'posting': false});
           });
@@ -42,7 +42,9 @@ class Comments extends React.Component {
   render() {
     return (
       <CommentsView commentInfos={this.props.commentInfos}
-        addComment={this.addComment}
+        addComment={this.addComment}  
+        updateVideoInfos={this.props.updateVideoInfos}     
+        objectId={this.props.objectId}
         avatar={userAvatar}
         videoId={this.props.videoId}
         posting={this.state.posting}
