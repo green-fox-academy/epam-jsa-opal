@@ -34,12 +34,12 @@ class SuggesstedVideos extends React.Component {
 SuggesstedVideos.defaultProps = {
   videoInfos: [
     {
+      'videoId': '001',
+      'previewSrc': noPreview,
       'title': 'video1',
+      'videoTime': '1:00',
       'author': 'author1',
       'viewNumber': 100,
-      'previewSrc': noPreview,
-      'videoTime': '1:00',
-      'videoId': '001',
     },
     {
       'title': 'video2',

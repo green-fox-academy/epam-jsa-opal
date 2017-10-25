@@ -74,8 +74,31 @@ function postComment(req, res) {
     });
 }
 
+function getVideoInfos(req, res) {
+  videosDb.getAllVideo((allVideos) => {
+    if (allVideos[0] === undefined) {
+      res.status(404).json({'error': 'not found'});
+      return;
+    }
+    let obj = [];
+
+    allVideos.forEach((value, index) => {
+      obj[index] = {
+        'videoId': value.videoId,
+        'previewSrc': value.videoDetails.preview,
+        'title': value.videoDetails.title,
+        'videoTime': value.videoDetails.time,
+        'author': value.uploader.name,
+        'viewNumber': value.videoDetails.views,
+      };
+    });
+    res.status(200).json(obj);
+  });
+}
+
 module.exports = {
   getHomeInfos: getHomeInfos,
   postComment: postComment,
+  getVideoInfos: getVideoInfos,
 };
 
