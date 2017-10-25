@@ -9,19 +9,24 @@ class VideoComponent extends React.Component {
     this.state = {
       'changeupColor': false,
       'changedownColor': false,
-      'videoInfos': {videoDetails: {}, uploader: {}},
+      'videoInfos': {videoDetails: {}, uploader: {}, commentInfos: []},
     };
+    this.updateVideoInfos = this.updateVideoInfos.bind(this);
   }
+
   componentDidMount() {
     this.fetchVideoInfos('59eecd63abb2117ba6f42a15', (result) => {
       this.setState({videoInfos: result});
+      this.setState({'changeupColor': result.videoDetails.clickedLike});
+      this.setState({'changedownColor': result.videoDetails.clickedDislike});
     });
   }
   fetchVideoInfos(videoId, callback) {
-    fetch('/api/videos/' + '59eecd63abb2117ba6f42a15')
+    fetch('/api/videos/' + videoId, {headers: {'Authorization': localStorage.getItem('token')}})
       .then((response) => response.json())
       .then((result) => callback(result));
   }
+
   handleThumbup() {
     this.setState({'changeupColor': !this.state.changeupColor});
     if (!this.state.changeupColor) {
@@ -30,16 +35,25 @@ class VideoComponent extends React.Component {
         headers: {'Authorization': localStorage.getItem('token')},
       });
     } else {
-      fetch('/api/videosthumb/59eecd63abb2117ba6f42a15/cancelThumbup', {method: 'put'});
+      fetch('/api/videosthumb/59eecd63abb2117ba6f42a15/cancelThumbup', {
+        method: 'put',
+        headers: {'Authorization': localStorage.getItem('token')},
+      });
     }
   }
 
   handleThumbdown() {
     this.setState({'changedownColor': !this.state.changedownColor});
     if (!this.state.changedownColor) {
-      fetch('/api/videosthumb/59eecd63abb2117ba6f42a15/thumbDown', {method: 'put'});
+      fetch('/api/videosthumb/59eecd63abb2117ba6f42a15/thumbDown', {
+        method: 'put',
+        headers: {'Authorization': localStorage.getItem('token')},
+      });
     } else {
-      fetch('/api/videosthumb/59eecd63abb2117ba6f42a15/cancelThumbdown', {method: 'put'});
+      fetch('/api/videosthumb/59eecd63abb2117ba6f42a15/cancelThumbdown', {
+        method: 'put',
+        headers: {'Authorization': localStorage.getItem('token')},
+      });
     }
   }
   share() {
@@ -48,6 +62,10 @@ class VideoComponent extends React.Component {
   subscribe() {
 
   }
+  updateVideoInfos(videoInfos) {
+    this.setState({videoInfos: videoInfos});
+  }
+
   render() {
     return (
       <div className="video-component">
@@ -79,19 +97,21 @@ class VideoComponent extends React.Component {
               </div>
             </div>
             <div className="thumb">
-              <button className="thumb-up" onClick={this.handleThumbup.bind(this)}
-                className={this.state.changeupColor ? 'changeupcolor thumb-up' : 'thumb-up'}
+              <button className="thumb-up" onClick={this.state.changedownColor ? this.handleThumbdown.bind(this) : this.handleThumbup.bind(this)}
+                className={this.state.changeupColor ? 'changeupcolor thumb-up clicked' : 'thumb-up'}
               >
-                like<span>{this.state.videoInfos.videoDetails.likesNum}</span>
+                like<span className="like-num">{this.state.videoInfos.videoDetails.videoLikeNums}</span>
               </button>
-              <button className="thumb-down" onClick={this.handleThumbdown.bind(this)}
-                className={this.state.changedownColor ? 'changedowncolor thumb-down' : 'thumb-down'}>
-                dislike<span>{this.state.videoInfos.videoDetails.dislikeNum}</span>
+              <button className="thumb-down" onClick={this.state.changeupColor ? this.handleThumbup.bind(this) : this.handleThumbdown.bind(this)}
+                className={this.state.changedownColor ? 'changedowncolor thumb-down clicked' : 'thumb-down'}>
+                dislike<span className="dislike-num">{this.state.videoInfos.videoDetails.videoDislikeNums}</span>
               </button>
             </div>
           </div>
         </div>
-        <Comments />
+        <Comments commentInfos={this.state.videoInfos.commentInfos}
+          videoId={this.state.videoInfos.videoId}
+          updateVideoInfos={this.updateVideoInfos}/>
       </div>
     );
   }
