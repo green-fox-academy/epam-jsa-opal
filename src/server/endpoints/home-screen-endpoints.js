@@ -85,6 +85,7 @@ function getVideoInfos(req, res) {
     allVideos.forEach((value, index) => {
       obj[index] = {
         'videoId': value.videoId,
+        'videoSrc': value.videoUrl,
         'previewSrc': value.videoDetails.preview,
         'title': value.videoDetails.title,
         'videoTime': value.videoDetails.time,
