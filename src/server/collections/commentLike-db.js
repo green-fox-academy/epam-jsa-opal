@@ -40,7 +40,7 @@ function update(videosId,commentId,votetype,res,req) {
         }
         else {
           userId = items[0].userId;
-          pushIntoLikeStatusField(votetype,db,videosId,userId,VideoObject,res,commentId);
+          commentLikeCallHandler(votetype,db,videosId,userId,VideoObject,res,commentId);
         }
       });
     });  
@@ -65,7 +65,7 @@ function CountLikeAndDislikedNumber(commentUserArray){
   return result;
 }
 
-function pushIntoLikeStatusField(votetype,db,videosId,userId,VideoObject,res,commentId){
+function commentLikeCallHandler(votetype,db,videosId,userId,VideoObject,res,commentId){
   let tempArray = VideoObject.commentInfos[commentId-1].LikeStatus;
   if(votetype === 'likeenable'){
     let whetherFind = false;
@@ -77,15 +77,9 @@ function pushIntoLikeStatusField(votetype,db,videosId,userId,VideoObject,res,com
       }
     }
     if(!whetherFind){
-      let objInsert = {
-        "userId" : userId.toString(),
-        "liked" : true,
-        "disliked" : false
-      }
-      tempArray.push(objInsert);
+      createObj(true,false,tempArray)
     }
-    VideoObject.commentInfos[commentId-1].LikeStatus = tempArray;
-    db.collection('videos').update({'videoId': videosId }, {$set: {'commentInfos':  VideoObject.commentInfos}} );
+    updateCommentsInfo(VideoObject,commentId,tempArray,db,videosId);
   }
   else if(votetype === 'dislikeenable'){
     let whetherFind = false;
@@ -96,15 +90,9 @@ function pushIntoLikeStatusField(votetype,db,videosId,userId,VideoObject,res,com
       }
     }
     if(!whetherFind){
-      let objInsert = {
-        "userId" : userId.toString(),
-        "liked" : false,
-        "disliked" : true
-      }
-      tempArray.push(objInsert);
+      createObj(false,true,tempArray)
     }
-    VideoObject.commentInfos[commentId-1].LikeStatus = tempArray;
-    db.collection('videos').update({'videoId': videosId }, {$set: {'commentInfos':  VideoObject.commentInfos}} );
+    updateCommentsInfo(VideoObject,commentId,tempArray,db,videosId);
   }
   else if(votetype === 'likedisable'){
     for(let i = 0 ; i < tempArray.length ; i++){
@@ -113,8 +101,7 @@ function pushIntoLikeStatusField(votetype,db,videosId,userId,VideoObject,res,com
         break;
       }
     }
-    VideoObject.commentInfos[commentId-1].LikeStatus = tempArray;
-    db.collection('videos').update({'videoId': videosId }, {$set: {'commentInfos':  VideoObject.commentInfos}} );
+    updateCommentsInfo(VideoObject,commentId,tempArray,db,videosId);
   }else if(votetype === 'dislikedisable'){
     for(let i = 0 ; i < tempArray.length ; i++){
       if(tempArray[i].userId === userId.toString()){
@@ -122,12 +109,26 @@ function pushIntoLikeStatusField(votetype,db,videosId,userId,VideoObject,res,com
         break;
       }
     }
-    VideoObject.commentInfos[commentId-1].LikeStatus = tempArray;
-    db.collection('videos').update({'videoId': videosId }, {$set: {'commentInfos':  VideoObject.commentInfos}} );
+    updateCommentsInfo(VideoObject,commentId,tempArray,db,videosId);
   }
   let sendobj = CountLikeAndDislikedNumber(tempArray);
   res.setHeader('content-type', 'application/json');
   res.status(200).send(sendobj);
   db.close();
 }
+
+function updateCommentsInfo(VideoObject,commentId,tempArray,db,videosId){
+  VideoObject.commentInfos[commentId-1].LikeStatus = tempArray;
+  db.collection('videos').update({'videoId': videosId }, {$set: {'commentInfos':  VideoObject.commentInfos}} );
+}
+
+function createObj(like,dislike,tempArray){
+  let objInsert = {
+    "userId" : userId.toString(),
+    "liked" : like,
+    "disliked" : dislike,
+  }
+  tempArray.push(objInsert);
+}
+
 module.exports = {updateComments: update};

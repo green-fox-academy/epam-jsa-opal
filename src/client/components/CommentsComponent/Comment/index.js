@@ -88,7 +88,6 @@ class Comment extends React.Component {
           let newNums = this.state.dislikeNums-1;
           this.setState({dislikeNums: newNums});
         })
-        console.log('111')
       }
       likeState.clickDislike = !likeState.clickDislike;
       this.setState({likeState: likeState});
