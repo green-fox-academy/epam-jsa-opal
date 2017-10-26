@@ -46,7 +46,7 @@ function commentRequestHandler(req, res, callback) {
             dbError(err, res, db);
             if (items[0] === undefined) {
               console.log('Not login', err);
-              res.status(404).send({'error': 'Not login sorry!'});
+              res.status(400).send({'error': 'Not login sorry!'});
               db.close();
               return;
             }
@@ -66,39 +66,12 @@ function commentRequestHandler(req, res, callback) {
   });
 }
 
-
-
-// function commentLikeCallHandler(obj) {
-//   let tempArray = obj.VideoObject.commentInfos[obj.commentId - 1].LikeStatus;
-//   let whetherFind = false;
-
-//   if (obj.votetype === 'likeenable') {
-//     whetherFind = iterateArray(tempArray, true, obj.userId, 'liked');
-//     createObj(whetherFind, true, false, tempArray, obj.userId);
-//     updateCommentsInfo(obj.VideoObject, obj.commentId,
-//       tempArray, obj.db, obj.videosId);
-//   } else if (obj.votetype === 'dislikeenable') {
-//     whetherFind = iterateArray(tempArray, true, obj.userId, 'disliked');
-//     createObj(whetherFind, false, true, tempArray, obj.userId);
-//     updateCommentsInfo(obj.VideoObject, obj.commentId,
-//       tempArray, obj.db, obj.videosId);
-//   } else if (obj.votetype === 'likedisable') {
-//     iterateArray(tempArray, false, obj.userId, 'liked');
-//     updateCommentsInfo(obj.VideoObject, obj.commentId,
-//       tempArray, obj.db, obj.videosId);
-//   } else if (obj.votetype === 'dislikedisable') {
-//     iterateArray(tempArray, false, obj.userId, 'disliked');
-//     updateCommentsInfo(obj.VideoObject, obj.commentId,
-//       tempArray, obj.db, obj.videosId);
-//   }
-//   sendResponse(tempArray, obj.res, obj.db);
-// }
-
 function updateCommentsInfo(obj, tempArray) {
   obj.VideoObject.commentInfos[obj.commentId - 1].LikeStatus = tempArray;
   obj.db.collection('videos')
     .update({'videoId': obj.videosId},
       {$set: {'commentInfos': obj.VideoObject.commentInfos}});
+  
 }
 
 module.exports = {

@@ -48,7 +48,7 @@ function getHomeInfos(req, res) {
     let token = req.get('Authorization');
 
     if (token === undefined) {
-      res.status(404).send({'error': 'Not login sorry!'});
+      res.status(400).send({'error': 'Not login sorry!'});
       return;
     }
     MongoClient.connect(url, (err, db) => {
@@ -56,12 +56,12 @@ function getHomeInfos(req, res) {
       .toArray(function(err,items){
         if (err) {
           console.log('Unable to connect to the MongoDB server. Error:', err);
-          res.status(404).send();
+          res.status(500).send();
           db.close();
           return;
         }    
         if (items[0] === undefined) {
-          res.status(404).send();
+          res.status(401).send();
           return;
         }
         let userId = items[0].userId;

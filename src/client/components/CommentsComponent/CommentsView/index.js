@@ -23,7 +23,6 @@ class CommentsView extends React.Component {
         avatar={this.props.avatar}
       />
     ));
-    
     return (
       <div className="comments-lists">
         { this.props.posting ?

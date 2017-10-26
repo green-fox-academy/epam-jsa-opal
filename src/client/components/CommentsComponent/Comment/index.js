@@ -28,8 +28,8 @@ class Comment extends React.Component {
     const likeState = this.state.likeState;
 
     if (likeState.dislikeClicked) {
-      fetch('/api/' + this.props.videoId + '/'
-      + this.props.commentId + '/dislikedisable', {
+      fetch('/api/videos/' + this.props.videoId + '/comments/'
+      + this.props.commentId + '/dislike', {
         'method': 'put',
         'headers': {'Authorization': localStorage.getItem('token')},
       }).then((response)=>{
@@ -40,8 +40,8 @@ class Comment extends React.Component {
       likeState.dislikeClicked = !likeState.dislikeClicked;
     } else {
       if (likeState.likeClicked === false) {
-        fetch('/api/' + this.props.videoId + '/'
-        + this.props.commentId + '/likeenable', {
+        fetch('/api/videos/' + this.props.videoId + '/comments/'
+        + this.props.commentId + '/like', {
           'method': 'put',
           'headers': {'Authorization': localStorage.getItem('token')},
         }).then((response)=>{
@@ -50,9 +50,9 @@ class Comment extends React.Component {
           this.setState({likeNums: newNums});
         });
       } else {
-        fetch('/api/' + this.props.videoId + '/'
-        + this.props.commentId + '/likedisable', {
-          'method': 'put',
+        fetch('/api/videos/' + this.props.videoId + '/comments/'
+        + this.props.commentId + '/like', {
+          'method': 'delete',
           'headers': {'Authorization': localStorage.getItem('token')},
         }).then((response)=>{
           let newNums = this.state.likeNums - 1;
@@ -68,9 +68,9 @@ class Comment extends React.Component {
     const likeState = this.state.likeState;
 
     if (likeState.likeClicked) {
-      fetch('/api/' + this.props.videoId + '/'
-      + this.props.commentId + '/likedisable', {
-        'method': 'put',
+      fetch('/api/videos/' + this.props.videoId + '/comments/'
+      + this.props.commentId + '/like', {
+        'method': 'delete',
         'headers': {'Authorization': localStorage.getItem('token')},
       }).then((response)=>{
         let newNums = this.state.likeNums - 1;
@@ -80,8 +80,8 @@ class Comment extends React.Component {
       likeState.likeClicked = !likeState.likeClicked;
     } else {
       if (likeState.dislikeClicked === false) {
-        fetch('/api/' + this.props.videoId +
-        '/' + this.props.commentId + '/dislikeenable', {
+        fetch('/api/videos/' + this.props.videoId +
+        '/comments/' + this.props.commentId + '/dislike', {
           'method': 'put',
           'headers': {'Authorization': localStorage.getItem('token')},
         }).then((response)=>{
@@ -90,9 +90,9 @@ class Comment extends React.Component {
           this.setState({dislikeNums: newNums});
         });
       } else {
-        fetch('/api/' + this.props.videoId + '/'
-        + this.props.commentId + '/dislikedisable', {
-          'method': 'put',
+        fetch('/api/videos/' + this.props.videoId + '/comments/'
+        + this.props.commentId + '/dislike', {
+          'method': 'delete',
           'headers': {'Authorization': localStorage.getItem('token')},
         }).then((response)=>{
           let newNums = this.state.dislikeNums - 1;

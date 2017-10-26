@@ -21,11 +21,11 @@ function deletecommentRequestHandler(res, req) {
 }
 
 
-function putcommentRequestHandler(res, req) {//+1
+function putcommentRequestHandler(res, req) {
   commentDb.commentRequestHandler(res, req, (obj)=>{
     let tempArray = obj.VideoObject.commentInfos[obj.commentId - 1].LikeStatus;
     let flag = [false];
-    
+
     if(obj.votetype === 'like'){
       iterateArray(tempArray, true, obj.userId, 'liked', flag);
       if(!flag[0]) {
@@ -45,14 +45,14 @@ function putcommentRequestHandler(res, req) {//+1
 }
 
 function sendResponse(tempArray, res, db) {
+  if(tempArray === undefined){
+    res.status(500).send();
+  }
   let sendObj = countLikeAndDislikedNumber(tempArray);
 
   res.setHeader('content-type', 'application/json');
-  res.status(200).send(sendObj);
-}
 
-function checkWhetherExist(tempArray,userId){
-  
+  res.status(200).send(sendObj);
 }
 
 function iterateArray(tempArray, changedValue, userId, target,flag){
