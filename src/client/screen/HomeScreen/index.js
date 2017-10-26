@@ -90,7 +90,7 @@ class Home extends React.Component {
             null
           }
           <NavigationBar className="navigationBar"/>
-          <div className="videoComponent"> <VideoComponent defalutVideo={this.state.videoLists[0] ? this.state.videoLists[0].videoId : null}/> </div>
+          <div className="videoComponent"> <VideoComponent videoId={this.state.videoLists[0] ? this.state.videoLists[0].videoId : null}/> </div>
           <div className="suggestedVideos"> <SuggestedVideos videoLists={this.state.videoLists}/> </div>
         </div>
       </div>
