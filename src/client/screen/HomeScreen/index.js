@@ -22,6 +22,9 @@ class Home extends React.Component {
   }
   componentDidMount() {
     this.fetchVideoLists((result) => {
+      if (result.error) {
+        return;
+      }
       this.setState({videoLists: result});
     });
   }

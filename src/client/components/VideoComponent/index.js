@@ -23,6 +23,9 @@ class VideoComponent extends React.Component {
     });
   }
   componentWillReceiveProps(nextProps) {
+    if (this.props.defalutVideo === null) {
+      return;
+    }
     this.fetchVideoInfos(nextProps.defalutVideo, (result) => {
       this.setState({videoInfos: result});
     });
