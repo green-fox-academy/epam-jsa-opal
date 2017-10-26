@@ -15,12 +15,14 @@ class VideoComponent extends React.Component {
     this.updateVideoInfos = this.updateVideoInfos.bind(this);
   }
   componentDidMount() {
-    this.fetchVideoInfos('59ed7f1f1707c6894c13e013', (result) => {
+    this.fetchVideoInfos('59f04d7d5d8c7686dea115b6', (result) => {
       this.setState({videoInfos: result});
     });
   }
   fetchVideoInfos(videoId, callback) {
-    fetch('/api/videos/' + videoId)
+    fetch('/api/videos/' + videoId, {
+      headers: {'Authorization': localStorage.getItem('token')},
+    })
       .then((response) => response.json())
       .then((result) => callback(result));
   }
@@ -58,7 +60,7 @@ class VideoComponent extends React.Component {
               <img className="user-img" src={this.props.userImg}></img>
               <div className="name-publishtime">
                 <span className="user-name">{this.props.username}</span>
-                <span>Published on {new Date(this.props.publishdate).toLocaleDateString()}</span>
+                <span>{this.props.publishdate}</span>
               </div>
               <div className="subcribe-number">
                 <button className="subscribe" onClick={this.subscribe.bind(this)}>
@@ -81,6 +83,7 @@ class VideoComponent extends React.Component {
           </div>
         </div>
         <Comments commentInfos={this.state.videoInfos.commentInfos}
+          objectId={this.state.videoInfos._id}
           videoId={this.state.videoInfos.videoId}
           updateVideoInfos={this.updateVideoInfos}/>
       </div>
@@ -92,7 +95,7 @@ VideoComponent.defaultProps = {
   videoname: 'Midnight Starr - Slow Jam',
   viewnum: '4,250,633',
   username: 'Chill boy',
-  publishdate: 1508842383055,
+  publishdate: 'Published on Jun 22,2008',
   subscribenum: '3.8k',
   likenum: '5k+',
   userImg: userImg,
