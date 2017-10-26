@@ -105,14 +105,14 @@ class VideoComponent extends React.Component {
                 <img className="user-img" src={this.state.videoInfos.uploader.avatar}></img>
                 <div className="name-publishtime">
                   <span className="user-name">{this.state.videoInfos.uploader.name}</span>
-                  <span>{this.state.videoInfos.videoDetails.publishDate}</span>
+                  <span>Published on {new Date(this.state.videoInfos.videoDetails.publishDate).toLocaleDateString()}</span>
                 </div>
               </div>
               <div className="subcribe-number">
                 <button className="subscribe" onClick={this.subscribe.bind(this)}>
               subcribe
                 </button>
-                <span className="subscribe-num">{this.state.videoInfos.uploader.subscribers}</span>
+                <span className="subscribe-num">{this.state.videoInfos.uploader.subscribers || 0}</span>
               </div>
             </div>
             <div className="thumb">
