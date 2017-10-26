@@ -13,24 +13,14 @@ class VideoComponent extends React.Component {
     };
     this.updateVideoInfos = this.updateVideoInfos.bind(this);
   }
-
   componentWillReceiveProps(nextProps) {
     if (nextProps.videoId === null) {
       return;
     }
     this.fetchVideoInfos(nextProps.videoId, (result) => {
-      console.log(result)
-      this.setState({videoInfos: result});
+      this.setState({'videoInfos': result, 'isLiked': result.videoDetails.clickedLike, 'isDisliked': result.videoDetails.clickedDislike});
     });
   }
-  // componentWillReceiveProps(nextProps) {
-  //   if (nextProps.videoId === null) {
-  //     return;
-  //   }
-  //   this.fetchVideoInfos(nextProps.videoId, (result) => {
-  //     this.setState({'videoInfos': result, 'isLiked': result.videoDetails.clickedLike, 'isDisliked': result.videoDetails.clickedDislike});
-  //   });
-  // }
   fetchVideoInfos(videoId, callback) {
     fetch('/api/videos/' + videoId, {headers: {'Authorization': localStorage.getItem('token')}})
       .then((response) => response.json())
