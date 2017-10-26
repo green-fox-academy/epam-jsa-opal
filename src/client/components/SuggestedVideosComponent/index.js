@@ -19,7 +19,7 @@ class SuggesstedVideos extends React.Component {
       <aside className="suggested-video-container">
         <h1>Up next</h1>
         <SuggestedVideosView
-          videoInfos={this.props.videoInfos}
+          videoInfos={this.props.videoLists}
           suggestedVideosNum={this.state.suggestedVideosNum}
         />
         <button className={suggestedVideosNum > defaultNum ?
