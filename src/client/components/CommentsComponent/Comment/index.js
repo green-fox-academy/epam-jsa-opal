@@ -10,8 +10,8 @@ class Comment extends React.Component {
     this.onClickDislikeButton = this.onClickDislikeButton.bind(this);
     this.state = {
       likeState: {
-        clickLike: this.props.commentInfo.likestatus,
-        clickDislike: this.props.commentInfo.dislikestatus,
+        likeClicked: this.props.commentInfo.likestatus,
+        dislikeClicked: this.props.commentInfo.dislikestatus,
       },
       clickComment: false,
       likeNums: this.props.commentInfo.likeNums,
@@ -27,7 +27,7 @@ class Comment extends React.Component {
   onClickLikeButton() {
     const likeState = this.state.likeState;
 
-    if (likeState.clickDislike) {
+    if (likeState.dislikeClicked) {
       fetch('/api/' + this.props.videoId + '/'
       + this.props.commentId + '/dislikedisable', {
         'method': 'put',
@@ -37,9 +37,9 @@ class Comment extends React.Component {
 
         this.setState({dislikeNums: newNums});
       });
-      likeState.clickDislike = !likeState.clickDislike;
+      likeState.dislikeClicked = !likeState.dislikeClicked;
     } else {
-      if (likeState.clickLike === false) {
+      if (likeState.likeClicked === false) {
         fetch('/api/' + this.props.videoId + '/'
         + this.props.commentId + '/likeenable', {
           'method': 'put',
@@ -60,14 +60,14 @@ class Comment extends React.Component {
           this.setState({likeNums: newNums});
         });
       }
-      likeState.clickLike = !likeState.clickLike;
+      likeState.likeClicked = !likeState.likeClicked;
     }
     this.setState({likeState: likeState});
   }
   onClickDislikeButton() {
     const likeState = this.state.likeState;
 
-    if (likeState.clickLike) {
+    if (likeState.likeClicked) {
       fetch('/api/' + this.props.videoId + '/'
       + this.props.commentId + '/likedisable', {
         'method': 'put',
@@ -77,9 +77,9 @@ class Comment extends React.Component {
 
         this.setState({likeNums: newNums});
       });
-      likeState.clickLike = !likeState.clickLike;
+      likeState.likeClicked = !likeState.likeClicked;
     } else {
-      if (likeState.clickDislike === false) {
+      if (likeState.dislikeClicked === false) {
         fetch('/api/' + this.props.videoId +
         '/' + this.props.commentId + '/dislikeenable', {
           'method': 'put',
@@ -100,7 +100,7 @@ class Comment extends React.Component {
           this.setState({dislikeNums: newNums});
         });
       }
-      likeState.clickDislike = !likeState.clickDislike;
+      likeState.dislikeClicked = !likeState.dislikeClicked;
     }
   }
   render() {
@@ -113,7 +113,7 @@ class Comment extends React.Component {
             {this.props.commentInfo.commentContent}
           </p>
           <button
-            className={this.state.likeState.clickLike ?
+            className={this.state.likeState.likeClicked ?
               'clicked like-button' :
               'like-button'
             }
@@ -121,7 +121,7 @@ class Comment extends React.Component {
           </button>
           <span className="like-num">{this.state.likeNums}</span>
           <button
-            className={this.state.likeState.clickDislike ?
+            className={this.state.likeState.dislikeClicked ?
               'clicked dislike-button' :
               'dislike-button'
             }

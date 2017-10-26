@@ -24,8 +24,11 @@ function dbError(err, res, db) {
   }
 }
 
-function update(videosId, commentId, votetype, res, req) {
+function commentRequestHandler(req, res, callback) {
   let userId;
+  let videosId = req.params.videoId;
+  let commentId = req.params.commentsId;
+  let votetype = req.params.votetype;
 
   MongoClient.connect(url, (err, db) => {
     if (err) {
@@ -57,97 +60,48 @@ function update(videosId, commentId, votetype, res, req) {
               'res': res,
               'commentId': commentId,
             };
-
-            commentLikeCallHandler(inputObj);
+            callback(inputObj);
           });
       });
   });
 }
 
-function countLikeAndDislikedNumber(commentUserArray) {
-  let likednumber = 0;
-  let dislikednumber = 0;
 
-  commentUserArray.forEach(function(element) {
-    if (element.liked === true) {
-      likednumber++;
-    }
-    if (element.disliked === true) {
-      dislikednumber++;
-    }
-  });
-  let result = {
-    'likedNumber': likednumber,
-    'dislikedNumber': dislikednumber,
-  };
 
-  return result;
+// function commentLikeCallHandler(obj) {
+//   let tempArray = obj.VideoObject.commentInfos[obj.commentId - 1].LikeStatus;
+//   let whetherFind = false;
+
+//   if (obj.votetype === 'likeenable') {
+//     whetherFind = iterateArray(tempArray, true, obj.userId, 'liked');
+//     createObj(whetherFind, true, false, tempArray, obj.userId);
+//     updateCommentsInfo(obj.VideoObject, obj.commentId,
+//       tempArray, obj.db, obj.videosId);
+//   } else if (obj.votetype === 'dislikeenable') {
+//     whetherFind = iterateArray(tempArray, true, obj.userId, 'disliked');
+//     createObj(whetherFind, false, true, tempArray, obj.userId);
+//     updateCommentsInfo(obj.VideoObject, obj.commentId,
+//       tempArray, obj.db, obj.videosId);
+//   } else if (obj.votetype === 'likedisable') {
+//     iterateArray(tempArray, false, obj.userId, 'liked');
+//     updateCommentsInfo(obj.VideoObject, obj.commentId,
+//       tempArray, obj.db, obj.videosId);
+//   } else if (obj.votetype === 'dislikedisable') {
+//     iterateArray(tempArray, false, obj.userId, 'disliked');
+//     updateCommentsInfo(obj.VideoObject, obj.commentId,
+//       tempArray, obj.db, obj.videosId);
+//   }
+//   sendResponse(tempArray, obj.res, obj.db);
+// }
+
+function updateCommentsInfo(obj, tempArray) {
+  obj.VideoObject.commentInfos[obj.commentId - 1].LikeStatus = tempArray;
+  obj.db.collection('videos')
+    .update({'videoId': obj.videosId},
+      {$set: {'commentInfos': obj.VideoObject.commentInfos}});
 }
 
-function updateCommentsInfo(VideoObject, commentId, tempArray, db, videosId) {
-  VideoObject.commentInfos[commentId - 1].LikeStatus = tempArray;
-  db.collection('videos')
-    .update({'videoId': videosId},
-      {$set: {'commentInfos': VideoObject.commentInfos}});
-}
-
-function createObj(whetherFind, like, dislike, tempArray, userId) {
-  if (!whetherFind) {
-    let objInsert = {
-      'userId': userId.toString(),
-      'liked': like,
-      'disliked': dislike,
-    };
-
-    tempArray.push(objInsert);
-  }
-}
-
-function iterateArray(tempArray, changedValue, userId, target) {
-  for (let i = 0; i < tempArray.length; i++) {
-    if (tempArray[i].userId === userId.toString()) {
-      if (target === 'disliked') {
-        tempArray[i].disliked = changedValue;
-      } else if (target === 'liked') {
-        tempArray[i].liked = changedValue;
-      }
-      return true;
-    }
-  }
-}
-
-function sendResponse(tempArray, res, db) {
-  let sendObj = countLikeAndDislikedNumber(tempArray);
-
-  res.setHeader('content-type', 'application/json');
-  res.status(200).send(sendObj);
-  db.close();
-}
-
-function commentLikeCallHandler(obj) {
-  let tempArray = obj.VideoObject.commentInfos[obj.commentId - 1].LikeStatus;
-  let whetherFind = false;
-
-  if (obj.votetype === 'likeenable') {
-    whetherFind = iterateArray(tempArray, true, obj.userId, 'liked');
-    createObj(whetherFind, true, false, tempArray, obj.userId);
-    updateCommentsInfo(obj.VideoObject, obj.commentId,
-      tempArray, obj.db, obj.videosId);
-  } else if (obj.votetype === 'dislikeenable') {
-    whetherFind = iterateArray(tempArray, true, obj.userId, 'disliked');
-    createObj(whetherFind, false, true, tempArray, obj.userId);
-    updateCommentsInfo(obj.VideoObject, obj.commentId,
-      tempArray, obj.db, obj.videosId);
-  } else if (obj.votetype === 'likedisable') {
-    iterateArray(tempArray, false, obj.userId, 'liked');
-    updateCommentsInfo(obj.VideoObject, obj.commentId,
-      tempArray, obj.db, obj.videosId);
-  } else if (obj.votetype === 'dislikedisable') {
-    iterateArray(tempArray, false, obj.userId, 'disliked');
-    updateCommentsInfo(obj.VideoObject, obj.commentId,
-      tempArray, obj.db, obj.videosId);
-  }
-  sendResponse(tempArray, obj.res, obj.db);
-}
-
-module.exports = {updateComments: update};
+module.exports = {
+  commentRequestHandler: commentRequestHandler,
+  updateCommentsInfo: updateCommentsInfo,
+};
