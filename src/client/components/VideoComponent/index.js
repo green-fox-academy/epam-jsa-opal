@@ -19,9 +19,18 @@ class VideoComponent extends React.Component {
       return;
     }
     this.fetchVideoInfos(nextProps.videoId, (result) => {
-      this.setState({'videoInfos': result, 'isLiked': result.videoDetails.clickedLike, 'isDisliked': result.videoDetails.clickedDislike});
+      console.log(result)
+      this.setState({videoInfos: result});
     });
   }
+  // componentWillReceiveProps(nextProps) {
+  //   if (nextProps.videoId === null) {
+  //     return;
+  //   }
+  //   this.fetchVideoInfos(nextProps.videoId, (result) => {
+  //     this.setState({'videoInfos': result, 'isLiked': result.videoDetails.clickedLike, 'isDisliked': result.videoDetails.clickedDislike});
+  //   });
+  // }
   fetchVideoInfos(videoId, callback) {
     fetch('/api/videos/' + videoId, {headers: {'Authorization': localStorage.getItem('token')}})
       .then((response) => response.json())

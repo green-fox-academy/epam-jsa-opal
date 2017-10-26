@@ -35,7 +35,7 @@ class Comments extends React.Component {
       });
   }
   fetchVideoInfos(videoId, callback) {
-    fetch('/api/videos/' + videoId)
+    fetch('/api/videos/' + videoId,  {headers: {'Authorization': localStorage.getItem('token')}})
       .then((response) => response.json())
       .then((result) => callback(result));
   }
