@@ -101,7 +101,6 @@ class Comment extends React.Component {
         });
       }
       likeState.clickDislike = !likeState.clickDislike;
-      this.setState({likeState: likeState});
     }
   }
   render() {
