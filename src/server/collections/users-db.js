@@ -11,6 +11,7 @@ let name = process.env.DB_NAME;
 let username = process.env.Username;
 let password = process.env.Password;
 let url;
+let ObjectId = require('mongodb').ObjectID;
 
 if (password !== undefined) {
   url = protocol + '://' + username + ':' + password + '@' + host + ':' + port + '/' + name;
@@ -185,7 +186,7 @@ function findUserInfoById(userId, callback) {
     }
     let usersDB = db.collection('users');
 
-    usersDB.findOne({'_id': userId}, (err, result) => {
+    usersDB.findOne({'_id': ObjectId(userId)}, (err, result) => {
       if (err) {
         console.log(err);
       }
