@@ -25,6 +25,7 @@ app.get('/heartbeat', DatabaseHealth.checkDatabaseHealth);
 app.get('/api/videos/:videoId', homeController.getHomeInfos);
 app.put('/api/videosthumb/:videoId/:votetype', thumbupController.judgeVotetype);
 app.post('/api/videos/:videoId/comments', homeController.postComment);
+app.get('/api/videos', homeController.getVideoInfos);
 app.get('*', (req, res) =>{
   res.sendFile('index.html', {root: path.join(__dirname, '../../dist')});
 });
