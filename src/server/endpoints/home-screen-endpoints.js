@@ -13,14 +13,14 @@ function getHomeInfos(req, res) {
     let token = req.get('Authorization');
     let userId;
 
+    if (token === undefined) {
+      res.status(400).json({'error': 'unauthorization'});
+      return;
+    }
     tokensDb.getToken(token, (userInfos) => {
       let videoLikeNums = 0;
       let videoDislikeNums = 0;
 
-      if (token === undefined) {
-        res.status(400).json({'error': 'unauthenrization'});
-        return;
-      }
       userId = userInfos.userId;
       videoInfos.videoDetails.clickedLike = false;
       videoInfos.videoDetails.clickedDislike = false;

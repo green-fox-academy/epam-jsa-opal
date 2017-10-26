@@ -18,11 +18,11 @@ function thumbUp(req, res) {
   let token = req.get('Authorization');
   let userId;
 
+  if (token === undefined) {
+    res.status(400).json({'error': 'unauthorization'});
+    return;
+  }
   tokensDb.getToken(token, (userInfos) => {
-    if (token === undefined) {
-      res.status(400).json({'error': 'unauthenrization'});
-      return;
-    }
     userId = userInfos.userId;
     let insertUser = true;
     let videoId = req.params.videoId;
@@ -58,11 +58,11 @@ function thumbDown(req, res) {
   let token = req.get('Authorization');
   let userId;
 
+  if (token === undefined) {
+    res.status(400).json({'error': 'unauthorization'});
+    return;
+  }
   tokensDb.getToken(token, (userInfos) => {
-    if (token === undefined) {
-      res.status(400).json({'error': 'unauthenrization'});
-      return;
-    }
     userId = userInfos.userId;
     let insertUser = true;
     let videoId = req.params.videoId;
@@ -98,11 +98,11 @@ function cancelthumbUp(req, res) {
   let token = req.get('Authorization');
   let userId;
 
+  if (token === undefined) {
+    res.status(400).json({'error': 'unauthorization'});
+    return;
+  }
   tokensDb.getToken(token, (userInfos) => {
-    if (token === undefined) {
-      res.status(400).json({'error': 'unauthenrization'});
-      return;
-    }
     userId = userInfos.userId;
     let videoId = req.params.videoId;
 
@@ -128,11 +128,11 @@ function cancelthumbDown(req, res) {
   let token = req.get('Authorization');
   let userId;
 
+  if (token === undefined) {
+    res.status(400).json({'error': 'unauthorization'});
+    return;
+  }
   tokensDb.getToken(token, (userInfos) => {
-    if (token === undefined) {
-      res.status(400).json({'error': 'unauthenrization'});
-      return;
-    }
     userId = userInfos.userId;
     let videoId = req.params.videoId;
 
