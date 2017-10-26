@@ -1,14 +1,17 @@
 .suggestedVideos {
   width: 261px;
 }
+
 .homecontainer {
-  background-color:  #FFFFFF;
+  background-color:  #fff;
 }
+
 .videoComponent {
   margin-left:52px;
   margin-right: 40px;
   width: 68%;
 }
+
 .main {
   display: flex;
   justify-content: space-between;
@@ -20,20 +23,22 @@
 }
 
 .upload-form {
-  position: absolute;
-  right: 130px;
-  top: 17px;
-  z-index: 3;
-  width: 270px;
   background-color: #fff;
   padding: 20px 15px;
+  position: absolute;
+  right: 130px;
   text-align: center;
+  top: 17px;
+  width: 270px;
+  z-index: 3;
+
   input {
     display: block;
     line-height: 2rem;
     outline: none;
     width: 100%;
   }
+
   input:not([type='submit']) {
     background-color: transparent;
     border-bottom: 1px solid #eee;
@@ -45,16 +50,19 @@
     background-color: #d93738;
     border-radius: 2px;
     color: rgb(255, 255, 255);
-    padding: 7px;
-    margin-bottom: 1rem;
     cursor: pointer;
+    margin-bottom: 1rem;
+    padding: 7px;
   }
+
   button[type='submit'] {
     margin-right: 20px;
   }
+
   .error-message {
     color: #d93738;
   }
+
   button.loading {
     background-color: rgb(128, 128, 128);
     cursor: no-drop;
