@@ -77,6 +77,34 @@ function mongoConnectErrorHandle(res, db) {
   db.close();
 }
 
+function createRandomAvatar() {
+  let avatarArray = [
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYvZMrVrkB7YtrpK94tDV9vp7lHysXwgLWjGk2_NAmIhUpy2Ma',
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMkqAdEqj4W2U83SoghDdmOpLx0RFzSiJBBjtbdbbQidKzUUib-g',
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTl7QJsf7bU_OivDEsAc6WGFcac34eMmNiUc8lmbrQHX0yLVA0FtA',
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7IgM4hh2-ShOA9Y7i5Ax0oK8-dQ9bgqXYCAXPVrUsX3J2WFAy',
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRp34jAkg0xbGABitSx2oRAjuYozw23wHYRg4GQMZJOhV6rmBjxkQ',
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfvslSVQuzPcCLmMOW4iGsaieZbqM7nXwr8BbI4BiHVQ9XvMb5',
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQooFfyMXvmFPpWVB-_QdK7CnP4wEWOIBQCbk5oWkz6UcbaIJev6A',
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSoc1113c33htGMVAW52d9yse4QlMUunhMeEx21WplSgSJ3zVEOvQ',
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSbYPHP0RN64XSSotZ5S5oTWk66aVJ9ikKJGDYJ5bFWZDJGzGw',
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPeUisg2rSfc50CyhB60P24-8nUmP6Drvc8CaMrOEldvr24pn4',
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSH7KE3502ivxYEjP55Slw-p8OihTk82jE_8e-mq_oO1Ztl-8-tgQ',
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS4MwNoRdHIOJJFK1O2dPGXNlys3IWKQaqxj24rL4SPUGLsbFsOVw',
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRiR1Ob450H1YsalQVSLmqdJx7uoS0VZ959BJ1b7CeA99njQGb6',
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdljRDNWvcas8d0XTp1DIVErcXIF9uc4FdYnW8ibPcdHVrOvqGYw',
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHY0WTqEVmY15BFy5NgnDOVSGZSPgH9AGGck7HZIJEC2p5WNid',
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMdXQRel-i7rdXPxsCFdCiXhx4cUuoVJ59hQd2PebH_TI0Wdv2',
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgMA5AUwqZ9P9jON1QHczhGNCnMLzMeaOJi56ByWuPp0ai8te_',
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzGhW8iwT5NGBG89J0S9VA_wNXUjzIBc1wAbtROix62GTV7F4DSA',
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlZUeJP_IMUxBlMDd452OB437ZEcSPi-T9MdYnpxCiWgdYJbqG8w',
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSawEKljPQfBcgrAooZKNyvi8Zx8nqiMKDy4XzroCq8d8sFQ0Tv_w',
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOewMCy_hxB73gEJW7C7ifg3BARWLgxmWXeyI4RQmN8aY8Lbt2ag',
+  ];
+
+  return avatarArray[Math.floor(Math.random() * 21)]
+}
+
 function dbInsert(req, res) {
   let sendContent = {
     'username': ' ',
@@ -84,6 +112,7 @@ function dbInsert(req, res) {
     'phone number': '',
     'full name': '',
     'password': '',
+    'avatar': createRandomAvatar(),
   };
 
   sendContent.username = req.body.username;
