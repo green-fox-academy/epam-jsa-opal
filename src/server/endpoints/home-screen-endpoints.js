@@ -79,6 +79,10 @@ function uploadVideo(req, res) {
     res.status(400).json({'error': 'unauthorized'});
     return;
   }
+  if (req.body.url === undefined || req.body.preview === undefined || req.body.title === undefined) {
+    res.status(402).json({'error': 'miss field'});
+    return;
+  }
   videosDb.addVideo({videoUrl: req.body.url, preview: req.body.preview, videoTitle: req.body.title},
     req.get('Authorization'), (uploadVideoMessage) => {
       if (uploadVideoMessage === undefined) {
