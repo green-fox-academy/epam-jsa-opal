@@ -90,8 +90,30 @@ function addComment(videoId, token, content, callback) {
   });
 }
 
+function getAllVideo(callback) {
+  MongoClient.connect(url, (err, db) => {
+    if (err) {
+      console.log(err.name + ':' + err.message);
+      return callback(undefined);
+    }
+    let videosDB = db.collection('videos');
+
+    videosDB.find().toArray((err, result) => {
+      if (err) {
+        console.log(err);
+      }
+      db.close();
+      if (result === null) {
+        return callback([]);
+      }
+      return callback(result);
+    });
+  });
+}
+  
 module.exports = {
   findVideoInfo: findVideoInfo,
   addComment: addComment,
+  getAllVideo: getAllVideo,
 };
 
