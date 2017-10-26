@@ -32,7 +32,7 @@ function getHomeInfos(req, res) {
     res.status(200).json({
       // videoId should be same with _id, here just for testing
       // in your PC please change here
-      'videoId': '59ed7f1f1707c6894c13e013',
+      'videoId': videoInfos.videoId,
       'videoUrl': 'http://nettuts.s3.amazonaws.com/763_sammyJSIntro/trailer_test.mp4',
       'videoDetails': {
         'title': 'test video',
