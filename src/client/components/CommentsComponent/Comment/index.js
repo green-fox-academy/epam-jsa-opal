@@ -26,8 +26,8 @@ class Comment extends React.Component {
   }
   onClickLikeButton() {
     const likeState = this.state.likeState;
-
     if (likeState.dislikeClicked) {
+      console.log(this.props.videoId);
       fetch('/api/videos/' + this.props.videoId + '/comments/'
       + this.props.commentId + '/dislike', {
         'method': 'put',

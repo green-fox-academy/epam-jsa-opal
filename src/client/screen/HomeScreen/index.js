@@ -33,7 +33,6 @@ import './index.scss';
       .then((response) => response.json())
       .then((result) => callback(result));
   }
-<<<<<<< HEAD
   onClickUpload() {
     this.setState({clickUpload: true});
   }
@@ -83,10 +82,6 @@ import './index.scss';
   }
   render() {
     return (
-=======
-   render() {
-     return (
->>>>>>> OPL-58
       <div className="homecontainer">
         <Header className="header"
           onClickUpload={this.onClickUpload}
@@ -113,20 +108,12 @@ import './index.scss';
             null
           }
           <NavigationBar className="navigationBar"/>
-<<<<<<< HEAD
           <div className="videoComponent"> <VideoComponent videoId={this.state.videoLists[0] ?
             this.state.videoLists[this.state.videoLists.length - 1].videoId : null}/> </div>
           <div className="suggestedVideos"> <SuggestedVideos videoLists={this.state.videoLists}/> </div>
         </div>
       </div>
     );
-=======
-          <div className="videoComponent"> <VideoComponent /> </div>
-         <div className="suggestedVideos"> <SuggestedVideos videoLists={this.state.videoLists}/> </div>
-         </div>
-       </div>
-     );
->>>>>>> OPL-58
   }
 }
 

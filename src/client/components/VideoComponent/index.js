@@ -13,7 +13,6 @@ class VideoComponent extends React.Component {
     };
     this.updateVideoInfos = this.updateVideoInfos.bind(this);
   }
-<<<<<<< HEAD
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.videoId === null) {
@@ -25,17 +24,6 @@ class VideoComponent extends React.Component {
   }
   fetchVideoInfos(videoId, callback) {
     fetch('/api/videos/' + videoId, {headers: {'Authorization': localStorage.getItem('token')}})
-=======
-  componentDidMount() {
-    this.fetchVideoInfos(this.props.objectId, (result) => {
-      this.setState({videoInfos: result});
-    });
-  }
-  fetchVideoInfos(videoId, callback) {
-    fetch('/api/videos/' + videoId, {
-      headers: {'Authorization': localStorage.getItem('token')},
-    })
->>>>>>> OPL-58
       .then((response) => response.json())
       .then((result) => callback(result));
   }
@@ -141,12 +129,7 @@ class VideoComponent extends React.Component {
           </div>
         </div>
         <Comments commentInfos={this.state.videoInfos.commentInfos}
-<<<<<<< HEAD
           videoId={this.props.videoId}
-=======
-          objectId={this.state.videoInfos._id}
-          videoId={this.state.videoInfos.videoId}
->>>>>>> OPL-58
           updateVideoInfos={this.updateVideoInfos}/>
       </div>
     );
