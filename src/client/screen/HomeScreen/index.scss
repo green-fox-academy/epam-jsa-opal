@@ -67,4 +67,20 @@
     background-color: rgb(128, 128, 128);
     cursor: no-drop;
   }
+
+  .loader {
+    animation: spin 1.5s linear infinite;
+    border: 10px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 10px solid #d93738;
+    height: 70px;
+    width: 70px;
+    left: calc(50% - 50px);
+    position: absolute;
+    top: calc(50% - 70px);
+  }
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
 }

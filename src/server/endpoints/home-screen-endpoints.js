@@ -32,7 +32,7 @@ function getHomeInfos(req, res) {
     res.status(200).json({
       // videoId should be same with _id, here just for testing
       // in your PC please change here
-      'videoId': videoInfos.videoId,
+      'videoId': videoInfos._id.toString(),
       'videoUrl': videoInfos.videoUrl,
       'videoDetails': {
         'title': 'test video',
@@ -88,7 +88,9 @@ function uploadVideo(req, res) {
       if (uploadVideoMessage === undefined) {
         res.status(500).json({'error': 'something went wrong'});
       }
-      res.status(200).json({'success': 'upload success'});
+      res.set('location', '/api/videos/' + uploadVideoMessage);
+      res.setHeader('content-type', 'application/json');
+      res.status(201).json({});
     });
 }
 
@@ -101,7 +103,7 @@ function getVideoInfos(req, res) {
 
     res.status(200).json(allVideos.map((value) => (
       {
-        'videoId': value.videoId,
+        'videoId': value._id.toString(),
         'videoSrc': value.videoUrl,
         'previewSrc': value.videoDetails.preview,
         'title': value.videoDetails.title,

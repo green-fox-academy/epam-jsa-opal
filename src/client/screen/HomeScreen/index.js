@@ -37,8 +37,10 @@ class Home extends React.Component {
     this.setState({clickUpload: true});
   }
   onClickCancelUpload() {
-    this.setState({clickUpload: false});
-    this.setState({errorMessage: null});
+    this.setState({
+      clickUpload: false,
+      errorMessage: null,
+    });
   }
   onSubmit(ev) {
     ev.preventDefault();
@@ -61,15 +63,24 @@ class Home extends React.Component {
       statusCode = response.status;
       return response.json();
     }).then((result) => {
-      if (statusCode === 200) {
+      if (statusCode === 201) {
+        this.fetchVideoLists((newVideoLists) => {
+          if (newVideoLists.error) {
+            return;
+          }
+          this.setState({videoLists: newVideoLists});
+        });
         this.onClickCancelUpload();
       } else {
-        this.setState({errorMessage: result.error});
+        this.setState({
+          errorMessage: result.error,
+          uploading: false,
+        });
       }
-      this.setState({uploading: false});
     });
   }
   render() {
+
     return (
       <div className="homecontainer">
         <Header className="header"
@@ -78,19 +89,27 @@ class Home extends React.Component {
         <div className="main">
           {this.state.clickUpload ?
             <form className="upload-form" onSubmit={this.onSubmit}>
-              <input type="text" name="video-url" placeholder="video url" required/>
-              <input type="text" name="video-preview" placeholder="video preview" required/>
-              <input type="text" name="video-title" placeholder="video title" required/>
+              <input type="text" name="video-url" placeholder="video url" required
+                disabled = {this.state.uploading}/>
+              <input type="text" name="video-preview" placeholder="video preview" required
+                disabled = {this.state.uploading}/>
+              <input type="text" name="video-title" placeholder="video title" required
+                disabled = {this.state.uploading}/>
               <button type="submit" disabled={this.state.uploading}
                 className={this.state.uploading ? 'loading' : ''}>Upload</button>
               <button onClick={this.onClickCancelUpload}>Cancel</button>
               <p className="error-message">{this.state.errorMessage}</p>
+              {this.state.uploading ?
+                <div className="loader"></div> :
+                null
+              }
             </form>
             :
             null
           }
           <NavigationBar className="navigationBar"/>
-          <div className="videoComponent"> <VideoComponent videoId={this.state.videoLists[0] ? this.state.videoLists[0].videoId : null}/> </div>
+          <div className="videoComponent"> <VideoComponent videoId={this.state.videoLists[0] ?
+            this.state.videoLists[this.state.videoLists.length - 1].videoId : null}/> </div>
           <div className="suggestedVideos"> <SuggestedVideos videoLists={this.state.videoLists}/> </div>
         </div>
       </div>

@@ -54,14 +54,8 @@ function addCommentToVideo(userInfo, videoId, content, callback) {
         console.log(err);
         return callback(undefined);
       }
-      let commentId;
-
-      if (videoInfo.commentInfos[0] === undefined) {
-        commentId = 0;
-      } else {
-        commentId = videoInfo
-          .commentInfos[videoInfo.commentInfos.length - 1].commentId + 1;
-      }
+      let commentId = videoInfo
+        .commentInfos[videoInfo.commentInfos.length - 1].commentId + 1;
       let obj = {
         'username': userInfo.username,
         'userId': userInfo._id,
@@ -104,7 +98,7 @@ function getAllVideo(callback) {
     }
     let videosDB = db.collection('videos');
 
-    videosDB.find().toArray((err, result) => {
+    videosDB.find().sort({'videoDetails.publishDate': -1}).toArray((err, result) => {
       if (err) {
         console.log(err);
       }
@@ -126,7 +120,6 @@ function insertVideoToDatabase(userInfo, videoInfos, token, callback) {
     let videosDB = db.collection('videos');
     let uploadVideoInfos = {
       'videoUrl': videoInfos.videoUrl,
-      'videoId': null,
       'videoDetails': {
         'title': videoInfos.videoTitle,
         'views': 0,
@@ -148,15 +141,7 @@ function insertVideoToDatabase(userInfo, videoInfos, token, callback) {
       if (err) {
         return callback(undefined);
       }
-      videosDB.update(
-        {_id: result.ops[0]._id},
-        {$set: {'videoId': result.ops[0]._id.toString()}}, (err) => {
-          if (err) {
-            return callback(undefined);
-          }
-          return callback('success');
-        }
-      );
+      return callback(result.ops[0]._id.toString());
     });
   });
 }
