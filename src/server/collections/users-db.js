@@ -20,14 +20,15 @@ if (password !== undefined) {
 let mongodb = require('mongodb');
 let MongoClient = mongodb.MongoClient;
 
-function createToken(userinfo, userAgent, callback) {
-  callback(tokensDb.createToken(userinfo._id, userAgent));
+function createToken(userId, userAgent, callback) {
+  callback(tokensDb.createToken(userId, userAgent));
 }
 
 function notFound(req, res, db, sendContent) {
   db.collection('users').insert(sendContent, function() {
     let userId = sendContent._id;
 
+    console.log(userId);
     createToken(userId, req.headers['user-agent'], (tokenData) => {
       res.set('location', '/api/users/' + userId);
       res.setHeader('content-type', 'application/json');

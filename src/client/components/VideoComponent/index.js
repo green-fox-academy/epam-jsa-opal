@@ -7,29 +7,19 @@ class VideoComponent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      'changeupColor': false,
-      'changedownColor': false,
+      'isLiked': false,
+      'isDisliked': false,
       'videoInfos': {videoDetails: {}, uploader: {}, commentInfos: []},
     };
     this.updateVideoInfos = this.updateVideoInfos.bind(this);
   }
 
-  componentDidMount() {
-    if (this.props.videoId === null) {
-      return;
-    }
-    this.fetchVideoInfos(this.props.videoId, (result) => {
-      this.setState({videoInfos: result});
-    });
-  }
   componentWillReceiveProps(nextProps) {
     if (nextProps.videoId === null) {
       return;
     }
     this.fetchVideoInfos(nextProps.videoId, (result) => {
-      this.setState({videoInfos: result});
-      this.setState({'changeupColor': result.videoDetails.clickedLike});
-      this.setState({'changedownColor': result.videoDetails.clickedDislike});
+      this.setState({'videoInfos': result, 'isLiked': result.videoDetails.clickedLike, 'isDisliked': result.videoDetails.clickedDislike});
     });
   }
   fetchVideoInfos(videoId, callback) {
@@ -39,51 +29,49 @@ class VideoComponent extends React.Component {
   }
 
   handleThumbup() {
-    this.setState({'changeupColor': !this.state.changeupColor});
-    if (!this.state.changeupColor) {
-      fetch('/api/videosthumb/59eecd63abb2117ba6f42a15/thumbUp', {
-        method: 'put',
+    if (!this.state.isLiked) {
+      fetch(`/api/videos/${this.state.videoInfos.videoId}/likes`, {
+        method: 'post',
         headers: {'Authorization': localStorage.getItem('token')},
       }).then((response) => {
         let videoInfos = this.state.videoInfos;
 
         videoInfos.videoDetails.videoLikeNums++;
-        this.setState({videoInfos: videoInfos});
+        this.setState({'videoInfos': videoInfos, 'isLiked': !this.state.isLiked});
       });
     } else {
-      fetch('/api/videosthumb/59eecd63abb2117ba6f42a15/cancelThumbup', {
-        method: 'put',
+      fetch(`/api/videos/${this.state.videoInfos.videoId}/likes`, {
+        method: 'delete',
         headers: {'Authorization': localStorage.getItem('token')},
       }).then((response) => {
         let videoInfos = this.state.videoInfos;
 
         videoInfos.videoDetails.videoLikeNums--;
-        this.setState({videoInfos: videoInfos});
+        this.setState({'videoInfos': videoInfos, 'isLiked': !this.state.isLiked});
       });
     }
   }
 
   handleThumbdown() {
-    this.setState({'changedownColor': !this.state.changedownColor});
-    if (!this.state.changedownColor) {
-      fetch('/api/videosthumb/59eecd63abb2117ba6f42a15/thumbDown', {
-        method: 'put',
+    if (!this.state.isDisliked) {
+      fetch(`/api/videos/${this.state.videoInfos.videoId}/dislikes`, {
+        method: 'post',
         headers: {'Authorization': localStorage.getItem('token')},
       }).then((response) => {
         let videoInfos = this.state.videoInfos;
 
         videoInfos.videoDetails.videoDislikeNums++;
-        this.setState({videoInfos: videoInfos});
+        this.setState({'videoInfos': videoInfos, 'isDisliked': !this.state.isDisliked});
       });
     } else {
-      fetch('/api/videosthumb/59eecd63abb2117ba6f42a15/cancelThumbdown', {
-        method: 'put',
+      fetch(`/api/videos/${this.state.videoInfos.videoId}/dislikes`, {
+        method: 'delete',
         headers: {'Authorization': localStorage.getItem('token')},
       }).then((response) => {
         let videoInfos = this.state.videoInfos;
 
         videoInfos.videoDetails.videoDislikeNums--;
-        this.setState({videoInfos: videoInfos});
+        this.setState({'videoInfos': videoInfos, 'isDisliked': !this.state.isDisliked});
       });
     }
   }
@@ -128,13 +116,13 @@ class VideoComponent extends React.Component {
               </div>
             </div>
             <div className="thumb">
-              <button className="thumb-up" onClick={this.state.changedownColor ? this.handleThumbdown.bind(this) : this.handleThumbup.bind(this)}
-                className={this.state.changeupColor ? 'changeupcolor thumb-up clicked' : 'thumb-up'}
+              <button onClick={this.state.isDisliked ? this.handleThumbdown.bind(this) : this.handleThumbup.bind(this)}
+                className={this.state.isLiked ? 'changeupcolor thumb-up clicked' : 'thumb-up'}
               >
                 like<span className="like-num">{this.state.videoInfos.videoDetails.videoLikeNums}</span>
               </button>
-              <button className="thumb-down" onClick={this.state.changeupColor ? this.handleThumbup.bind(this) : this.handleThumbdown.bind(this)}
-                className={this.state.changedownColor ? 'changedowncolor thumb-down clicked' : 'thumb-down'}>
+              <button onClick={this.state.isLiked ? this.handleThumbup.bind(this) : this.handleThumbdown.bind(this)}
+                className={this.state.isDisliked ? 'changedowncolor thumb-down clicked' : 'thumb-down'}>
                 dislike<span className="dislike-num">{this.state.videoInfos.videoDetails.videoDislikeNums}</span>
               </button>
             </div>

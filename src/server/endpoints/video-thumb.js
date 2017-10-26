@@ -3,37 +3,55 @@
 const videosDb = require('../collections/videos-db');
 const tokensDb = require('../collections/tokens-db');
 
+function updateErrorhandle(res, result) {
+  if (result === 'Upadate Failed') {
+    res.status(500).json({'error': 'Update Failed'});
+    return;
+  }
+  if (result === undefined) {
+    res.status(500).json({'error': 'Unable connect database'});
+    return;
+  }
+}
+
 function thumbUp(req, res) {
   let token = req.get('Authorization');
   let userId;
 
   tokensDb.getToken(token, (userInfos) => {
+    if (token === undefined) {
+      res.status(400).json({'error': 'unauthenrization'});
+      return;
+    }
     userId = userInfos.userId;
     let insertUser = true;
     let videoId = req.params.videoId;
 
     videosDb.findVideoInfo(req.params.videoId, (videoInfos) => {
-      for (let i = 0; i < videoInfos.videoDetails.LikeStatus.length; i++) {
-        if (videoInfos.videoDetails.LikeStatus[i].userId.toString() === userId.toString()) {
-          videoInfos.videoDetails.LikeStatus[i].liked = true;
-          videoInfos.videoDetails.LikeStatus[i].disliked = false;
-          insertUser = false;
-        }
+      if (videoInfos._id === undefined) {
+        res.status(404).json({'error': 'not found'});
+        return;
       }
+      videoInfos.videoDetails.LikeStatus.map(function(likeStatus) {
+        if (likeStatus.userId.toString() === userId.toString()) {
+          likeStatus.liked = true;
+          likeStatus.disliked = false;
+          insertUser = false;
+        } return;
+      });
       if (insertUser) {
-        let obj = {
+        videoInfos.videoDetails.LikeStatus.push({
           'userId': userId,
           'liked': true,
           'disliked': false,
-        };
-
-        videoInfos.videoDetails.LikeStatus.push(obj);
+        });
       }
-      videosDb.updateVideoInfo(videoInfos, videoId);
+      videosDb.updateVideoInfo(videoInfos, videoId, (result) => {
+        updateErrorhandle(res, result);
+        res.status(200).json({});
+      });
     });
   });
-
-  res.status(200).json({});
 }
 
 function thumbDown(req, res) {
@@ -41,31 +59,39 @@ function thumbDown(req, res) {
   let userId;
 
   tokensDb.getToken(token, (userInfos) => {
+    if (token === undefined) {
+      res.status(400).json({'error': 'unauthenrization'});
+      return;
+    }
     userId = userInfos.userId;
     let insertUser = true;
     let videoId = req.params.videoId;
 
     videosDb.findVideoInfo(req.params.videoId, (videoInfos) => {
-      for (let i = 0; i < videoInfos.videoDetails.LikeStatus.length; i++) {
-        if (videoInfos.videoDetails.LikeStatus[i].userId.toString() === userId.toString()) {
-          videoInfos.videoDetails.LikeStatus[i].disliked = true;
-          videoInfos.videoDetails.LikeStatus[i].liked = false;
-          insertUser = false;
-        }
+      if (videoInfos._id === undefined) {
+        res.status(404).json({'error': 'not found'});
+        return;
       }
+      videoInfos.videoDetails.LikeStatus.map(function(likeStatus) {
+        if (likeStatus.userId.toString() === userId.toString()) {
+          likeStatus.liked = false;
+          likeStatus.disliked = true;
+          insertUser = false;
+        } return;
+      });
       if (insertUser) {
-        let obj = {
+        videoInfos.videoDetails.LikeStatus.push({
           'userId': userId,
           'liked': false,
           'disliked': true,
-        };
-
-        videoInfos.videoDetails.LikeStatus.push(obj);
+        });
       }
-      videosDb.updateVideoInfo(videoInfos, videoId);
+      videosDb.updateVideoInfo(videoInfos, videoId, (result) => {
+        updateErrorhandle(res, result);
+        res.status(200).json({});
+      });
     });
   });
-  res.status(200).json({});
 }
 
 function cancelthumbUp(req, res) {
@@ -73,19 +99,29 @@ function cancelthumbUp(req, res) {
   let userId;
 
   tokensDb.getToken(token, (userInfos) => {
+    if (token === undefined) {
+      res.status(400).json({'error': 'unauthenrization'});
+      return;
+    }
     userId = userInfos.userId;
     let videoId = req.params.videoId;
 
     videosDb.findVideoInfo(req.params.videoId, (videoInfos) => {
-      for (let i = 0; i < videoInfos.videoDetails.LikeStatus.length; i++) {
-        if (videoInfos.videoDetails.LikeStatus[i].userId.toString() === userId.toString()) {
-          videoInfos.videoDetails.LikeStatus[i].liked = false;
-        }
+      if (videoInfos._id === undefined) {
+        res.status(404).json({'error': 'not found'});
+        return;
       }
-      videosDb.updateVideoInfo(videoInfos, videoId);
+      videoInfos.videoDetails.LikeStatus.map(function(likeStatus) {
+        if (likeStatus.userId.toString() === userId.toString()) {
+          likeStatus.liked = false;
+        } return;
+      });
+      videosDb.updateVideoInfo(videoInfos, videoId, (result) => {
+        updateErrorhandle(res, result);
+        res.status(200).json({});
+      });
     });
   });
-  res.status(200).json({});
 }
 
 function cancelthumbDown(req, res) {
@@ -93,41 +129,53 @@ function cancelthumbDown(req, res) {
   let userId;
 
   tokensDb.getToken(token, (userInfos) => {
+    if (token === undefined) {
+      res.status(400).json({'error': 'unauthenrization'});
+      return;
+    }
     userId = userInfos.userId;
     let videoId = req.params.videoId;
 
     videosDb.findVideoInfo(req.params.videoId, (videoInfos) => {
-      for (let i = 0; i < videoInfos.videoDetails.LikeStatus.length; i++) {
-        if (videoInfos.videoDetails.LikeStatus[i].userId.toString() === userId.toString()) {
-          videoInfos.videoDetails.LikeStatus[i].disliked = false;
-        }
+      if (videoInfos._id === undefined) {
+        res.status(404).json({'error': 'not found'});
+        return;
       }
-      videosDb.updateVideoInfo(videoInfos, videoId);
+      videoInfos.videoDetails.LikeStatus.map(function(likeStatus) {
+        if (likeStatus.userId.toString() === userId.toString()) {
+          likeStatus.disliked = false;
+        } return;
+      });
+      videosDb.updateVideoInfo(videoInfos, videoId, (result) => {
+        updateErrorhandle(res, result);
+        res.status(200).json({});
+      });
     });
   });
-  res.status(200).json({});
 }
 
 function judgeVotetype(req, res) {
   let votetype = req.params.votetype;
 
-  console.log(votetype);
-  if (votetype === 'thumbUp') {
+  if (votetype === 'likes') {
     thumbUp(req, res);
-  } else if (votetype === 'thumbDown') {
+  } else if (votetype === 'dislikes') {
     thumbDown(req, res);
-  } else if (votetype === 'cancelThumbup') {
+  }
+}
+
+function judgeCanceltype(req, res) {
+  let votetype = req.params.votetype;
+
+  if (votetype === 'likes') {
     cancelthumbUp(req, res);
-  } else if (votetype === 'cancelThumbdown') {
+  } else if (votetype === 'dislikes') {
     cancelthumbDown(req, res);
   }
 }
 
 module.exports = {
-  thumbUp: thumbUp,
-  thumbDown: thumbDown,
-  cancelthumbUp: cancelthumbUp,
-  cancelthumbDown: cancelthumbDown,
   judgeVotetype: judgeVotetype,
+  judgeCanceltype: judgeCanceltype,
 };
 
