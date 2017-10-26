@@ -54,8 +54,14 @@ function addCommentToVideo(userInfo, videoId, content, callback) {
         console.log(err);
         return callback(undefined);
       }
-      let commentId = videoInfo
-        .commentInfos[videoInfo.commentInfos.length - 1].commentId + 1;
+      let commentId;
+
+      if (videoInfo.commentInfos.length === 0) {
+        commentId = 0;
+      } else {
+        commentId = videoInfo
+          .commentInfos[videoInfo.commentInfos.length - 1].commentId + 1;
+      }
       let obj = {
         'username': userInfo.username,
         'userId': userInfo._id,
