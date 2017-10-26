@@ -11,6 +11,7 @@ class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      'videoLists': [],
       'clickUpload': false,
       'errorMessage': null,
       'uploading': false,
@@ -18,6 +19,16 @@ class Home extends React.Component {
     this.onClickUpload = this.onClickUpload.bind(this);
     this.onClickCancelUpload = this.onClickCancelUpload.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+  }
+  componentDidMount() {
+    this.fetchVideoLists((result) => {
+      this.setState({videoLists: result});
+    });
+  }
+  fetchVideoLists(callback) {
+    fetch('/api/videos')
+      .then((response) => response.json())
+      .then((result) => callback(result));
   }
   onClickUpload() {
     this.setState({clickUpload: true});
@@ -77,8 +88,8 @@ class Home extends React.Component {
             null
           }
           <NavigationBar className="navigationBar"/>
-          <div className="videoComponent"> <VideoComponent /> </div>
-          <div className="suggestedVideos"> <SuggestedVideos /> </div>
+          <div className="videoComponent"> <VideoComponent defalutVideo={this.state.videoLists[0] ? this.state.videoLists[0].videoId : null}/> </div>
+          <div className="suggestedVideos"> <SuggestedVideos videoLists={this.state.videoLists}/> </div>
         </div>
       </div>
     );
