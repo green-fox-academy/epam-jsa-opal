@@ -15,124 +15,139 @@ if (password !== undefined) {
 } else {
   url = protocol + '://' + host + ':' + port + '/' + name;
 }
+
+function dbError(err, res, db) {
+  if (err) {
+    res.status(404).send();
+    db.close();
+    return;
+  }
+}
+
 function update(videosId, commentId, votetype, res, req) {
   let userId;
 
   MongoClient.connect(url, (err, db) => {
+    if (err) {
+      throw err;
+    }
     db.collection('videos').find({'videoId': videosId})
-    .toArray(function(err,items){
-      if (err) {
-        console.log('Unable to connect to the MongoDB server. Error:', err);
-        res.status(404).send();
-        db.close();
-      }
-      let VideoObject = items[0];
-      let token = req.get('Authorization');
-      db.collection('tokenDescriptors').find({'token': token})
-      .toArray(function(err,items){
-        if (err) {
-          console.log('Unable to connect to the MongoDB server. Error:', err);
-          res.status(404).send();
-          db.close();
-          return;
-        }    
-        if (items[0] === undefined) {
-          console.log('Not login', err);
-          res.status(404).send({'error': 'Not login sorry!'});
-          db.close();
-          return;
-        }
-        else {
-          userId = items[0].userId;
-          commentLikeCallHandler(votetype, db, videosId, userId, VideoObject, res, commentId);
-        }
+      .toArray(function(err, items) {
+        dbError(err, res, db);
+        let VideoObject = items[0];
+        let token = req.get('Authorization');
+
+        db.collection('tokenDescriptors')
+          .find({'token': token})
+          .toArray(function(err, subitems) {
+            dbError(err, res, db);
+            if (items[0] === undefined) {
+              console.log('Not login', err);
+              res.status(404).send({'error': 'Not login sorry!'});
+              db.close();
+              return;
+            }
+            userId = subitems[0].userId;
+            let inputObj = {
+              'votetype': votetype,
+              'db': db,
+              'videosId': videosId,
+              'userId': userId,
+              'VideoObject': VideoObject,
+              'res': res,
+              'commentId': commentId,
+            };
+
+            commentLikeCallHandler(inputObj);
+          });
       });
-    });
   });
 }
 
-function CountLikeAndDislikedNumber(commentUserArray) {
+function countLikeAndDislikedNumber(commentUserArray) {
   let likednumber = 0;
   let dislikednumber = 0;
+
   commentUserArray.forEach(function(element) {
-    if(element.liked === true){
+    if (element.liked === true) {
       likednumber++;
-    };
-    if(element.disliked=== true){
+    }
+    if (element.disliked === true) {
       dislikednumber++;
-    };
+    }
   });
   let result = {
     'likedNumber': likednumber,
     'dislikedNumber': dislikednumber,
-  }
+  };
+
   return result;
 }
 
-function commentLikeCallHandler(votetype, db, videosId, userId, VideoObject, res, commentId) {
-  let tempArray = VideoObject.commentInfos[commentId-1].LikeStatus;
-  if(votetype === 'likeenable'){
-    let whetherFind = false;
-    for(let i = 0 ; i < tempArray.length ; i++){
-      if(tempArray[i].userId === userId.toString()){
-        whetherFind = true;
-        tempArray[i].liked = true;
-        break;
-      }
-    }
-    if(!whetherFind){
-      createObj(true,false,tempArray)
-    }
-    updateCommentsInfo(VideoObject,commentId,tempArray,db,videosId);
+function updateCommentsInfo(VideoObject, commentId, tempArray, db, videosId) {
+  VideoObject.commentInfos[commentId - 1].LikeStatus = tempArray;
+  db.collection('videos')
+    .update({'videoId': videosId},
+      {$set: {'commentInfos': VideoObject.commentInfos}});
+}
+
+function createObj(whetherFind, like, dislike, tempArray, userId) {
+  if (!whetherFind) {
+    let objInsert = {
+      'userId': userId.toString(),
+      'liked': like,
+      'disliked': dislike,
+    };
+
+    tempArray.push(objInsert);
   }
-  else if(votetype === 'dislikeenable'){
-    let whetherFind = false;
-    for(let i = 0 ; i < tempArray.length ; i++){
-      if(tempArray[i].userId === userId.toString()){
-        whetherFind = true;
-        tempArray[i].disliked = true;
+}
+
+function iterateArray(tempArray, changedValue, userId, target) {
+  for (let i = 0; i < tempArray.length; i++) {
+    if (tempArray[i].userId === userId.toString()) {
+      if (target === 'disliked') {
+        tempArray[i].disliked = changedValue;
+      } else if (target === 'liked') {
+        tempArray[i].liked = changedValue;
       }
+      return true;
     }
-    if(!whetherFind){
-      createObj(false,true,tempArray)
-    }
-    updateCommentsInfo(VideoObject,commentId,tempArray,db,videosId);
   }
-  else if(votetype === 'likedisable'){
-    for(let i = 0 ; i < tempArray.length ; i++){
-      if(tempArray[i].userId === userId.toString()){
-        tempArray[i].liked = false;
-        break;
-      }
-    }
-    updateCommentsInfo(VideoObject,commentId,tempArray,db,videosId);
-  }else if(votetype === 'dislikedisable'){
-    for(let i = 0 ; i < tempArray.length ; i++){
-      if(tempArray[i].userId === userId.toString()){
-        tempArray[i].disliked = false;
-        break;
-      }
-    }
-    updateCommentsInfo(VideoObject,commentId,tempArray,db,videosId);
-  }
-  let sendobj = CountLikeAndDislikedNumber(tempArray);
+}
+
+function sendResponse(tempArray, res, db) {
+  let sendObj = countLikeAndDislikedNumber(tempArray);
+
   res.setHeader('content-type', 'application/json');
-  res.status(200).send(sendobj);
+  res.status(200).send(sendObj);
   db.close();
 }
 
-function updateCommentsInfo(VideoObject, commentId, tempArray, db, videosId) {
-  VideoObject.commentInfos[commentId-1].LikeStatus = tempArray;
-  db.collection('videos').update({'videoId': videosId }, {$set: {'commentInfos':  VideoObject.commentInfos}} );
-}
+function commentLikeCallHandler(obj) {
+  let tempArray = obj.VideoObject.commentInfos[obj.commentId - 1].LikeStatus;
+  let whetherFind = false;
 
-function createObj(like, dislike, tempArray) {
-  let objInsert = {
-    "userId" : userId.toString(),
-    "liked" : like,
-    "disliked" : dislike,
+  if (obj.votetype === 'likeenable') {
+    whetherFind = iterateArray(tempArray, true, obj.userId, 'liked');
+    createObj(whetherFind, true, false, tempArray, obj.userId);
+    updateCommentsInfo(obj.VideoObject, obj.commentId,
+      tempArray, obj.db, obj.videosId);
+  } else if (obj.votetype === 'dislikeenable') {
+    whetherFind = iterateArray(tempArray, true, obj.userId, 'disliked');
+    createObj(whetherFind, false, true, tempArray, obj.userId);
+    updateCommentsInfo(obj.VideoObject, obj.commentId,
+      tempArray, obj.db, obj.videosId);
+  } else if (obj.votetype === 'likedisable') {
+    iterateArray(tempArray, false, obj.userId, 'liked');
+    updateCommentsInfo(obj.VideoObject, obj.commentId,
+      tempArray, obj.db, obj.videosId);
+  } else if (obj.votetype === 'dislikedisable') {
+    iterateArray(tempArray, false, obj.userId, 'disliked');
+    updateCommentsInfo(obj.VideoObject, obj.commentId,
+      tempArray, obj.db, obj.videosId);
   }
-  tempArray.push(objInsert);
+  sendResponse(tempArray, obj.res, obj.db);
 }
 
 module.exports = {updateComments: update};

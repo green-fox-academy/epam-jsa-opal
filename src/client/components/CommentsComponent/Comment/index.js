@@ -26,33 +26,39 @@ class Comment extends React.Component {
   }
   onClickLikeButton() {
     const likeState = this.state.likeState;
-    
+
     if (likeState.clickDislike) {
-      fetch('/api/'+this.props.videoId+'/'+this.props.commentId+'/dislikedisable',{
+      fetch('/api/' + this.props.videoId + '/'
+      + this.props.commentId + '/dislikedisable', {
         'method': 'put',
-         headers: {'Authorization': localStorage.getItem('token')},
+        'headers': {'Authorization': localStorage.getItem('token')},
       }).then((response)=>{
-        let newNums = this.state.dislikeNums-1;
+        let newNums = this.state.dislikeNums - 1;
+
         this.setState({dislikeNums: newNums});
-      })
+      });
       likeState.clickDislike = !likeState.clickDislike;
     } else {
       if (likeState.clickLike === false) {
-        fetch('/api/'+this.props.videoId+'/'+this.props.commentId+'/likeenable',{
+        fetch('/api/' + this.props.videoId + '/'
+        + this.props.commentId + '/likeenable', {
           'method': 'put',
-           headers: {'Authorization': localStorage.getItem('token')},
+          'headers': {'Authorization': localStorage.getItem('token')},
         }).then((response)=>{
-          let newNums = this.state.likeNums+1;
+          let newNums = this.state.likeNums + 1;
+
           this.setState({likeNums: newNums});
-        })
-      }else{
-        fetch('/api/'+this.props.videoId+'/'+this.props.commentId+'/likedisable',{
+        });
+      } else {
+        fetch('/api/' + this.props.videoId + '/'
+        + this.props.commentId + '/likedisable', {
           'method': 'put',
-           headers: {'Authorization': localStorage.getItem('token')},
+          'headers': {'Authorization': localStorage.getItem('token')},
         }).then((response)=>{
-          let newNums = this.state.likeNums-1;
+          let newNums = this.state.likeNums - 1;
+
           this.setState({likeNums: newNums});
-        })
+        });
       }
       likeState.clickLike = !likeState.clickLike;
     }
@@ -62,36 +68,42 @@ class Comment extends React.Component {
     const likeState = this.state.likeState;
 
     if (likeState.clickLike) {
-      fetch('/api/'+this.props.videoId+'/'+this.props.commentId+'/likedisable',{
+      fetch('/api/' + this.props.videoId + '/'
+      + this.props.commentId + '/likedisable', {
         'method': 'put',
-         headers: {'Authorization': localStorage.getItem('token')},
+        'headers': {'Authorization': localStorage.getItem('token')},
       }).then((response)=>{
-        let newNums = this.state.likeNums-1;
+        let newNums = this.state.likeNums - 1;
+
         this.setState({likeNums: newNums});
-      })
+      });
       likeState.clickLike = !likeState.clickLike;
     } else {
       if (likeState.clickDislike === false) {
-        fetch('/api/'+this.props.videoId+'/'+this.props.commentId+'/dislikeenable',{
+        fetch('/api/' + this.props.videoId +
+        '/' + this.props.commentId + '/dislikeenable', {
           'method': 'put',
-           headers: {'Authorization': localStorage.getItem('token')},
+          'headers': {'Authorization': localStorage.getItem('token')},
         }).then((response)=>{
-          let newNums = this.state.dislikeNums+1;
+          let newNums = this.state.dislikeNums + 1;
+
           this.setState({dislikeNums: newNums});
-        })
-      }else {
-        fetch('/api/'+this.props.videoId+'/'+this.props.commentId+'/dislikedisable',{
+        });
+      } else {
+        fetch('/api/' + this.props.videoId + '/'
+        + this.props.commentId + '/dislikedisable', {
           'method': 'put',
-           headers: {'Authorization': localStorage.getItem('token')},
+          'headers': {'Authorization': localStorage.getItem('token')},
         }).then((response)=>{
-          let newNums = this.state.dislikeNums-1;
+          let newNums = this.state.dislikeNums - 1;
+
           this.setState({dislikeNums: newNums});
-        })
+        });
       }
       likeState.clickDislike = !likeState.clickDislike;
       this.setState({likeState: likeState});
+    }
   }
-}
   render() {
     return (
       <div className="comment" >
