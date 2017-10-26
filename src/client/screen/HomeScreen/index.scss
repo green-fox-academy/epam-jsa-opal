@@ -25,9 +25,8 @@
   top: 17px;
   z-index: 3;
   width: 270px;
-  height: 180px;
   background-color: #fff;
-  padding: 0 15px;
+  padding: 20px 15px;
   text-align: center;
   input {
     display: block;
@@ -42,9 +41,6 @@
     margin: .5rem 0;
   }
 
-  input[type='submit'].logining {
-    background-color: rgb(128, 128, 128);
-  }
   button {
     background-color: #d93738;
     border-radius: 2px;
@@ -55,5 +51,12 @@
   }
   button[type='submit'] {
     margin-right: 20px;
+  }
+  .error-message {
+    color: #d93738;
+  }
+  button.loading {
+    background-color: rgb(128, 128, 128);
+    cursor: no-drop;
   }
 }
