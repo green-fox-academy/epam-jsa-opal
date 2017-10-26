@@ -23,6 +23,7 @@ app.post('/api/login', jsonParser, loginController.login);
 app.get('/heartbeat', DatabaseHealth.checkDatabaseHealth);
 app.get('/api/videos/:videoId', homeController.getHomeInfos);
 app.post('/api/videos/:videoId/comments', homeController.postComment);
+app.get('/api/videos', homeController.getVideoInfos);
 app.get('*', (req, res) =>{
   res.sendFile('index.html', {root: path.join(__dirname, '../../dist')});
 });
