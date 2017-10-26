@@ -40,6 +40,7 @@ class Home extends React.Component {
     this.setState({
       clickUpload: false,
       errorMessage: null,
+      uploading: false,
     });
   }
   onSubmit(ev) {
