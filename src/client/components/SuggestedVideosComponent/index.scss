@@ -25,7 +25,6 @@
 
 .suggested-video-ul {
   width: 220px;
-
 }
 
 .suggested-video-list {
@@ -55,7 +54,7 @@
     span {
       $font-color: #fff;
       $backround-color: #000;
-      background-color: rgba($color: $backround-color, $alpha: 0.73);
+      background-color: rgba($color: $backround-color, $alpha: .73);
       border-radius: 100px;
       bottom: 10px;
       color: $font-color;

@@ -56,6 +56,7 @@ header {
   }
 
   .right-top {
+    position: relative;
     align-items: center;
     display: flex;
     margin-left: auto;
@@ -104,6 +105,7 @@ header {
       width: 1.875em;
     }
   }
+
 }
 
 .right-top-button {

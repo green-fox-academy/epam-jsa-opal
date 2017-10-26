@@ -31,16 +31,10 @@ function getHomeInfos(req, res) {
       res.status(200).json({
         // videoId should be same with _id, here just for testing
         // in your PC please change here
-        'videoId': '59eecd63abb2117ba6f42a15',
-        'videoUrl': 'http://nettuts.s3.amazonaws.com/763_sammyJSIntro/trailer_test.mp4',
+        'videoId': videoInfos._id.toString(),
+        'videoUrl': videoInfos.videoUrl,
         'videoDetails': videoInfos.videoDetails,
-
-        'uploader': {
-          'name': 'uploader name',
-          'userId': '59e02b5d120d8b14a06816b6',
-          'avatar': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLDxSdH8lLX-y9TJzLDWZPvoLexXrE8Ft5EAAWaZNyQHVM-yh-3A',
-          'subscribers': 1000,
-        },
+        'uploader': videoInfos.uploader,
         'commentInfos': videoInfos.commentInfos,
       });
     });
@@ -106,6 +100,26 @@ function postComment(req, res) {
     });
 }
 
+function uploadVideo(req, res) {
+  if (req.get('Authorization') === undefined) {
+    res.status(400).json({'error': 'unauthorized'});
+    return;
+  }
+  if (req.body.url === undefined || req.body.preview === undefined || req.body.title === undefined) {
+    res.status(402).json({'error': 'miss field'});
+    return;
+  }
+  videosDb.addVideo({videoUrl: req.body.url, preview: req.body.preview, videoTitle: req.body.title},
+    req.get('Authorization'), (uploadVideoMessage) => {
+      if (uploadVideoMessage === undefined) {
+        res.status(500).json({'error': 'something went wrong'});
+      }
+      res.set('location', '/api/videos/' + uploadVideoMessage);
+      res.setHeader('content-type', 'application/json');
+      res.status(201).json({});
+    });
+}
+
 function getVideoInfos(req, res) {
   videosDb.getAllVideo((allVideos) => {
     if (allVideos.length === 0) {
@@ -115,7 +129,7 @@ function getVideoInfos(req, res) {
 
     res.status(200).json(allVideos.map((value) => (
       {
-        'videoId': value.videoId,
+        'videoId': value._id.toString(),
         'videoSrc': value.videoUrl,
         'previewSrc': value.videoDetails.preview,
         'title': value.videoDetails.title,
@@ -130,6 +144,7 @@ function getVideoInfos(req, res) {
 module.exports = {
   getHomeInfos: getHomeInfos,
   postComment: postComment,
+  uploadVideo: uploadVideo,
   getVideoInfos: getVideoInfos,
 };
 
