@@ -43,7 +43,7 @@ class Comments extends React.Component {
     return (
       <CommentsView commentInfos={this.props.commentInfos}
         addComment={this.addComment}
-        avatar={userAvatar}
+        avatar={this.props.userInfos.avatar}
         videoId={this.props.videoId}
         posting={this.state.posting}
       />

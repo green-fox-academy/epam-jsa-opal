@@ -130,7 +130,8 @@ class VideoComponent extends React.Component {
         </div>
         <Comments commentInfos={this.state.videoInfos.commentInfos}
           videoId={this.props.videoId}
-          updateVideoInfos={this.updateVideoInfos}/>
+          updateVideoInfos={this.updateVideoInfos}
+          userInfos={this.props.userInfos}/>
       </div>
     );
   }
