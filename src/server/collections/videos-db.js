@@ -20,6 +20,24 @@ let MongoClient = mongodb.MongoClient;
 const tokensDb = require('./tokens-db');
 const usersDb = require('./users-db');
 
+function updateVideoInfo(videoInfos, videoId, callback) {
+  MongoClient.connect(url, (err, db) => {
+    if (err) {
+      return callback(undefined);
+    }
+    let videosDB = db.collection('videos');
+
+    videosDB.update({'_id': ObjectId(videoId)}, {'$set': videoInfos}, (err, result) => {
+      if (err) {
+        console.log(err);
+        return callback('Upadate Failed');
+      }
+      db.close();
+      return callback('success');
+    });
+  });
+}
+
 function findVideoInfo(videoId, callback) {
   MongoClient.connect(url, (err, db) => {
     if (err) {
@@ -162,6 +180,7 @@ function addVideo(videoInfos, token, callback) {
 
 module.exports = {
   findVideoInfo: findVideoInfo,
+  updateVideoInfo: updateVideoInfo,
   addComment: addComment,
   addVideo: addVideo,
   getAllVideo: getAllVideo,

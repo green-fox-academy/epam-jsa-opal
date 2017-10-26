@@ -20,8 +20,8 @@ if (password !== undefined) {
 let mongodb = require('mongodb');
 let MongoClient = mongodb.MongoClient;
 
-function createToken(userinfo, userAgent, callback) {
-  callback(tokensDb.createToken(userinfo._id, userAgent));
+function createToken(userId, userAgent, callback) {
+  callback(tokensDb.createToken(userId, userAgent));
 }
 
 function notFound(req, res, db, sendContent) {
