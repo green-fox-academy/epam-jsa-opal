@@ -18,3 +18,42 @@
 .navigationbar {
   margin-top: -37px;
 }
+
+.upload-form {
+  position: absolute;
+  right: 130px;
+  top: 17px;
+  z-index: 3;
+  width: 270px;
+  height: 180px;
+  background-color: #fff;
+  padding: 0 15px;
+  text-align: center;
+  input {
+    display: block;
+    line-height: 2rem;
+    outline: none;
+    width: 100%;
+  }
+  input:not([type='submit']) {
+    background-color: transparent;
+    border-bottom: 1px solid #eee;
+    color: rgb(0, 0, 0);
+    margin: .5rem 0;
+  }
+
+  input[type='submit'].logining {
+    background-color: rgb(128, 128, 128);
+  }
+  button {
+    background-color: #d93738;
+    border-radius: 2px;
+    color: rgb(255, 255, 255);
+    padding: 7px;
+    margin-bottom: 1rem;
+    cursor: pointer;
+  }
+  button[type='submit'] {
+    margin-right: 20px;
+  }
+}
