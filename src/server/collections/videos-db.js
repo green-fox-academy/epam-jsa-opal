@@ -60,7 +60,6 @@ function findVideoInfo(videoId, callback) {
 }
 
 function addCommentToVideo(userInfo, videoId, content, callback) {
-  console.log('11:' + userInfo);
   MongoClient.connect(url, (err, db) => {
     if (err) {
       console.log(err.name + ':' + err.message);
@@ -81,7 +80,6 @@ function addCommentToVideo(userInfo, videoId, content, callback) {
         commentId = videoInfo
           .commentInfos[videoInfo.commentInfos.length - 1].commentId + 1;
       }
-      console.log('22:' + userInfo);
       let obj = {
         'username': userInfo.username,
         'userId': userInfo._id,
@@ -111,7 +109,6 @@ function addCommentToVideo(userInfo, videoId, content, callback) {
 function addComment(videoId, token, content, callback) {
   tokensDb.getToken(token, (tokenInfo) => {
     usersDb.findUserInfoById(tokenInfo.userId, (userInfo) => {
-      console.log('db:' + userInfo);
       addCommentToVideo(userInfo, videoId, content, callback);
     });
   });
