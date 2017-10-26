@@ -32,8 +32,8 @@ function getHomeInfos(req, res) {
     res.status(200).json({
       // videoId should be same with _id, here just for testing
       // in your PC please change here
-      'videoId': '59ed7f1f1707c6894c13e013',
-      'videoUrl': 'http://nettuts.s3.amazonaws.com/763_sammyJSIntro/trailer_test.mp4',
+      'videoId': videoInfos._id.toString(),
+      'videoUrl': videoInfos.videoUrl,
       'videoDetails': {
         'title': 'test video',
         'views': '1',
@@ -74,6 +74,26 @@ function postComment(req, res) {
     });
 }
 
+function uploadVideo(req, res) {
+  if (req.get('Authorization') === undefined) {
+    res.status(400).json({'error': 'unauthorized'});
+    return;
+  }
+  if (req.body.url === undefined || req.body.preview === undefined || req.body.title === undefined) {
+    res.status(402).json({'error': 'miss field'});
+    return;
+  }
+  videosDb.addVideo({videoUrl: req.body.url, preview: req.body.preview, videoTitle: req.body.title},
+    req.get('Authorization'), (uploadVideoMessage) => {
+      if (uploadVideoMessage === undefined) {
+        res.status(500).json({'error': 'something went wrong'});
+      }
+      res.set('location', '/api/videos/' + uploadVideoMessage);
+      res.setHeader('content-type', 'application/json');
+      res.status(201).json({});
+    });
+}
+
 function getVideoInfos(req, res) {
   videosDb.getAllVideo((allVideos) => {
     if (allVideos.length === 0) {
@@ -83,7 +103,7 @@ function getVideoInfos(req, res) {
 
     res.status(200).json(allVideos.map((value) => (
       {
-        'videoId': value.videoId,
+        'videoId': value._id.toString(),
         'videoSrc': value.videoUrl,
         'previewSrc': value.videoDetails.preview,
         'title': value.videoDetails.title,
@@ -98,6 +118,7 @@ function getVideoInfos(req, res) {
 module.exports = {
   getHomeInfos: getHomeInfos,
   postComment: postComment,
+  uploadVideo: uploadVideo,
   getVideoInfos: getVideoInfos,
 };
 

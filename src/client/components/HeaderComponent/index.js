@@ -34,7 +34,7 @@ class header extends React.Component {
           </input>
         </form>
         <div className="right-top">
-          <button className="right-top-button">
+          <button className="right-top-button" onClick={this.props.onClickUpload}>
             <img className="upload-logo" src={upload}></img>
             <span className="upload-name">upload</span>
           </button>
@@ -49,7 +49,6 @@ class header extends React.Component {
           </nav>
         </div>
       </header>
-
     );
   }
 }

@@ -15,7 +15,18 @@ class VideoComponent extends React.Component {
     this.updateVideoInfos = this.updateVideoInfos.bind(this);
   }
   componentDidMount() {
-    this.fetchVideoInfos('59ed7f1f1707c6894c13e013', (result) => {
+    if (this.props.videoId === null) {
+      return;
+    }
+    this.fetchVideoInfos(this.props.videoId, (result) => {
+      this.setState({videoInfos: result});
+    });
+  }
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.videoId === null) {
+      return;
+    }
+    this.fetchVideoInfos(nextProps.videoId, (result) => {
       this.setState({videoInfos: result});
     });
   }
@@ -42,7 +53,7 @@ class VideoComponent extends React.Component {
   render() {
     return (
       <div className="video-component">
-        <VideoPlayer />
+        <VideoPlayer videosrc={this.state.videoInfos.videoUrl}/>
         <div className="video-below">
           <div className="video-info">
             <div className="video-name">
@@ -81,7 +92,7 @@ class VideoComponent extends React.Component {
           </div>
         </div>
         <Comments commentInfos={this.state.videoInfos.commentInfos}
-          videoId={this.state.videoInfos.videoId}
+          videoId={this.props.videoId}
           updateVideoInfos={this.updateVideoInfos}/>
       </div>
     );
