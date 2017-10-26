@@ -20,86 +20,6 @@ let MongoClient = mongodb.MongoClient;
 const tokensDb = require('./tokens-db');
 const usersDb = require('./users-db');
 
-// function thumbupVideo(videoId, userId) {
-//   MongoClient.connect(url, (err, db) => {
-//     try {
-//       if (err) {
-//         throw err;
-//       }
-//       let videosDB = db.collection('videos');
-
-//       videosDB.update({'_id': ObjectId(videoId), 'likeDetails.likeStatus.userId': userId}, {'videoDetails.likeStatus.userId': userId, 'videoDetails.likeStatus.liked': true, 'videoDetails.likeStatus.disliked': false}, (err, result) => {
-//         if (err) {
-//           console.log(err);
-//         }
-//         db.close();
-//       });
-//     } catch (e) {
-//       console.log(e.name + ':' + e.message);
-//     }
-//   });
-// }
-
-// function thumbdownVideo(videoId) {
-//   MongoClient.connect(url, (err, db) => {
-//     try {
-//       if (err) {
-//         throw err;
-//       }
-//       let videosDB = db.collection('videos');
-
-//       videosDB.update({'_id': ObjectId(videoId)}, {'$inc': {'videoDetails.dislikeNum': 1}}, (err, result) => {
-//         if (err) {
-//           console.log(err);
-//         }
-//         db.close();
-//       });
-//     } catch (e) {
-//       console.log(e.name + ':' + e.message);
-//     }
-//   });
-// }
-
-// function cancelthumbupVideo(videoId) {
-//   MongoClient.connect(url, (err, db) => {
-//     try {
-//       if (err) {
-//         throw err;
-//       }
-//       let videosDB = db.collection('videos');
-
-//       videosDB.update({'_id': ObjectId(videoId)}, {'$inc': {'videoDetails.likesNum': -1}}, (err, result) => {
-//         if (err) {
-//           console.log(err);
-//         }
-//         db.close();
-//       });
-//     } catch (e) {
-//       console.log(e.name + ':' + e.message);
-//     }
-//   });
-// }
-
-// function cancelthumbdownVideo(videoId) {
-//   MongoClient.connect(url, (err, db) => {
-//     try {
-//       if (err) {
-//         throw err;
-//       }
-//       let videosDB = db.collection('videos');
-
-//       videosDB.update({'_id': ObjectId(videoId)}, {'$inc': {'videoDetails.dislikeNum': -1}}, (err, result) => {
-//         if (err) {
-//           console.log(err);
-//         }
-//         db.close();
-//       });
-//     } catch (e) {
-//       console.log(e.name + ':' + e.message);
-//     }
-//   });
-// }
-
 function updateVideoInfo(videoInfos, videoId) {
   MongoClient.connect(url, (err, db) => {
     try {
@@ -115,7 +35,7 @@ function updateVideoInfo(videoInfos, videoId) {
         db.close();
       });
     } catch (e) {
-      // console.log(e.name + ':' + e.message);
+      console.log(e.name + ':' + e.message);
     }
   });
 }

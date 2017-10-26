@@ -33,11 +33,21 @@ class VideoComponent extends React.Component {
       fetch('/api/videosthumb/59eecd63abb2117ba6f42a15/thumbUp', {
         method: 'put',
         headers: {'Authorization': localStorage.getItem('token')},
+      }).then((response) => {
+        let videoInfos = this.state.videoInfos;
+
+        videoInfos.videoDetails.videoLikeNums++;
+        this.setState({videoInfos: videoInfos});
       });
     } else {
       fetch('/api/videosthumb/59eecd63abb2117ba6f42a15/cancelThumbup', {
         method: 'put',
         headers: {'Authorization': localStorage.getItem('token')},
+      }).then((response) => {
+        let videoInfos = this.state.videoInfos;
+
+        videoInfos.videoDetails.videoLikeNums--;
+        this.setState({videoInfos: videoInfos});
       });
     }
   }
@@ -48,11 +58,21 @@ class VideoComponent extends React.Component {
       fetch('/api/videosthumb/59eecd63abb2117ba6f42a15/thumbDown', {
         method: 'put',
         headers: {'Authorization': localStorage.getItem('token')},
+      }).then((response) => {
+        let videoInfos = this.state.videoInfos;
+
+        videoInfos.videoDetails.videoDislikeNums++;
+        this.setState({videoInfos: videoInfos});
       });
     } else {
       fetch('/api/videosthumb/59eecd63abb2117ba6f42a15/cancelThumbdown', {
         method: 'put',
         headers: {'Authorization': localStorage.getItem('token')},
+      }).then((response) => {
+        let videoInfos = this.state.videoInfos;
+
+        videoInfos.videoDetails.videoDislikeNums--;
+        this.setState({videoInfos: videoInfos});
       });
     }
   }

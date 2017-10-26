@@ -27,7 +27,7 @@ function getHomeInfos(req, res) {
           videoInfos.videoDetails.clickedDislike = true;
         }
       });
-
+      console.log('userliked:' + videoInfos.videoDetails.LikeStatus[2].liked);
       res.status(200).json({
         // videoId should be same with _id, here just for testing
         // in your PC please change here
