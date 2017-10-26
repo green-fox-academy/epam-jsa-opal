@@ -9,12 +9,18 @@ function getHomeInfos(req, res) {
       res.status(404).json({'error': 'not found'});
       return;
     }
-    let videoLikeNums = 0;
-    let videoDislikeNums = 0;
+
     let token = req.get('Authorization');
     let userId;
 
     tokensDb.getToken(token, (userInfos) => {
+      let videoLikeNums = 0;
+      let videoDislikeNums = 0;
+
+      if (token === undefined) {
+        res.status(400).json({'error': 'unauthenrization'});
+        return;
+      }
       userId = userInfos.userId;
       videoInfos.videoDetails.clickedLike = false;
       videoInfos.videoDetails.clickedDislike = false;
@@ -26,12 +32,20 @@ function getHomeInfos(req, res) {
         if (user.userId.toString() === userId.toString() && user.disliked === true) {
           videoInfos.videoDetails.clickedDislike = true;
         }
+        if (user.liked) {
+          videoLikeNums++;
+        }
+        if (user.disliked) {
+          videoDislikeNums++;
+        }
       });
-      console.log('userliked:' + videoInfos.videoDetails.LikeStatus[2].liked);
+      videoInfos.videoDetails.videoLikeNums = videoLikeNums;
+      videoInfos.videoDetails.videoDislikeNums = videoDislikeNums;
+
       res.status(200).json({
         // videoId should be same with _id, here just for testing
         // in your PC please change here
-        'videoId': '59eecd63abb2117ba6f42a15',
+        'videoId': videoInfos._id,
         'videoUrl': 'http://nettuts.s3.amazonaws.com/763_sammyJSIntro/trailer_test.mp4',
         'videoDetails': videoInfos.videoDetails,
 
@@ -43,23 +57,6 @@ function getHomeInfos(req, res) {
         },
         'commentInfos': videoInfos.commentInfos,
       });
-    });
-
-    videoInfos.videoDetails.LikeStatus.forEach((videoLikeStatus, index) => {
-      if (videoInfos.videoDetails.LikeStatus === 0) {
-        videoInfos.videoDetails.videoLikeNums = videoLikeNums;
-        videoInfos.videoDetails.videoDislikeNums = videoDislikeNums;
-      }
-      if (videoLikeStatus.liked) {
-        videoLikeNums++;
-      }
-      if (videoLikeStatus.disliked) {
-        videoDislikeNums++;
-      }
-      if (index >= videoInfos.videoDetails.LikeStatus.length - 1) {
-        videoInfos.videoDetails.videoLikeNums = videoLikeNums;
-        videoInfos.videoDetails.videoDislikeNums = videoDislikeNums;
-      }
     });
 
     videoInfos.commentInfos.forEach((comment) => {
