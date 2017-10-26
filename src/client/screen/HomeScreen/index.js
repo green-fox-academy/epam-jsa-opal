@@ -15,6 +15,7 @@ class Home extends React.Component {
       'clickUpload': false,
       'errorMessage': null,
       'uploading': false,
+      'logineduser': {},
     };
     this.onClickUpload = this.onClickUpload.bind(this);
     this.onClickCancelUpload = this.onClickCancelUpload.bind(this);
@@ -27,6 +28,17 @@ class Home extends React.Component {
       }
       this.setState({videoLists: result});
     });
+    this.fetchLoginUserInfos((result) => {
+      if (result.error) {
+        return;
+      }
+      this.setState({logineduser: result});
+    });
+  }
+  fetchLoginUserInfos(callback) {
+    fetch('/api/logineduser', {headers: {'Authorization': localStorage.getItem('token')}})
+      .then((response) => response.json())
+      .then((result) => callback(result));
   }
   fetchVideoLists(callback) {
     fetch('/api/videos')
@@ -85,6 +97,7 @@ class Home extends React.Component {
       <div className="homecontainer">
         <Header className="header"
           onClickUpload={this.onClickUpload}
+          userInfos={this.state.logineduser}
         />
         <div className="main">
           {this.state.clickUpload ?

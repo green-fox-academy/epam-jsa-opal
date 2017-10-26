@@ -38,11 +38,11 @@ class header extends React.Component {
             <img className="upload-logo" src={upload}></img>
             <span className="upload-name">upload</span>
           </button>
-          <img className="user-profile" src={this.props.userprofile}></img>
+          <img className="user-profile" src={this.props.userInfos.avatar}></img>
           <nav className="hoverstuff">
             <div className="dropdown">
               <div className="dropdown-content">
-                <button>my profile</button>
+                <button>{this.props.userInfos.username}</button>
                 <button onClick={this.Userlogout}>logout</button>
               </div>
             </div>
