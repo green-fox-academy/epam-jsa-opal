@@ -11,11 +11,12 @@ $design-red: #d93738;
 video {
   border-radius: 3px;
 }
+
 .userimg-username {
   display: flex;
   width: 70%;
-  
 }
+
 .video-info {
   display: flex;
   justify-content: space-between;
@@ -64,8 +65,6 @@ video {
   color: #aaa;
 }
 
-
-
 .user-info {
   align-items: center;
   display: flex;
@@ -75,14 +74,15 @@ video {
   .userinfo-left {
     display: flex;
     justify-content: space-between;
-    width: 40%;
     max-width: 270px;
-    img{
-      width:40px;
-      height:40px;
-      max-width:100%;
-      max-height:100%;
-     }
+    width: 40%;
+
+    img {
+      height: 40px;
+      max-height: 100%;
+      max-width: 100%;
+      width: 40px;
+    }
 
     span {
       display: block;
@@ -173,6 +173,7 @@ video {
 .dislike-num {
   visibility: hidden;
 }
+
 .clicked span {
   visibility: visible;
 }
