@@ -1,5 +1,6 @@
 import React from 'react';
 import './index.scss';
+import {Link} from 'react-router-dom';
 
 const SignUpForm = (props) => (
   <form className="signup-form" onSubmit={props.onSubmit}>
@@ -20,6 +21,7 @@ const SignUpForm = (props) => (
       value={props.isLoading ? 'loading' : 'signup'}
       className={props.isLoading ? 'loading' : ''}
       disabled={props.isLoading ? true : false }/>
+    <Link to="/login" className="login-link">login now</Link>
     <span >{props.errorMessage}</span>
   </form>
 );
