@@ -10,10 +10,12 @@ class Comment extends React.Component {
     this.onClickDislikeButton = this.onClickDislikeButton.bind(this);
     this.state = {
       likeState: {
-        clickLike: this.props.commentInfo.clickedLike,
-        clickDislike: this.props.commentInfo.clickedDislike,
+        likeClicked: this.props.commentInfo.likestatus,
+        dislikeClicked: this.props.commentInfo.dislikestatus,
       },
       clickComment: false,
+      likeNums: this.props.commentInfo.likeNums,
+      dislikeNums: this.props.commentInfo.dislikeNums,
     };
   }
   onClickComment() {
@@ -25,26 +27,85 @@ class Comment extends React.Component {
   onClickLikeButton() {
     const likeState = this.state.likeState;
 
-    if (likeState.clickDislike) {
-      likeState.clickDislike = !likeState.clickDislike;
+    if (likeState.dislikeClicked) {
+      fetch('/api/videos/' + this.props.videoId + '/comments/'
+      + this.props.commentId + '/dislike', {
+        'method': 'put',
+        'headers': {'Authorization': localStorage.getItem('token')},
+      }).then((response)=>{
+        let newNums = this.state.dislikeNums - 1;
+
+        this.setState({dislikeNums: newNums});
+      });
+      likeState.dislikeClicked = !likeState.dislikeClicked;
     } else {
-      likeState.clickLike = !likeState.clickLike;
+      if (likeState.likeClicked === false) {
+        fetch('/api/videos/' + this.props.videoId + '/comments/'
+        + this.props.commentId + '/like', {
+          'method': 'put',
+          'headers': {'Authorization': localStorage.getItem('token')},
+        }).then((response)=>{
+          let newNums = this.state.likeNums + 1;
+
+          this.setState({likeNums: newNums});
+        });
+      } else {
+        fetch('/api/videos/' + this.props.videoId + '/comments/'
+        + this.props.commentId + '/like', {
+          'method': 'delete',
+          'headers': {'Authorization': localStorage.getItem('token')},
+        }).then((response)=>{
+          let newNums = this.state.likeNums - 1;
+
+          this.setState({likeNums: newNums});
+        });
+      }
+      likeState.likeClicked = !likeState.likeClicked;
     }
     this.setState({likeState: likeState});
   }
   onClickDislikeButton() {
     const likeState = this.state.likeState;
 
-    if (likeState.clickLike) {
-      likeState.clickLike = !likeState.clickLike;
+    if (likeState.likeClicked) {
+      fetch('/api/videos/' + this.props.videoId + '/comments/'
+      + this.props.commentId + '/like', {
+        'method': 'delete',
+        'headers': {'Authorization': localStorage.getItem('token')},
+      }).then((response)=>{
+        let newNums = this.state.likeNums - 1;
+
+        this.setState({likeNums: newNums});
+      });
+      likeState.likeClicked = !likeState.likeClicked;
     } else {
-      likeState.clickDislike = !likeState.clickDislike;
+      if (likeState.dislikeClicked === false) {
+        fetch('/api/videos/' + this.props.videoId +
+        '/comments/' + this.props.commentId + '/dislike', {
+          'method': 'put',
+          'headers': {'Authorization': localStorage.getItem('token')},
+        }).then((response)=>{
+          let newNums = this.state.dislikeNums + 1;
+
+          this.setState({dislikeNums: newNums});
+        });
+      } else {
+        fetch('/api/videos/' + this.props.videoId + '/comments/'
+        + this.props.commentId + '/dislike', {
+          'method': 'delete',
+          'headers': {'Authorization': localStorage.getItem('token')},
+        }).then((response)=>{
+          let newNums = this.state.dislikeNums - 1;
+
+          this.setState({dislikeNums: newNums});
+        });
+      }
+      likeState.dislikeClicked = !likeState.dislikeClicked;
     }
-    this.setState({likeState: likeState});
   }
   render() {
     return (
-      <div className="comment">
+      <div className="comment" >
         <img src={this.props.commentInfo.avatar} alt=""/>
         <div className="comment-container">
           <p className="username">{this.props.commentInfo.username}</p>
@@ -52,22 +113,22 @@ class Comment extends React.Component {
             {this.props.commentInfo.commentContent}
           </p>
           <button
-            className={this.state.likeState.clickLike ?
+            className={this.state.likeState.likeClicked ?
               'clicked like-button' :
               'like-button'
             }
             onClick={this.onClickLikeButton}>
           </button>
-          <span className="like-num">{this.props.commentInfo.likeNums}</span>
+          <span className="like-num">{this.state.likeNums}</span>
           <button
-            className={this.state.likeState.clickDislike ?
+            className={this.state.likeState.dislikeClicked ?
               'clicked dislike-button' :
               'dislike-button'
             }
             onClick={this.onClickDislikeButton}>
           </button>
           <span className="dislike-num">
-            {this.props.commentInfo.dislikeNums}
+            {this.state.dislikeNums}
           </span>
           <button className="input-comment"
             onClick={this.onClickComment}>Reply</button>

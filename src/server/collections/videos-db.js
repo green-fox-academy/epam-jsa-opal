@@ -134,6 +134,7 @@ function getAllVideo(callback) {
     });
   });
 }
+<<<<<<< HEAD
 
 function insertVideoToDatabase(userInfo, videoInfos, token, callback) {
   MongoClient.connect(url, (err, db) => {
@@ -178,6 +179,9 @@ function addVideo(videoInfos, token, callback) {
   });
 }
 
+=======
+  
+>>>>>>> OPL-58
 module.exports = {
   findVideoInfo: findVideoInfo,
   updateVideoInfo: updateVideoInfo,

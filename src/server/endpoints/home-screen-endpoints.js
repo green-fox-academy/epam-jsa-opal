@@ -1,5 +1,21 @@
 'use strict';
 
+let mongodb = require('mongodb');
+let MongoClient = mongodb.MongoClient;
+let protocol = process.env.DB_PROTOCOL;
+let host = process.env.DB_HOST;
+let port = process.env.DB_PORT;
+let name = process.env.DB_NAME;
+let username = process.env.Username;
+let password = process.env.Password;
+let url;
+
+if (password !== undefined) {
+  url = protocol + '://' + username + ':' + password + '@' + host + ':' + port + '/' + name;
+} else {
+  url = protocol + '://' + host + ':' + port + '/' + name;
+}
+
 const videosDb = require('../collections/videos-db');
 const tokensDb = require('../collections/tokens-db');
 
@@ -73,6 +89,53 @@ function getHomeInfos(req, res) {
         }
       });
     });
+<<<<<<< HEAD
+=======
+    let token = req.get('Authorization');
+
+    if (token === undefined) {
+      res.status(400).send({'error': 'Not login sorry!'});
+      return;
+    }
+    MongoClient.connect(url, (err, db) => {
+      db.collection('tokenDescriptors').find({'token': token})
+      .toArray(function(err,items){
+        if (err) {
+          console.log('Unable to connect to the MongoDB server. Error:', err);
+          res.status(500).send();
+          db.close();
+          return;
+        }    
+        if (items[0] === undefined) {
+          res.status(401).send();
+          return;
+        }
+        let userId = items[0].userId;
+        videoInfos.commentInfos.forEach((comment) => {
+          if (comment.LikeStatus.length === 0) {
+            comment.likestatus = false;
+            comment.dislikestatus = false;
+          }
+          comment.LikeStatus.forEach((value, index) => {
+            if (value.userId === userId.toString()) {
+              comment.likestatus = value.liked;
+              comment.dislikestatus = value.disliked;
+            }
+          });
+        });
+        res.status(200).json({
+          // videoId should be same with _id, here just for testing
+          // in your PC please change here
+          '_id':videoInfos._id.toString(),
+          'videoId': videoInfos.videoId,
+          'videoUrl': videoInfos.videoUrl,
+          'videoDetails': videoInfos.videoDetails,
+          'uploader':videoInfos.uploader,
+          'commentInfos': videoInfos.commentInfos,
+        });
+      });
+    });
+>>>>>>> OPL-58
   });
 }
 

@@ -14,12 +14,15 @@ class CommentsView extends React.Component {
   render() {
     let lists = this.props.commentInfos.map((value) => (
       <Comment
+        videoId={this.props.videoId}
+        objectId={this.props.objectId}
+        updateVideoInfos={this.props.updateVideoInfos}
+        commentId={value.commentId}
         commentInfo={value}
         key={value.commentId}
         avatar={this.props.avatar}
       />
     ));
-
     return (
       <div className="comments-lists">
         { this.props.posting ?
