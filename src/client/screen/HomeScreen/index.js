@@ -71,7 +71,6 @@ class Home extends React.Component {
       <div className="homecontainer">
         <Header className="header"
           onClickUpload={this.onClickUpload}
-          onClickCancelUpload={this.onClickCancelUpload}
         />
         <div className="main">
           {this.state.clickUpload ?
