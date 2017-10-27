@@ -42,7 +42,7 @@ class header extends React.Component {
           <nav className="hoverstuff">
             <div className="dropdown">
               <div className="dropdown-content">
-                <button>{this.props.userInfos.username}</button>
+                <button>{this.props.userInfos.username}'s profile</button>
                 <button onClick={this.Userlogout}>logout</button>
               </div>
             </div>
