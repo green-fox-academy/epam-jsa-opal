@@ -28,7 +28,7 @@ app.post('/api/videos/:videoId/:votetype', thumbupController.judgeVotetype);
 app.delete('/api/videos/:videoId/:votetype', thumbupController.judgeCanceltype);
 app.post('/api/videos/', homeController.uploadVideo);
 app.get('/api/videos', homeController.getVideoInfos);
-app.get('/api/logineduser', homeController.getLoginedUserInfos);
+app.get('/api/loginuser', homeController.getLoginedUserInfos);
 app.get('*', (req, res) =>{
   res.sendFile('index.html', {root: path.join(__dirname, '../../dist')});
 });
