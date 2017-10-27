@@ -57,6 +57,37 @@ function getHomeInfos(req, res) {
       });
       videoInfos.videoDetails.videoLikeNums = videoLikeNums;
       videoInfos.videoDetails.videoDislikeNums = videoDislikeNums;
+      videoInfos.commentInfos.forEach((comment) => {
+        let likeNums = 0;
+        let dislikeNums = 0;
+  
+        if (comment.LikeStatus.length === 0) {
+          comment.likeNums = likeNums;
+          comment.dislikeNums = dislikeNums;
+        }
+        comment.LikeStatus.forEach((value, index) => {
+          if (value.liked) {
+            likeNums++;
+          }
+          if (value.disliked) {
+            dislikeNums++;
+          }
+          if (index >= comment.LikeStatus.length - 1) {
+            comment.likeNums = likeNums;
+            comment.dislikeNums = dislikeNums;
+          }
+        });
+        if (comment.LikeStatus.length === 0) {
+          comment.likestatus = false;
+          comment.dislikestatus = false;
+        }
+        comment.LikeStatus.forEach((value, index) => {
+          if (value.userId === userId.toString()) {
+            comment.likestatus = value.liked;
+            comment.dislikestatus = value.disliked;
+          }
+        });
+      });
       res.status(200).json({
         // videoId should be same with _id, here just for testing
         // in your PC please change here
@@ -68,27 +99,7 @@ function getHomeInfos(req, res) {
       });
     });
 
-    videoInfos.commentInfos.forEach((comment) => {
-      let likeNums = 0;
-      let dislikeNums = 0;
 
-      if (comment.LikeStatus.length === 0) {
-        comment.likeNums = likeNums;
-        comment.dislikeNums = dislikeNums;
-      }
-      comment.LikeStatus.forEach((value, index) => {
-        if (value.liked) {
-          likeNums++;
-        }
-        if (value.disliked) {
-          dislikeNums++;
-        }
-        if (index >= comment.LikeStatus.length - 1) {
-          comment.likeNums = likeNums;
-          comment.dislikeNums = dislikeNums;
-        }
-      });
-    });
   });
 }
 

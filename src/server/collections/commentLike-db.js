@@ -9,6 +9,7 @@ let name = process.env.DB_NAME;
 let username = process.env.Username;
 let password = process.env.Password;
 let url;
+let ObjectId = require('mongodb').ObjectID;
 
 if (password !== undefined) {
   url = protocol + '://' + username + ':' + password + '@' + host + ':' + port + '/' + name;
@@ -29,17 +30,16 @@ function commentRequestHandler(req, res, callback) {
   let videosId = req.params.videoId;
   let commentId = req.params.commentsId;
   let votetype = req.params.votetype;
-
+  console.log(videosId);
   MongoClient.connect(url, (err, db) => {
     if (err) {
       throw err;
     }
-    db.collection('videos').find({'videoId': videosId})
+    db.collection('videos').find({'_id': ObjectId(videosId)})
       .toArray(function(err, items) {
         dbError(err, res, db);
         let VideoObject = items[0];
         let token = req.get('Authorization');
-
         db.collection('tokenDescriptors')
           .find({'token': token})
           .toArray(function(err, subitems) {
@@ -69,7 +69,7 @@ function commentRequestHandler(req, res, callback) {
 function updateCommentsInfo(obj, tempArray) {
   obj.VideoObject.commentInfos[obj.commentId - 1].LikeStatus = tempArray;
   obj.db.collection('videos')
-    .update({'videoId': obj.videosId},
+    .update({'_id': ObjectId(obj.videosId)},
       {$set: {'commentInfos': obj.VideoObject.commentInfos}});
   
 }
