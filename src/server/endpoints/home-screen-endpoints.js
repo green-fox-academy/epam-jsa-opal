@@ -99,7 +99,7 @@ function getHomeInfos(req, res) {
         'videoUrl': videoInfos.videoUrl,
         'videoDetails': videoInfos.videoDetails,
         'uploader': videoInfos.uploader,
-        'commentInfos': videoInfos.commentInfos,
+        'commentInfos': videoInfos.commentInfos.reverse(),
       });
     });
 
