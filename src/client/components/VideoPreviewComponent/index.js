@@ -8,7 +8,7 @@ class VideoPreview extends React.Component {
     return (
       <li className="suggested-video-list">
         <div className="suggested-video">
-          <a href={this.props.videoInfo.videoSrc}
+          <a href={`/watch?videoId=${this.props.videoInfo.videoId}`}
             style={
               {backgroundImage: `url(${this.props.videoInfo.previewSrc})`}
             }>
