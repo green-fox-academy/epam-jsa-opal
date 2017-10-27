@@ -13,7 +13,6 @@ class VideoComponent extends React.Component {
     };
     this.updateVideoInfos = this.updateVideoInfos.bind(this);
   }
-
   componentWillReceiveProps(nextProps) {
     if (nextProps.videoId === null) {
       return;
@@ -130,7 +129,8 @@ class VideoComponent extends React.Component {
         </div>
         <Comments commentInfos={this.state.videoInfos.commentInfos}
           videoId={this.props.videoId}
-          updateVideoInfos={this.updateVideoInfos}/>
+          updateVideoInfos={this.updateVideoInfos}
+          userInfos={this.props.userInfos}/>
       </div>
     );
   }

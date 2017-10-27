@@ -5,7 +5,7 @@ const commentDb = require('../collections/commentLike-db');
 
 function deletecommentRequestHandler(res, req) {
   commentDb.commentRequestHandler(res, req, (obj)=>{
-    let tempArray = obj.VideoObject.commentInfos[obj.commentId - 1].LikeStatus;
+    let tempArray = obj.VideoObject.commentInfos[obj.commentId].LikeStatus;
     let flag = [false];
 
     if(obj.votetype === 'like'){
@@ -23,7 +23,7 @@ function deletecommentRequestHandler(res, req) {
 
 function putcommentRequestHandler(res, req) {
   commentDb.commentRequestHandler(res, req, (obj)=>{
-    let tempArray = obj.VideoObject.commentInfos[obj.commentId - 1].LikeStatus;
+    let tempArray = obj.VideoObject.commentInfos[obj.commentId].LikeStatus;
     let flag = [false];
 
     if(obj.votetype === 'like'){

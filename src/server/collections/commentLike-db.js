@@ -44,7 +44,7 @@ function commentRequestHandler(req, res, callback) {
           .find({'token': token})
           .toArray(function(err, subitems) {
             dbError(err, res, db);
-            if (items[0] === undefined) {
+            if (subitems[0] === undefined) {
               console.log('Not login', err);
               res.status(400).send({'error': 'Not login sorry!'});
               db.close();
@@ -67,7 +67,7 @@ function commentRequestHandler(req, res, callback) {
 }
 
 function updateCommentsInfo(obj, tempArray) {
-  obj.VideoObject.commentInfos[obj.commentId - 1].LikeStatus = tempArray;
+  obj.VideoObject.commentInfos[obj.commentId].LikeStatus = tempArray;
   obj.db.collection('videos')
     .update({'_id': ObjectId(obj.videosId)},
       {$set: {'commentInfos': obj.VideoObject.commentInfos}});

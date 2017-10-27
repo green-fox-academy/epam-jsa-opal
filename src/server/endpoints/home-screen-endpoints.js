@@ -18,6 +18,7 @@ if (password !== undefined) {
 
 const videosDb = require('../collections/videos-db');
 const tokensDb = require('../collections/tokens-db');
+const usersDb = require('../collections/users-db');
 
 function getHomeInfos(req, res) {
   videosDb.findVideoInfo(req.params.videoId, (videoInfos) => {
@@ -75,12 +76,15 @@ function getHomeInfos(req, res) {
           if (index >= comment.LikeStatus.length - 1) {
             comment.likeNums = likeNums;
             comment.dislikeNums = dislikeNums;
+
           }
         });
         if (comment.LikeStatus.length === 0) {
           comment.likestatus = false;
           comment.dislikestatus = false;
         }
+        comment.likestatus = false;
+        comment.dislikestatus = false;
         comment.LikeStatus.forEach((value, index) => {
           if (value.userId === userId.toString()) {
             comment.likestatus = value.liked;
@@ -164,10 +168,36 @@ function getVideoInfos(req, res) {
   });
 }
 
+function getLoginedUserInfos(req, res) {
+  let token = req.get('Authorization');
+
+  if (token === undefined) {
+    res.status(400).json({'error': 'unAuthorization'});
+    return;
+  }
+  tokensDb.getToken(token, (tokenInfos) => {
+    if (tokenInfos._id === undefined) {
+      res.status(404).json({'error': 'not found'});
+      return;
+    }
+    usersDb.findUserInfoById(tokenInfos.userId, (userInfos) => {
+      if (tokenInfos._id === undefined) {
+        res.status(404).json({'error': 'not found'});
+        return;
+      }
+      res.status(200).json({
+        'username': userInfos.username,
+        'avatar': userInfos.avatar,
+      });
+    });
+  });
+}
+
 module.exports = {
   getHomeInfos: getHomeInfos,
   postComment: postComment,
   uploadVideo: uploadVideo,
   getVideoInfos: getVideoInfos,
+  getLoginedUserInfos: getLoginedUserInfos,
 };
 

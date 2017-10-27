@@ -35,17 +35,17 @@ class Comments extends React.Component {
       });
   }
   fetchVideoInfos(videoId, callback) {
-    fetch('/api/videos/' + videoId)
+    fetch('/api/videos/' + videoId,  {headers: {'Authorization': localStorage.getItem('token')}})
       .then((response) => response.json())
       .then((result) => callback(result));
   }
   render() {
     return (
       <CommentsView commentInfos={this.props.commentInfos}
-        addComment={this.addComment}  
         updateVideoInfos={this.props.updateVideoInfos}     
         objectId={this.props.objectId}
-        avatar={userAvatar}
+        addComment={this.addComment}
+        avatar={this.props.userInfos.avatar}
         videoId={this.props.videoId}
         posting={this.state.posting}
       />
