@@ -83,7 +83,7 @@ function addCommentToVideo(userInfo, videoId, content, callback) {
       let obj = {
         'username': userInfo.username,
         'userId': userInfo._id,
-        'avatar': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLDxSdH8lLX-y9TJzLDWZPvoLexXrE8Ft5EAAWaZNyQHVM-yh-3A',
+        'avatar': userInfo.avatar,
         'commentTime': Date.now(),
         'LikeStatus': [],
         'commentContent': content,

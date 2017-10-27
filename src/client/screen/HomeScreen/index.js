@@ -15,6 +15,7 @@ class Home extends React.Component {
       'clickUpload': false,
       'errorMessage': null,
       'uploading': false,
+      'loginuser': {},
     };
     this.onClickUpload = this.onClickUpload.bind(this);
     this.onClickCancelUpload = this.onClickCancelUpload.bind(this);
@@ -27,6 +28,17 @@ class Home extends React.Component {
       }
       this.setState({videoLists: result});
     });
+    this.fetchLoginUserInfos((result) => {
+      if (result.error) {
+        return;
+      }
+      this.setState({loginuser: result});
+    });
+  }
+  fetchLoginUserInfos(callback) {
+    fetch('/api/loginuser', {headers: {'Authorization': localStorage.getItem('token')}})
+      .then((response) => response.json())
+      .then((result) => callback(result));
   }
   fetchVideoLists(callback) {
     fetch('/api/videos')
@@ -85,6 +97,7 @@ class Home extends React.Component {
       <div className="homecontainer">
         <Header className="header"
           onClickUpload={this.onClickUpload}
+          userInfos={this.state.loginuser}
         />
         <div className="main">
           {this.state.clickUpload ?
@@ -109,7 +122,9 @@ class Home extends React.Component {
           }
           <NavigationBar className="navigationBar"/>
           <div className="videoComponent"> <VideoComponent videoId={this.state.videoLists[0] ?
-            this.state.videoLists[this.state.videoLists.length - 1].videoId : null}/> </div>
+            this.state.videoLists[this.state.videoLists.length - 1].videoId : null}
+          userInfos={this.state.loginuser} />
+          </div>
           <div className="suggestedVideos"> <SuggestedVideos videoLists={this.state.videoLists}/> </div>
         </div>
       </div>

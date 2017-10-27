@@ -65,7 +65,7 @@ function createToken(userId, userAgent) {
   let tokenDescriptor = {};
   let expiresAt = new Date().getTime() + TOKEN_LIFETIME * 24 * 60 * 60 * 1000;
 
-  tokenDescriptor.userId = userId;
+  tokenDescriptor.userId = userId.toString();
   tokenDescriptor.userAgent = userAgent;
   tokenDescriptor.expiresAt = expiresAt;
   tokenDescriptor.token = randomstring.generate(32);
