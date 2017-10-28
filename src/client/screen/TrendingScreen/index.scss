@@ -1,0 +1,86 @@
+.suggestedVideos {
+  width: 261px;
+}
+
+.homecontainer {
+  background-color:  #fff;
+}
+
+.videoComponent {
+  margin-left:52px;
+  margin-right: 40px;
+  width: 68%;
+}
+
+.main {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 37px;
+}
+
+.navigationbar {
+  margin-top: -37px;
+}
+
+.upload-form {
+  background-color: #fff;
+  padding: 20px 15px;
+  position: absolute;
+  right: 130px;
+  text-align: center;
+  top: 17px;
+  width: 270px;
+  z-index: 3;
+
+  input {
+    display: block;
+    line-height: 2rem;
+    outline: none;
+    width: 100%;
+  }
+
+  input:not([type='submit']) {
+    background-color: transparent;
+    border-bottom: 1px solid #eee;
+    color: rgb(0, 0, 0);
+    margin: .5rem 0;
+  }
+
+  button {
+    background-color: #d93738;
+    border-radius: 2px;
+    color: rgb(255, 255, 255);
+    cursor: pointer;
+    margin-bottom: 1rem;
+    padding: 7px;
+  }
+
+  button[type='submit'] {
+    margin-right: 20px;
+  }
+
+  .error-message {
+    color: #d93738;
+  }
+
+  button.loading {
+    background-color: rgb(128, 128, 128);
+    cursor: no-drop;
+  }
+
+  .loader {
+    animation: spin 1.5s linear infinite;
+    border: 10px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 10px solid #d93738;
+    height: 70px;
+    width: 70px;
+    left: calc(50% - 50px);
+    position: absolute;
+    top: calc(50% - 70px);
+  }
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+}
