@@ -1,4 +1,6 @@
-.suggested-video-container {
+.Full-video-container {
+  width: 100%;
+  padding: 20px;
   h1 {
     font-size: 1rem;
     letter-spacing: 0;
@@ -25,10 +27,11 @@
 }
 
 .suggested-video-ul {
-  width: 220px;
+  width: 100%;
 }
 
 .suggested-video-list {
+  margin-right: 20px;
   $bodrder-color: #979797;
   border-bottom: 1px solid $bodrder-color;
   display: inline-block;

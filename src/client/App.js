@@ -4,6 +4,7 @@ import Signup from '../client/screen/SignUpScreen';
 import Login from '../client/screen/LoginScreen';
 import Home from '../client/screen/HomeScreen';
 import Trending from '../client/screen/TrendingScreen';
+import Liked from '../client/screen/LikedScreen';
 
 class App extends React.Component {
   render() {
@@ -11,11 +12,12 @@ class App extends React.Component {
       <Router>
         <div>
           <Route exact path="/" component={Signup} />
-          <Route path="/Trending" component={Trending} />
+          <Route path="/trending" component={Trending} />
           <Route path="/login" component={Login} />
           <Route path="/signup" component={Signup} />
           <Route path="/home" component={Home} />
           <Route path="/watch" component={Home} />
+          <Route path='/liked' component={Liked} />
         </div>
       </Router>
     );

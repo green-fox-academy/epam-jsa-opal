@@ -1,23 +1,21 @@
 import React from 'react';
 import VideoPreview from '../../VideoPreviewComponent';
 
-const SuggestedVideosView = (props) => {
+const VideosFullView = (props) => {
   let suggestedVideosLists = props.videoInfos.map((value, index) => {
-    if (index < props.suggestedVideosNum) {
-      return (
-        <VideoPreview
-          videoInfo={value}
-          key={value.videoId} />
-      );
-    }
+    return (
+      <VideoPreview
+        videoInfo={value}
+        key={value.videoId} />
+    );
   });
 
   return (
-    <ul className="suggested-video-ul">
+    <div className="suggested-video-ul">
       {suggestedVideosLists}
-    </ul>
+    </div>
   );
 };
 
-export default SuggestedVideosView;
+export default VideosFullView;
 
