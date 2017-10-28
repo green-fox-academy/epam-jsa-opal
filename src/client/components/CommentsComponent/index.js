@@ -42,6 +42,8 @@ class Comments extends React.Component {
   render() {
     return (
       <CommentsView commentInfos={this.props.commentInfos}
+        updateVideoInfos={this.props.updateVideoInfos}     
+        objectId={this.props.objectId}
         addComment={this.addComment}
         avatar={this.props.userInfos.avatar}
         videoId={this.props.videoId}

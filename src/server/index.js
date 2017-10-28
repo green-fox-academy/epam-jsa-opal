@@ -2,6 +2,7 @@
 
 require('dotenv').config();
 
+const commentcontroller = require('./endpoints/comments-like-endpoint');
 const signUp = require('./endpoints/signup-endpoints');
 const bodyParser = require('body-parser');
 const DatabaseHealth = require('./endpoints/heartbeat');
@@ -15,6 +16,8 @@ let portNum = process.env.PORT || defaultPortNum;
 const homeController = require('./endpoints/home-screen-endpoints');
 const thumbupController = require('./endpoints/video-thumb');
 
+app.put('/api/videos/:videoId/comments/:commentsId/:votetype', commentcontroller.commentEnable);
+app.delete('/api/videos/:videoId/comments/:commentsId/:votetype', commentcontroller.commentDisable);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static('dist'));

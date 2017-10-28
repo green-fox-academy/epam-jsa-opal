@@ -39,28 +39,6 @@ function insertTokenDescriptor(item) {
   });
 }
 
-// check if already logined
-function checkLogin(userId, userAgent) {
-  MongoClient.connect(url, (err, db) => {
-    try {
-      if (err) {
-        throw err;
-      }
-      let tokensDb = db.collection('tokenDescriptors');
-
-      tokensDb.remove({'userId': userId, 'userAgent': userAgent}, (err) => {
-        if (err !== null) {
-          console.log(err.name + ':' + err.message);
-          return;
-        }
-        db.close();
-      });
-    } catch (e) {
-      console.log(e.name + ':' + e.message);
-    }
-  });
-}
-
 function createToken(userId, userAgent) {
   let tokenDescriptor = {};
   let expiresAt = new Date().getTime() + TOKEN_LIFETIME * 24 * 60 * 60 * 1000;
@@ -69,7 +47,6 @@ function createToken(userId, userAgent) {
   tokenDescriptor.userAgent = userAgent;
   tokenDescriptor.expiresAt = expiresAt;
   tokenDescriptor.token = randomstring.generate(32);
-  checkLogin(tokenDescriptor.userId, tokenDescriptor.userAgent);
   insertTokenDescriptor(tokenDescriptor);
   return tokenDescriptor;
 }

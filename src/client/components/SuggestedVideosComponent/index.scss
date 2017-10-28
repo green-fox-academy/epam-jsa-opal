@@ -8,8 +8,9 @@
   }
 
   .show-more-button {
-    $font-color: #4a4a4a;
+    $font-color: rgb(255,255,255);
     color: $font-color;
+    background-color: #D93738;
     cursor: pointer;
     font-size: .875rem;
     height: 41px;
