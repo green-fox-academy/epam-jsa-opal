@@ -14,6 +14,7 @@ class App extends React.Component {
           <Route path="/signup" component={Signup} />
           <Route path="/home" component={Home} />
           <Route path="/watch" component={Home} />
+          <Route path="/profile" component={Signup} />
         </div>
       </Router>
     );

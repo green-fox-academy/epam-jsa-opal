@@ -198,8 +198,50 @@ function findUserInfoById(userId, callback) {
     });
   });
 }
+
+function findUserInfoByUsername(userName, callback) {
+  MongoClient.connect(url, (err, db) => {
+    if (err) {
+      console.log(err.name + ':' + err.message);
+      return callback(undefined);
+    }
+    let usersDB = db.collection('users');
+
+    usersDB.findOne({'username': userName}, (err, result) => {
+      if (err) {
+        console.log(err);
+      }
+      db.close();
+      if (result === null) {
+        return callback([]);
+      }
+      return callback(result);
+    });
+  });
+}
+
+function updateUserInfos(oldUsername, newInfos, callback) {
+  MongoClient.connect(url, (err, db) => {
+    if (err) {
+      console.log(err.name + ':' + err.message);
+      return callback(undefined);
+    }
+    let usersDB = db.collection('users');
+
+    usersDB.update({'username': oldUsername}, newInfos, (err, result) => {
+      if (err) {
+        console.log(err);
+        return callback('failed');
+      }
+      db.close();
+      return callback(newInfos);
+    });
+  });
+}
 module.exports = {
   storeUser: dbInsert,
   findUserInfo: findUserInfo,
   findUserInfoById: findUserInfoById,
+  findUserInfoByUsername: findUserInfoByUsername,
+  updateUserInfos: updateUserInfos,
 };
