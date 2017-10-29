@@ -228,7 +228,7 @@ function updateUserInfos(oldUsername, newInfos, callback) {
     }
     let usersDB = db.collection('users');
 
-    usersDB.update({'username': oldUsername}, newInfos, (err, result) => {
+    usersDB.update({'username': oldUsername}, {$set: {'full name': newInfos.fullName, 'avatar': newInfos.avatar}}, (err, result) => {
       if (err) {
         console.log(err);
         return callback('failed');

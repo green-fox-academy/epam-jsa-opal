@@ -1,0 +1,74 @@
+.userInfos {
+  .profile-preview {
+    display: flex;
+    padding: 1% 10%;
+    img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+    }
+    span {
+      margin-left: 30px;
+      font-size: 2rem;
+      color: #000;
+      line-height: 100px;
+    }
+  }
+  nav {
+    padding: 1% 10%;
+    button {
+      position: relative;
+      color: #000;
+      margin-right: 10px;
+      transition: background-color 1s;
+    }
+    button:hover {
+      color: #fff;
+      background-color: #d93738;
+    }
+  }
+  button {
+    border-radius: 2px;
+    color: rgb(255, 255, 255);
+    cursor: pointer;
+    margin-bottom: 1rem;
+    padding: 7px;
+    min-width: 100px;
+    width: 15%;
+  }
+  .my-profile {
+    display: none;
+    margin: 1% 10%;
+    min-width: 320px;
+    width: calc(35% + 30px);
+    button {
+      background-color: #d93738;
+    }
+    input:disabled {
+      cursor: no-drop;
+    }
+    input {
+      display: block;
+      line-height: 2rem;
+      outline: none;
+      width: 100%;
+      background-color: transparent;
+      border-bottom: 1px solid #eee;
+      color: rgb(0, 0, 0);
+      margin: .5rem 0;
+    }
+  }
+  .my-subscriptions {
+    display: none;
+    margin: 1% 10%;
+  }
+  
+  .my-videos {
+    display: none;
+    margin: 1% 10%;
+  }
+  
+  .show {
+    display: block;
+  }
+}
