@@ -2,6 +2,7 @@
 
 const tokensDb = require('../collections/tokens-db');
 const usersDb = require('../collections/users-db');
+const videosDb = require('../collections/videos-db');
 
 function getUserProfiles(req, res) {
   if (req.get('Authorization') === undefined) {
@@ -18,12 +19,15 @@ function getUserProfiles(req, res) {
         res.status(404).json({'error': 'not found'});
         return;
       }
-      res.status(200).json({
-        'username': userInfos.username,
-        'email': userInfos.email,
-        'phoneNumber': userInfos['phone number'],
-        'fullName': userInfos['full name'],
-        'avatar': userInfos.avatar,
+      videosDb.getUploadVideosByUsername(req.params.username, (uploadInfos) => {
+        res.status(200).json({
+          'username': userInfos.username,
+          'email': userInfos.email,
+          'phoneNumber': userInfos['phone number'],
+          'fullName': userInfos['full name'],
+          'avatar': userInfos.avatar,
+          'uploads': uploadInfos,
+        });
       });
     });
   });
