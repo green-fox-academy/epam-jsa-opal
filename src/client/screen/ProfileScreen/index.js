@@ -91,7 +91,7 @@ class ProfileScreen extends React.Component {
     return (
       <div className="userInfos">
         <div className="profile-preview">
-          <img src={this.state.profileInfos.avatar} alt="format error"/>
+          <img src={this.state.profileInfos.avatar}/>
           <span className="user-full-name">{this.state.profileInfos.fullName}</span>
         </div>
         <nav>
@@ -105,11 +105,16 @@ class ProfileScreen extends React.Component {
         onSubmit={this.onSubmit}
         >
           <h1>Profile</h1>
+          <label>Username</label>
           <input type="text" name="username" value={this.state.profileInfos.username} disabled={true}/>
+          <label>Email</label>
           <input type="email" name="email" value={this.state.profileInfos.email} disabled={true}/>
+          <label>Phone number</label>
           <input type="phoneNumber" name="phoneNumber" value={this.state.profileInfos.phoneNumber} disabled={true}/>
-          <input type="text" name="fullName" value={this.state.profileInfos.fullName} onChange={this.onChangeFullName} required/>
-          <input type="avatar" name="avatar" value={this.state.profileInfos.avatar} onChange={this.onChangeAvatar} required/>
+          <label htmlFor="fullName">Full name</label>
+          <input type="text" name="fullName" id="fullName" value={this.state.profileInfos.fullName} onChange={this.onChangeFullName} required placeholder="full name"/>
+          <label htmlFor="avatar">Avatar</label>
+          <input type="avatar" name="avatar" id="avatar" value={this.state.profileInfos.avatar} onChange={this.onChangeAvatar} required placeholder="avatar"/>
           <button type="submit" disabled={this.state.modify}>Modify</button>
           <button type="button" className="cancel" onClick={this.onCancel.bind(this)}>Cancel</button>
         </form>
