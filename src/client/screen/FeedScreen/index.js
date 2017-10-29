@@ -124,7 +124,7 @@ import './index.scss';
             <VideosFull 
               username={this.state.loginuser.username}
               userId={this.state.loginuser.userId} 
-              pagetype={'liked'} 
+              pagetype={'feed'} 
               videoLists={this.state.videoLists}/> 
           </div>
         </div>

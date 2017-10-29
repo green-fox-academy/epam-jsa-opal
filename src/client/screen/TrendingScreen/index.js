@@ -22,7 +22,6 @@ import './index.scss';
   }
   componentDidMount() {
     this.fetchVideoLists((result) => {
-      console.log(result);
       if (result.error) {
         return;
       }
@@ -121,7 +120,7 @@ import './index.scss';
             null
           }
           <NavigationBar className="navigationBar"/>
-          <div className="VideosFull"> <VideosFull videoLists={this.state.videoLists}/> </div>
+          <div className="VideosFull"> <VideosFull pagetype={'trending'} videoLists={this.state.videoLists}/> </div>
         </div>
       </div>
     );
