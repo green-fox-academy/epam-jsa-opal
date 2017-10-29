@@ -19,14 +19,14 @@ function getUserProfiles(req, res) {
         res.status(404).json({'error': 'not found'});
         return;
       }
-      videosDb.getUploadVideosByUsername(req.params.username, (uploadInfos) => {
+      videosDb.getUploadVideosByUsername(req.params.username, (uploadVideos) => {
         res.status(200).json({
           'username': userInfos.username,
           'email': userInfos.email,
           'phoneNumber': userInfos['phone number'],
           'fullName': userInfos['full name'],
           'avatar': userInfos.avatar,
-          'uploads': uploadInfos,
+          'uploads': uploadVideos,
         });
       });
     });

@@ -194,7 +194,16 @@ function getUploadVideosByUsername(userName, callback) {
       if (result.length === 0) {
         return callback([]);
       }
-      return callback(result);
+      return callback(result.map((value) => ({
+        'videoId': value._id.toString(),
+        'videoSrc': value.videoUrl,
+        'previewSrc': value.videoDetails.preview,
+        'title': value.videoDetails.title,
+        'videoTime': value.videoDetails.time,
+        'author': value.uploader.name,
+        'viewNumber': value.videoDetails.views,
+      }
+      )));
     });
     // videosDB.find({'uploader.name': userName}, (err, result) => {
     //   if (err) {
