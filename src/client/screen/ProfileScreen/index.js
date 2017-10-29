@@ -161,6 +161,24 @@ ProfileScreen.defaultProps = {
       'author': 'bug1',
       'viewNumber': 0,
     },
+    {
+      'videoId': '59f5564ef4ab731448b260d3',
+      'videoSrc': 'https://static.videezy.com/system/resources/previews/000/005/501/original/Earth_Sun_over_top.mp4',
+      'previewSrc': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRf5H7b5S-9semZ9Y7tLhEXJmfaiAEyedxZNdKUBTHiKa1f_4figA',
+      'title': 'BB',
+      'videoTime': '5:00',
+      'author': 'bug2',
+      'viewNumber': 0,
+    },
+    {
+      'videoId': '59f32fc922c1552410b5104d',
+      'videoSrc': 'http://www.html5videoplayer.net/videos/toystory.mp4',
+      'previewSrc': 'https://www.google.com/imgres?imgurl=https%3A%2F%2Fi.pinimg.com%2F736x%2F1f%2F33%2F37%2F1f3337d46984b00569be6d6310e05d4b--famous-movie-posters-movie-covers.jpg&imgrefurl=https%3A%2F%2Fwww.pinterest.com%2Fallystardy%2Fmovie-posters%2F&docid=uKHwNW2Z9J_QkM&tbnid=87cGlPf9r8usFM%3A&vet=10ahUKEwjWyZfQ7ZDXAhUJULwKHTlBAYMQMwiqAigqMCo..i&w=288&h=433&bih=840&biw=1583&q=movie%20poster&ved=0ahUKEwjWyZfQ7ZDXAhUJULwKHTlBAYMQMwiqAigqMCo&iact=mrc&uact=8',
+      'title': 'SS',
+      'videoTime': '5:00',
+      'author': 'bug1',
+      'viewNumber': 0,
+    },
   ],
 };
 

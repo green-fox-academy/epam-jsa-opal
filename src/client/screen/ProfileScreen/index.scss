@@ -84,7 +84,9 @@
         display: none;
         margin: 1% 10%;
         ul {
+            width: 100%;
             display: flex;
+            flex-wrap: wrap;
         }
         li {
             padding: 0;
