@@ -5,6 +5,10 @@ const tokensDb = require('../collections/tokens-db');
 const usersDb = require('../collections/users-db');
 
 function getHomeInfos(req, res) {
+  if (req.params.videoId.length !== 24) {
+    res.status(400).json({'error': 'bad request'});
+    return;
+  }
   videosDb.findVideoInfo(req.params.videoId, (videoInfos) => {
     if (videoInfos._id === undefined) {
       res.status(404).json({'error': 'not found'});

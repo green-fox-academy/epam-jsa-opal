@@ -205,16 +205,6 @@ function getUploadVideosByUsername(userName, callback) {
       }
       )));
     });
-    // videosDB.find({'uploader.name': userName}, (err, result) => {
-    //   if (err) {
-    //     console.log(err);
-    //   }
-    //   db.close();
-    //   if (result === null) {
-    //     return callback([]);
-    //   }
-    //   return callback(result);
-    // });
   });
 }
 
