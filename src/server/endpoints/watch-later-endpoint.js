@@ -31,13 +31,11 @@ function watchLater(req, res) {
     userId = tokenInfos.userId;
     let videoId = req.params.videoId;
 
-    console.log(videoId);
     usersDb.findUserInfoById(userId, (userInfos) => {
       if (userInfos.email === undefined) {
         res.status(404).json({'error': 'not found'});
         return;
       }
-      console.log(userInfos);
       userInfos.watchlater.push({'videoId': videoId});
 
       usersDb.updateUserInfo(userInfos, userId, (result) => {
