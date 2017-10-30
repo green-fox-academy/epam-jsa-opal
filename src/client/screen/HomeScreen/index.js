@@ -120,7 +120,7 @@ import './index.scss';
             :
             null
           }
-          <NavigationBar className="navigationBar"/>
+          <NavigationBar selected={'home'} className="navigationBar"/>
           <div className="videoComponent"> <VideoComponent videoId={
             this.props.location.search.split('=')[1] ? this.props.location.search.split('=')[1] :
               this.state.videoLists[0] ?
@@ -128,7 +128,7 @@ import './index.scss';
           userInfos={this.state.loginuser} />
           </div>
           <div className="suggestedVideos"> <SuggestedVideos videoLists={this.state.videoLists}/> </div>
-        </div>
+        </div> 
       </div>
     );
   }

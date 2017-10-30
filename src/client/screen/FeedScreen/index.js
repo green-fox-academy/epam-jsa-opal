@@ -119,7 +119,7 @@ import './index.scss';
             :
             null
           }
-          <NavigationBar className="navigationBar"/>
+          <NavigationBar selected={'feed'} className="navigationBar"/>
           <div className="VideosFull"> 
             <VideosFull 
               username={this.state.loginuser.username}

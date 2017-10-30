@@ -119,7 +119,7 @@ import './index.scss';
             :
             null
           }
-          <NavigationBar className="navigationBar"/>
+          <NavigationBar selected={'trending'} className="navigationBar"/>
           <div className="VideosFull"> <VideosFull pagetype={'trending'} videoLists={this.state.videoLists}/> </div>
         </div>
       </div>

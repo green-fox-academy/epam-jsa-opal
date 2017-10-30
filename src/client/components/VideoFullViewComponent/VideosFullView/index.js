@@ -29,6 +29,7 @@ const VideosFullView = (props) => {
     });
   }else if(props.pagetype === 'feed') {
     props.videoInfos.map((value, index)=> {
+      console.log(value);
       if(props.username === value.author) {
         suggestedVideosLists.push(
           <VideoPreview

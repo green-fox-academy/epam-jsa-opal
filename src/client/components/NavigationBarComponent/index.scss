@@ -16,6 +16,16 @@
   }
 
 
+  .selected:after {
+      margin-top: -50px;
+      position: absolute;
+      content: '';
+      display: block;
+      width: 8px;
+      height: 58px;
+      background-color: #f00;
+  }
+
   a:hover:after {
     margin-top: -50px;
     position: absolute;
@@ -25,7 +35,7 @@
     height: 58px;
     background-color: #f00;
   }
-
+  
   a::before {
     background-position: center;
     background-repeat: no-repeat;
