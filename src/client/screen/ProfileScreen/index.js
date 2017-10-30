@@ -22,6 +22,9 @@ class ProfileScreen extends React.Component {
   }
   componentDidMount() {
     this.fetchProfileInfos(this.props.location.search.split('=')[1], (profileInfos) => {
+      if (profileInfos.fullName === undefined) {
+        return;
+      }
       this.defalutName = profileInfos.fullName;
       this.defalutAvatar = profileInfos.avatar;
       this.setState({'profileInfos': profileInfos});
@@ -67,7 +70,7 @@ class ProfileScreen extends React.Component {
   onSubmit(ev) {
     ev.preventDefault();
     let statusCode;
-    let obj = {
+    let newUserInfos = {
       'username': ev.target.elements.namedItem('username').value,
       'email': ev.target.elements.namedItem('email').value,
       'phoneNumber': ev.target.elements.namedItem('phoneNumber').value,
@@ -76,13 +79,13 @@ class ProfileScreen extends React.Component {
     };
 
     this.setState({'modify': true});
-    fetch('/api/profile/' + ev.target.elements.namedItem('username').value, {
+    fetch('/api/profile/' + newUserInfos.username, {
       method: 'put',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': localStorage.getItem('token'),
       },
-      body: JSON.stringify(obj),
+      body: JSON.stringify(newUserInfos),
     }).then((response) => {
       this.setState({'modify': false});
       statusCode = response.status;
@@ -90,8 +93,6 @@ class ProfileScreen extends React.Component {
     }).then((result) => {
       if (statusCode === 201) {
         window.location.reload();
-      } else {
-        console.log('field')
       }
     });
   }
@@ -103,7 +104,6 @@ class ProfileScreen extends React.Component {
     this.setState({profileInfos: defaultInfos});
   }
   render() {
-    console.log(this.state.profileInfos.subscribers)
     return (
       <div className="profile-screen">
         <Header userInfos={this.state.loginuser} />

@@ -103,7 +103,7 @@ profile-screen {
       margin-bottom: 20px;
     }
 
-    li {
+    .subscriber {
       display: inline-block;
       height: 32%;
       margin: 10px 10px 0 0;
@@ -124,13 +124,13 @@ profile-screen {
     display: none;
     margin: 1% 10%;
 
-    ul {
+    .subscribers-list {
       display: flex;
       flex-wrap: wrap;
       width: 100%;
     }
 
-    li {
+    .subscriber {
       margin-right: 20px;
       padding: 0;
     }
