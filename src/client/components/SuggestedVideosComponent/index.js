@@ -12,8 +12,6 @@ class SuggesstedVideos extends React.Component {
     this.setState({suggestedVideosNum: 10});
   }
   addViewNum(videoId) {
-    let statusCode;
-
     fetch('/api/videos/' + videoId, {
       method: 'put',
       headers: {
@@ -21,13 +19,6 @@ class SuggesstedVideos extends React.Component {
         'Authorization': localStorage.getItem('token'),
       },
       body: JSON.stringify({'videoId': videoId}),
-    }).then((response) => {
-      statusCode = response.status;
-      return response.json();
-    }).then((result) => {
-      if (statusCode !== 200) {
-        console.log('field')
-      }
     });
   }
   render() {
