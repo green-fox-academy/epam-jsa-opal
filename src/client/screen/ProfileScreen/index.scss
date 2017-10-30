@@ -1,122 +1,150 @@
-main {
-    display: block;
+profile-screen {
+  display: block;
 }
-.userInfos {
-    .profile-preview {
-        display: flex;
-        padding: 1% 10%;
-        img {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            background-color: #d93738;
-        }
-        span {
-            margin-left: 30px;
-            font-size: 2rem;
-            color: #000;
-            line-height: 100px;
-        }
+
+.user-infos {
+  .profile-preview {
+    display: flex;
+    padding: 1% 10%;
+
+    img {
+      background-color: #d93738;
+      border-radius: 50%;
+      height: 100px;
+      width: 100px;
     }
-    nav {
-        padding: 1% 10%;
-        button {
-            position: relative;
-            color: #000;
-            margin-right: 10px;
-            transition: background-color 1s;
-        }
-        button:hover {
-            color: #fff;
-            background-color: #d93738;
-        }
+
+    span {
+      color: #000;
+      font-size: 2rem;
+      line-height: 100px;
+      margin-left: 30px;
     }
+  }
+
+  nav {
+    padding: 1% 10%;
+
     button {
-        border-radius: 2px;
-        color: rgb(255, 255, 255);
-        cursor: pointer;
-        margin-bottom: 1rem;
-        padding: 7px;
-        max-width: 150px;
-        width: calc(33.3% - 10px);
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
+      color: #000;
+      margin-right: 10px;
+      position: relative;
+      transition: background-color 1s;
     }
-    .my-profile {
-        display: none;
-        margin: 1% 10%;
-        min-width: 320px;
-        width: calc(35% + 30px);
-        button {
-            background-color: #d93738;
-            margin-top: 10px;
-        }
-        button:disabled {
-          cursor: no-drop;
-          background-color: #ddd;
-        }
-        input:disabled {
-            cursor: no-drop;
-        }
-        label {
-          display: inline-block;
-          min-width: 125px;
-          width: 25%;
-        }
-        input {
-            line-height: 1.5rem;
-            outline: none;
-            width: 75%;
-            background-color: transparent;
-            border-bottom: 1px solid #eee;
-            color: rgb(0, 0, 0);
-            margin: .5rem 0;
-        }
-        .cancel {
-          background-color: #ddd;
-          margin-left: 20px;
-          color: #000;
-        }
+
+    button:hover {
+      background-color: #d93738;
+      color: #fff;
     }
-    .my-subscriptions {
-        display: none;
-        margin: 1% 10%;
-        h1 {
-            margin-bottom: 20px;
-        }
-        li {
-            display: inline-block;
-            max-width: 100px;
-            max-height: 100px;
-            width: calc(32% - 10px);
-            height: 32%;
-            margin: 10px 10px 0 0;
-            text-align: center;
-            img {
-                max-width: 100%;
-                max-height: 100%;
-                border-radius: 50%;
-            }
-        }
+  }
+
+  button {
+    border-radius: 2px;
+    color: rgb(255, 255, 255);
+    cursor: pointer;
+    margin-bottom: 1rem;
+    max-width: 150px;
+    overflow: hidden;
+    padding: 7px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: calc(33.3% - 10px);
+  }
+
+  .my-profile {
+    display: none;
+    margin: 1% 10%;
+    min-width: 320px;
+    width: calc(35% + 30px);
+
+    button {
+      background-color: #d93738;
+      margin-top: 10px;
     }
-    .my-videos {
-        display: none;
-        margin: 1% 10%;
-        ul {
-            width: 100%;
-            display: flex;
-            flex-wrap: wrap;
-        }
-        li {
-            padding: 0;
-            margin-right: 20px;
-        }
-        h1 {
-            margin-bottom: 20px;
-        }
+
+    button:disabled {
+      background-color: #ddd;
+      cursor: no-drop;
     }
-    .show {
-        display: block;
+
+    input:disabled {
+      cursor: no-drop;
     }
+
+    label {
+      display: inline-block;
+      min-width: 125px;
+      width: 25%;
+    }
+
+    input {
+      background-color: transparent;
+      border-bottom: 1px solid #eee;
+      color: rgb(0, 0, 0);
+      line-height: 1.5rem;
+      margin: .5rem 0;
+      outline: none;
+      width: 75%;
+    }
+
+    .cancel {
+      background-color: #ddd;
+      color: #000;
+      margin-left: 20px;
+    }
+  }
+
+  .my-subscriptions {
+    display: none;
+    margin: 1% 10%;
+
+    h1 {
+      margin-bottom: 20px;
+    }
+
+    li {
+      display: inline-block;
+      height: 32%;
+      margin: 10px 10px 0 0;
+      max-height: 100px;
+      max-width: 100px;
+      text-align: center;
+      width: calc(32% - 10px);
+
+      img {
+        border-radius: 50%;
+        max-height: 100%;
+        max-width: 100%;
+      }
+    }
+  }
+
+  .my-videos {
+    display: none;
+    margin: 1% 10%;
+
+    ul {
+      display: flex;
+      flex-wrap: wrap;
+      width: 100%;
+    }
+
+    li {
+      margin-right: 20px;
+      padding: 0;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+    }
+
+    img {
+      max-height: 100%;
+      max-width: 100%;
+    }
+  }
+
+  .show {
+    display: block;
+  }
 }

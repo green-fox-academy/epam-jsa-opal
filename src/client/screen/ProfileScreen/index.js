@@ -105,9 +105,9 @@ class ProfileScreen extends React.Component {
   render() {
     console.log(this.state.profileInfos.subscribers)
     return (
-      <main>
+      <div className="profile-screen">
         <Header userInfos={this.state.loginuser} />
-        <div className="userInfos">
+        <div className="user-infos">
           <div className="profile-preview">
             <img src={this.state.profileInfos.avatar}/>
             <span className="user-full-name">{this.state.profileInfos.fullName}</span>
@@ -152,7 +152,7 @@ class ProfileScreen extends React.Component {
             }
           </div>
         </div>
-      </main>
+      </div>
     );
   }
 }
