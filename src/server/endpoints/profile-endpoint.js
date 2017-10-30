@@ -36,7 +36,7 @@ function getUserProfiles(req, res) {
 
 function modifyUserProfiles(req, res) {
   if (req.get('Authorization') === undefined) {
-    res.status(400).json({'error': 'unauthorized'});
+    res.status(401).json({'error': 'unauthorized'});
     return;
   }
   tokensDb.getToken(req.get('Authorization'), (tokenInfos) => {
