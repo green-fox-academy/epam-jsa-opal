@@ -7,7 +7,8 @@ const SuggestedVideosView = (props) => {
       return (
         <VideoPreview
           videoInfo={value}
-          key={value.videoId} />
+          key={value.videoId}
+          addViewNum={props.addViewNum} />
       );
     }
   });

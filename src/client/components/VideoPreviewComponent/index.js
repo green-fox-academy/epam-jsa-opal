@@ -11,7 +11,11 @@ class VideoPreview extends React.Component {
           <a href={`/watch?videoId=${this.props.videoInfo.videoId}`}
             style={
               {backgroundImage: `url(${this.props.videoInfo.previewSrc})`}
-            }>
+            }
+            onClick={()=> {
+              this.props.addViewNum(this.props.videoInfo.videoId);
+            }}
+          >
             <span>{this.props.videoInfo.videoTime}</span>
           </a>
         </div>
