@@ -14,10 +14,6 @@ function updateErrorhandle(res, result) {
   }
 }
 
-// function filterExist(videoId, elementId) {
-//   return elementId === videoId;
-// }
-
 function watchLater(req, res) {
   let token = req.get('Authorization');
   let userId;
