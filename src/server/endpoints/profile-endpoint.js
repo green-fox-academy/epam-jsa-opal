@@ -26,6 +26,7 @@ function getUserProfiles(req, res) {
           'phoneNumber': userInfos['phone number'],
           'fullName': userInfos['full name'],
           'avatar': userInfos.avatar,
+          'subscribers': userInfos.subscribers,
           'uploads': uploadVideos,
         });
       });

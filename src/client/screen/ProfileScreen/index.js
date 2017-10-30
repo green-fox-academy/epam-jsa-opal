@@ -1,6 +1,7 @@
 import React from 'react';
 import './index.scss';
 import Uploads from '../../components/SuggestedVideosComponent/SuggestedVideosView';
+import Subscribers from './SubscribersComponent';
 import Header from '../../components/HeaderComponent';
 import noVideoImg from './no-video.jpg';
 
@@ -10,7 +11,7 @@ class ProfileScreen extends React.Component {
     this.state = {
       'tab': 'profile',
       'modify': false,
-      'profileInfos': {uploads: []},
+      'profileInfos': {uploads: [], subscribers: []},
       'loginuser': {},
     };
     this.defalutProfileInfos = {};
@@ -102,6 +103,7 @@ class ProfileScreen extends React.Component {
     this.setState({profileInfos: defaultInfos});
   }
   render() {
+    console.log(this.state.profileInfos.subscribers)
     return (
       <main>
         <Header userInfos={this.state.loginuser} />
@@ -138,13 +140,7 @@ class ProfileScreen extends React.Component {
             'my-subscriptions show' :
             'my-subscriptions'} >
             <h1>Subscriptions</h1>
-            <ul>
-              <li>user1</li>
-              <li>user2</li>
-              <li>user3</li>
-              <li>user4</li>
-              <li>user5</li>
-            </ul>
+            <Subscribers subscribers={this.state.profileInfos.subscribers}/>
           </div>
           <div className={this.state.tab === 'video' ?
             'my-videos show' :
