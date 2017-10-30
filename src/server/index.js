@@ -15,6 +15,7 @@ let defaultPortNum = 3000;
 let portNum = process.env.PORT || defaultPortNum;
 const homeController = require('./endpoints/home-screen-endpoints');
 const thumbupController = require('./endpoints/video-thumb');
+const watchlaterController = require('./endpoints/watch-later-endpoint');
 
 app.put('/api/videos/:videoId/comments/:commentsId/:votetype', commentcontroller.commentEnable);
 app.delete('/api/videos/:videoId/comments/:commentsId/:votetype', commentcontroller.commentDisable);
@@ -26,6 +27,7 @@ app.post('/api/signup', signUp.signupUser);
 app.post('/api/login', jsonParser, loginController.login);
 app.get('/heartbeat', DatabaseHealth.checkDatabaseHealth);
 app.get('/api/videos/:videoId', homeController.getHomeInfos);
+app.post('/api/videos/:videoId/watchlater', watchlaterController.watchLater);
 app.post('/api/videos/:videoId/comments', homeController.postComment);
 app.post('/api/videos/:videoId/:votetype', thumbupController.judgeVotetype);
 app.delete('/api/videos/:videoId/:votetype', thumbupController.judgeCanceltype);
