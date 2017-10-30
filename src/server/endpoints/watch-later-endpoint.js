@@ -14,11 +14,6 @@ function updateErrorhandle(res, result) {
   }
 }
 
-// function sendBadRequest(res, message) {
-//   res.setHeader('content-type', 'application/json');
-//   res.status(400).send({'error': message});
-// }
-
 function watchLater(req, res) {
   let token = req.get('Authorization');
   let userId;

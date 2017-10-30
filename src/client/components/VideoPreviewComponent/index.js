@@ -4,14 +4,22 @@ class VideoPreview extends React.Component {
   constructor(props) {
     super(props);
   }
+  storeHistory() {
+    fetch(`/api/videos/${this.props.videoInfo.videoId}/trackvideohistory`, {
+      method: 'post',
+      headers: {'Authorization': localStorage.getItem('token')},
+    });
+  }
   render() {
     return (
       <li className="suggested-video-list">
         <div className="suggested-video">
-          <a href={`/watch?videoId=${this.props.videoInfo.videoId}`}
+          <a
             style={
               {backgroundImage: `url(${this.props.videoInfo.previewSrc})`}
-            }>
+            }
+            onClick={this.storeHistory.bind(this)}
+          >
             <span>{this.props.videoInfo.videoTime}</span>
           </a>
         </div>
