@@ -111,7 +111,10 @@ class VideoComponent extends React.Component {
                 <button className="subscribe" onClick={this.subscribe.bind(this)}>
               subcribe
                 </button>
-                <span className="subscribe-num">{this.state.videoInfos.uploader.subscribers || 0}</span>
+                <span className="subscribe-num">{this.state.videoInfos.uploader.subscribers ?
+                  this.state.videoInfos.uploader.subscribers.length :
+                  0
+                }</span>
               </div>
             </div>
             <div className="thumb">
