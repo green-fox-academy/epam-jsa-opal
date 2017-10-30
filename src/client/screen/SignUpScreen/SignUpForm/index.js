@@ -18,7 +18,7 @@ const SignUpForm = (props) => (
       pattern=".{6,}"
       className={props.errorPassword ? 'error' : ''}/>
     <input type="submit"
-      value={props.isLoading ? 'loading' : 'signup'}
+      value={props.isLoading ? 'loading' : 'Signup'}
       className={props.isLoading ? 'loading' : ''}
       disabled={props.isLoading ? true : false }/>
     <Link to="/login" className="login-link">login now</Link>
