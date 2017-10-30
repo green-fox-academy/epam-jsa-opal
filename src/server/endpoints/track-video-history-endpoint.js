@@ -31,7 +31,13 @@ function trackVideoHistory(req, res) {
         res.status(404).json({'error': 'not found'});
         return;
       }
-      userInfos.history.push({'videoId': videoId});
+      let existuser = userInfos.history.filter(function(value, index, array) {
+        return (value.videoId === videoId);
+      });
+
+      if (existuser.length === 0) {
+        userInfos.history.push({'videoId': videoId});
+      }
 
       usersDb.updateUserInfo(userInfos, userId, (result) => {
         updateErrorhandle(res, result);
