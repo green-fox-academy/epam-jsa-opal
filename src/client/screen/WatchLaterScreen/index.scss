@@ -1,20 +1,10 @@
-.suggestedVideos {
-  width: 261px;
-}
 
 .homecontainer {
   background-color:  #fff;
 }
-
-.videoComponent {
-  margin-left:52px;
-  margin-right: 40px;
-  width: 68%;
-}
-.title {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+.VideosFull {
+  width: 100%;
+  margin: 0 40px;
 }
 .main {
   display: flex;

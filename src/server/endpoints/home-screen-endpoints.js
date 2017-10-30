@@ -187,6 +187,8 @@ function getLoginedUserInfos(req, res) {
         return;
       }
       res.status(200).json({
+        'history':userInfos.history,
+        'watchlater': userInfos.watchlater,
         'userId':userInfos._id,
         'username': userInfos.username,
         'avatar': userInfos.avatar,

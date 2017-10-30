@@ -29,13 +29,43 @@ const VideosFullView = (props) => {
     });
   }else if(props.pagetype === 'feed') {
     props.videoInfos.map((value, index)=> {
-      console.log(value);
       if(props.username === value.author) {
         suggestedVideosLists.push(
           <VideoPreview
           videoInfo={value}
           key={value.videoId} />
         );
+      }
+    });
+  }else if (props.pagetype === 'history') {
+    let history = props.history;
+    props.videoInfos.map((video, index)=>{
+      if(history !== undefined) {
+        history.map((value, index)=>{
+          if(value.videoId === video.videoId) {
+            suggestedVideosLists.push(
+              <VideoPreview
+              videoInfo={video}
+              key={video.videoId} />
+            );
+          }
+        })
+      }
+    });
+
+  } else if (props.pagetype === 'watchlater') {
+    let watchlater = props.watchlater;
+    props.videoInfos.map((video, index)=> {
+      if(watchlater !== undefined) {
+        watchlater.map((value, index)=> {
+          if(value.videoId === video.videoId){
+            suggestedVideosLists.push(
+              <VideoPreview
+              videoInfo={video}
+              key={video.videoId} />
+            );
+          }
+        });
       }
     });
   }

@@ -10,6 +10,8 @@ class VideosFull extends React.Component {
     return (
       <aside className="Full-video-container">
         <VideosFullView
+          history={this.props.history}
+          watchlater={this.props.watchlater}
           username={this.props.username}
           userId={this.props.userId}
           pagetype={this.props.pagetype}

@@ -6,6 +6,8 @@ import Home from '../client/screen/HomeScreen';
 import Trending from '../client/screen/TrendingScreen';
 import Liked from '../client/screen/LikedScreen';
 import Feed from '../client/screen/FeedScreen';
+import History from '../client/screen/HistoryScreen';
+import WatchLater from '../client/screen/WatchLaterScreen';
 
 class App extends React.Component {
   render() {
@@ -17,6 +19,8 @@ class App extends React.Component {
           <Route path="/login" component={Login} />
           <Route path="/feed" component={Feed} />
           <Route path="/signup" component={Signup} />
+          <Route path="/watchlater" component={WatchLater} />
+          <Route path="/history" component={History} />
           <Route path="/home" component={Home} />
           <Route path="/watch" component={Home} />
           <Route path='/liked' component={Liked} />
