@@ -6,16 +6,16 @@ const videosDb = require('../collections/videos-db');
 
 function getUserProfiles(req, res) {
   if (req.get('Authorization') === undefined) {
-    res.status(400).json({'error': 'unAuthorization'});
+    res.status(401).json({'error': 'unauthorized'});
     return;
   }
   tokensDb.getToken(req.get('Authorization'), (tokenInfos) => {
     if (tokenInfos._id === undefined) {
-      res.status(404).json({'error': 'not found'});
+      res.status(401).json({'error': 'unauthorized'});
       return;
     }
     usersDb.findUserInfoByUsername(req.params.username, (userInfos) => {
-      if (userInfos._id === undefined) {
+      if (userInfos === undefined) {
         res.status(404).json({'error': 'not found'});
         return;
       }
@@ -36,22 +36,20 @@ function getUserProfiles(req, res) {
 
 function modifyUserProfiles(req, res) {
   if (req.get('Authorization') === undefined) {
-    res.status(400).json({'error': 'unAuthorization'});
+    res.status(400).json({'error': 'unauthorized'});
     return;
   }
   tokensDb.getToken(req.get('Authorization'), (tokenInfos) => {
     if (tokenInfos._id === undefined) {
-      res.status(404).json({'error': 'not found'});
+      res.status(401).json({'error': 'unauthorized'});
       return;
     }
     usersDb.updateUserInfos(req.params.username, req.body, (updateResult) => {
       if (updateResult === 'failed') {
-        res.status(400).json({'error': 'update failed'});
+        res.status(500).json({'error': 'update failed'});
         return;
       }
-      res.set('location', '/api/profile/' + updateResult.username);
-      res.setHeader('content-type', 'application/json');
-      res.status(201).json({});
+      res.status(200).json({});
     });
   });
 }
