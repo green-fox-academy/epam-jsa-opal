@@ -19,13 +19,17 @@ function getHomeInfos(req, res) {
     let userId;
 
     if (token === undefined) {
-      res.status(400).json({'error': 'unauthorization'});
+      res.status(401).json({'error': 'unauthorized'});
       return;
     }
     tokensDb.getToken(token, (userInfos) => {
       let videoLikeNums = 0;
       let videoDislikeNums = 0;
 
+      if (userInfos._id === undefined) {
+        res.status(401).json({'error': 'unauthorized'});
+        return;
+      }
       userId = userInfos.userId;
       videoInfos.videoDetails.clickedLike = false;
       videoInfos.videoDetails.clickedDislike = false;
@@ -97,7 +101,7 @@ function getHomeInfos(req, res) {
 
 function postComment(req, res) {
   if (req.get('Authorization') === undefined) {
-    res.status(400).json({'error': 'unauthorized'});
+    res.status(401).json({'error': 'unauthorized'});
     return;
   } else if (req.params.videoId.length !== 24) {
     res.status(400).json({'error': 'bad request'});
@@ -117,7 +121,7 @@ function postComment(req, res) {
 
 function uploadVideo(req, res) {
   if (req.get('Authorization') === undefined) {
-    res.status(400).json({'error': 'unauthorized'});
+    res.status(401).json({'error': 'unauthorized'});
     return;
   }
   if (req.body.url === undefined || req.body.preview === undefined || req.body.title === undefined) {
@@ -160,12 +164,12 @@ function getLoginedUserInfos(req, res) {
   let token = req.get('Authorization');
 
   if (token === undefined) {
-    res.status(400).json({'error': 'unAuthorization'});
+    res.status(401).json({'error': 'unauthorized'});
     return;
   }
   tokensDb.getToken(token, (tokenInfos) => {
     if (tokenInfos._id === undefined) {
-      res.status(400).json({'error': 'unAuthorization'});
+      res.status(401).json({'error': 'unauthorized'});
       return;
     }
     usersDb.findUserInfoById(tokenInfos.userId, (userInfos) => {
@@ -185,7 +189,7 @@ function increaseViewNum(req, res) {
   let token = req.get('Authorization');
 
   if (token === undefined) {
-    res.status(400).json({'error': 'unAuthorization'});
+    res.status(401).json({'error': 'unauthorized'});
     return;
   }
   if (req.body.videoId === undefined || req.body.videoId.length !== 24) {
@@ -194,7 +198,7 @@ function increaseViewNum(req, res) {
   }
   tokensDb.getToken(token, (tokenInfos) => {
     if (tokenInfos._id === undefined) {
-      res.status(400).json({'error': 'unAuthorization'});
+      res.status(401).json({'error': 'unauthorized'});
       return;
     }
     videosDb.increaseViewNum(req.body.videoId, (videosViews) => {
