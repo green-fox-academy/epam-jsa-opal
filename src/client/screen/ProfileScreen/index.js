@@ -1,6 +1,8 @@
 import React from 'react';
 import './index.scss';
 import Uploads from '../../components/SuggestedVideosComponent/SuggestedVideosView';
+import Header from '../../components/HeaderComponent';
+import noVideoImg from './no-video.jpg';
 
 class ProfileScreen extends React.Component {
   constructor(props) {
@@ -9,6 +11,7 @@ class ProfileScreen extends React.Component {
       'tab': 'profile',
       'modify': false,
       'profileInfos': {uploads: []},
+      'loginuser': {},
     };
     this.defalutProfileInfos = {};
     this.fetchProfileInfos = this.fetchProfileInfos.bind(this);
@@ -22,9 +25,20 @@ class ProfileScreen extends React.Component {
       this.defalutAvatar = profileInfos.avatar;
       this.setState({'profileInfos': profileInfos});
     });
+    this.fetchLoginUserInfos((result) => {
+      if (result.error) {
+        return;
+      }
+      this.setState({'loginuser': result});
+    });
   }
   fetchProfileInfos(userName, callback) {
     fetch('/api/profile/' + userName, {headers: {'Authorization': localStorage.getItem('token')}})
+      .then((response) => response.json())
+      .then((result) => callback(result));
+  }
+  fetchLoginUserInfos(callback) {
+    fetch('/api/loginuser', {headers: {'Authorization': localStorage.getItem('token')}})
       .then((response) => response.json())
       .then((result) => callback(result));
   }
@@ -89,54 +103,60 @@ class ProfileScreen extends React.Component {
   }
   render() {
     return (
-      <div className="userInfos">
-        <div className="profile-preview">
-          <img src={this.state.profileInfos.avatar}/>
-          <span className="user-full-name">{this.state.profileInfos.fullName}</span>
+      <main>
+        <Header userInfos={this.state.loginuser} />
+        <div className="userInfos">
+          <div className="profile-preview">
+            <img src={this.state.profileInfos.avatar}/>
+            <span className="user-full-name">{this.state.profileInfos.fullName}</span>
+          </div>
+          <nav>
+            <button className="my-profile-button" onClick={this.onClickProfile.bind(this)}>profife</button>
+            <button className="my-subscriptions-button" onClick={this.onClickSubscription.bind(this)}>subscriptions</button>
+            <button className="my-videos-button" onClick={this.onClickVideo.bind(this)}>videos</button>
+          </nav>
+          <form className={this.state.tab === 'profile' ?
+            'my-profile show' :
+            'my-profile'} 
+          onSubmit={this.onSubmit}
+          >
+            <h1>Profile</h1>
+            <label>Username</label>
+            <input type="text" name="username" value={this.state.profileInfos.username} disabled={true}/>
+            <label>Email</label>
+            <input type="email" name="email" value={this.state.profileInfos.email} disabled={true}/>
+            <label>Phone number</label>
+            <input type="phoneNumber" name="phoneNumber" value={this.state.profileInfos.phoneNumber} disabled={true}/>
+            <label htmlFor="fullName">Full name</label>
+            <input type="text" name="fullName" id="fullName" value={this.state.profileInfos.fullName} onChange={this.onChangeFullName} required placeholder="full name"/>
+            <label htmlFor="avatar">Avatar</label>
+            <input type="avatar" name="avatar" id="avatar" value={this.state.profileInfos.avatar} onChange={this.onChangeAvatar} required placeholder="avatar"/>
+            <button type="submit" disabled={this.state.modify}>Modify</button>
+            <button type="button" className="cancel" onClick={this.onCancel.bind(this)}>Cancel</button>
+          </form>
+          <div className={this.state.tab === 'subscription' ?
+            'my-subscriptions show' :
+            'my-subscriptions'} >
+            <h1>Subscriptions</h1>
+            <ul>
+              <li>user1</li>
+              <li>user2</li>
+              <li>user3</li>
+              <li>user4</li>
+              <li>user5</li>
+            </ul>
+          </div>
+          <div className={this.state.tab === 'video' ?
+            'my-videos show' :
+            'my-videos'} >
+            <h1>My Videos</h1>
+            {this.state.profileInfos.uploads.length === 0 ?
+              <img src={noVideoImg} alt="no video"/> :
+              <Uploads videoInfos={this.state.profileInfos.uploads} suggestedVideosNum={30}/>
+            }
+          </div>
         </div>
-        <nav>
-          <button className="my-profile-button" onClick={this.onClickProfile.bind(this)}>profife</button>
-          <button className="my-subscriptions-button" onClick={this.onClickSubscription.bind(this)}>subscriptions</button>
-          <button className="my-videos-button" onClick={this.onClickVideo.bind(this)}>videos</button>
-        </nav>
-        <form className={this.state.tab === 'profile' ?
-          'my-profile show' :
-          'my-profile'} 
-        onSubmit={this.onSubmit}
-        >
-          <h1>Profile</h1>
-          <label>Username</label>
-          <input type="text" name="username" value={this.state.profileInfos.username} disabled={true}/>
-          <label>Email</label>
-          <input type="email" name="email" value={this.state.profileInfos.email} disabled={true}/>
-          <label>Phone number</label>
-          <input type="phoneNumber" name="phoneNumber" value={this.state.profileInfos.phoneNumber} disabled={true}/>
-          <label htmlFor="fullName">Full name</label>
-          <input type="text" name="fullName" id="fullName" value={this.state.profileInfos.fullName} onChange={this.onChangeFullName} required placeholder="full name"/>
-          <label htmlFor="avatar">Avatar</label>
-          <input type="avatar" name="avatar" id="avatar" value={this.state.profileInfos.avatar} onChange={this.onChangeAvatar} required placeholder="avatar"/>
-          <button type="submit" disabled={this.state.modify}>Modify</button>
-          <button type="button" className="cancel" onClick={this.onCancel.bind(this)}>Cancel</button>
-        </form>
-        <div className={this.state.tab === 'subscription' ?
-          'my-subscriptions show' :
-          'my-subscriptions'} >
-          <h1>Subscriptions</h1>
-          <ul>
-            <li>user1</li>
-            <li>user2</li>
-            <li>user3</li>
-            <li>user4</li>
-            <li>user5</li>
-          </ul>
-        </div>
-        <div className={this.state.tab === 'video' ?
-          'my-videos show' :
-          'my-videos'} >
-          <h1>My Videos</h1>
-          <Uploads videoInfos={this.state.profileInfos.uploads} suggestedVideosNum={30}/>
-        </div>
-      </div>
+      </main>
     );
   }
 }

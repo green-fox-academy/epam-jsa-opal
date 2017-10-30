@@ -26,7 +26,7 @@ class header extends React.Component {
   render() {
     return (
       <header className="header">
-        <span className="team-name">opal</span>
+        <a href="/home" className="team-name">opal</a>
         <div className="obstacle"></div>
         <form>
           <img className="search-logo" src={search} ></img>
