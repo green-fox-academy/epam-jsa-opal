@@ -5,7 +5,7 @@ class Subscribers extends React.Component {
     let subscribersList = this.props.subscribers.map((value) => (
       <div className="subscriber" key={value.userId}>
         <a href={'/profile?username=' + value.username}><img src={value.avatar} alt=""/></a>
-        <span>{value.username}</span>
+        <a href={'/profile?username=' + value.username}>{value.username}</a>
       </div>
     ));
 
