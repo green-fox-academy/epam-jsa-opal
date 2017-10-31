@@ -184,6 +184,7 @@ function getLoginedUserInfos(req, res) {
       res.status(200).json({
         'username': userInfos.username,
         'avatar': userInfos.avatar,
+        'subscriptions': userInfos.subscriptions,
       });
     });
   });
