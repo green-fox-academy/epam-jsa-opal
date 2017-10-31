@@ -7,6 +7,10 @@ import upload from './assets/upload.png';
 import userprofile from './assets/userprofile.png';
 
 class header extends React.Component {
+  clickSearch() {
+   let value = document.getElementsByClassName('search-name')[0].value;
+   window.location.href = '/search?'+value;
+  }
   Userlogout() {
     let token = localStorage.getItem('token');
 
@@ -29,8 +33,9 @@ class header extends React.Component {
         <a href="/home" className="team-name">opal</a>
         <div className="obstacle"></div>
         <form>
-          <img className="search-logo" src={search} ></img>
-          <input className="search-name" placeholder="search" type="search" >
+          <img onClick={this.clickSearch} type='submit' className="search-logo" src={search} ></img>
+          <input className="search-name" placeholder="search" type="search">
+
           </input>
         </form>
         <div className="right-top">

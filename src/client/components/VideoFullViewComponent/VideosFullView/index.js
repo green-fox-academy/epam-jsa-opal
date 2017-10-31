@@ -37,7 +37,7 @@ const VideosFullView = (props) => {
     });
 
   } else if (props.pagetype === 'history') {
-    if(props.history !== undefined){
+    if (props.history !== undefined){
       renderElement = props.videoInfos.filter((videoInfo)=>{
         return props.history.some((singleHistory)=>{
           return videoInfo.videoId === singleHistory.videoId;
@@ -50,7 +50,7 @@ const VideosFullView = (props) => {
     }
 
   } else if (props.pagetype === 'watchlater') {
-    if(props.watchlater !== undefined) {
+    if (props.watchlater !== undefined) {
       renderElement = props.videoInfos.filter((videoInfo)=>{
         return props.watchlater.some((watchElement)=>{
           return videoInfo.videoId === watchElement.videoId;
@@ -61,6 +61,15 @@ const VideosFullView = (props) => {
         key={value.videoId} />
       })
     }
+  } else if (props.pagetype === 'search') {
+    let search = props.searchContent.slice(1);
+    renderElement = props.videoInfos.filter((videoInfo)=>{
+      return videoInfo.title.indexOf(search) !== -1;
+    }).map((value)=>{
+      return <VideoPreview
+      videoInfo={value}
+      key={value.videoId} />
+    });
   }
 
   return (
