@@ -146,7 +146,7 @@ class VideoComponent extends React.Component {
               </div>
               <div className="subcribe-number">
                 <button className={this.state.videoInfos.videoDetails.subscribe ? 'subcribe clicked' : 'subcribe'}
-                onClick={this.subscribe.bind(this)} disabled={this.state.videoInfos.videoDetails.subscribe}>
+                  onClick={this.subscribe.bind(this)} disabled={this.state.videoInfos.videoDetails.subscribe}>
               subcribe
                 </button>
                 <span className="subscribe-num">{this.state.videoInfos.uploader.subscribers ?
