@@ -115,6 +115,8 @@ function dbInsert(req, res) {
     'password': '',
     'avatar': createRandomAvatar(),
     'watchlater': [],
+    'subscriptions': [],
+    'subscribers': [],
   };
 
   sendContent.username = req.body.username;
@@ -200,6 +202,46 @@ function findUserInfoById(userId, callback) {
   });
 }
 
+function findUserInfoByUsername(userName, callback) {
+  MongoClient.connect(url, (err, db) => {
+    if (err) {
+      console.log(err.name + ':' + err.message);
+      return callback(undefined);
+    }
+    let usersDB = db.collection('users');
+
+    usersDB.findOne({'username': userName}, (err, result) => {
+      if (err) {
+        console.log(err);
+      }
+      db.close();
+      if (result === null) {
+        return callback([]);
+      }
+      return callback(result);
+    });
+  });
+}
+
+function updateUserInfos(oldUsername, newInfos, callback) {
+  MongoClient.connect(url, (err, db) => {
+    if (err) {
+      console.log(err.name + ':' + err.message);
+      return callback(undefined);
+    }
+    let usersDB = db.collection('users');
+
+    usersDB.update({'username': oldUsername}, {$set: {'full name': newInfos.fullName, 'avatar': newInfos.avatar}}, (err, result) => {
+      if (err) {
+        console.log(err);
+        return callback('failed');
+      }
+      db.close();
+      return callback(newInfos);
+    });
+  });
+}
+
 function updateUserInfo(userInfos, userId, callback) {
   MongoClient.connect(url, (err, db) => {
     if (err) {
@@ -221,5 +263,7 @@ module.exports = {
   storeUser: dbInsert,
   findUserInfo: findUserInfo,
   findUserInfoById: findUserInfoById,
+  findUserInfoByUsername: findUserInfoByUsername,
+  updateUserInfos: updateUserInfos,
   updateUserInfo: updateUserInfo,
 };

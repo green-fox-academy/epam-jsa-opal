@@ -15,6 +15,7 @@ let defaultPortNum = 3000;
 let portNum = process.env.PORT || defaultPortNum;
 const homeController = require('./endpoints/home-screen-endpoints');
 const thumbupController = require('./endpoints/video-thumb');
+const profileController = require('./endpoints/profile-endpoint');
 const watchlaterController = require('./endpoints/watch-later-endpoint');
 
 app.put('/api/videos/:videoId/comments/:commentsId/:votetype', commentcontroller.commentEnable);
@@ -34,6 +35,8 @@ app.delete('/api/videos/:videoId/:votetype', thumbupController.judgeCanceltype);
 app.post('/api/videos/', homeController.uploadVideo);
 app.get('/api/videos', homeController.getVideoInfos);
 app.get('/api/loginuser', homeController.getLoginedUserInfos);
+app.get('/api/profile/:username', profileController.getUserProfiles);
+app.put('/api/profile/:username', profileController.modifyUserProfiles);
 app.get('*', (req, res) =>{
   res.sendFile('index.html', {root: path.join(__dirname, '../../dist')});
 });
