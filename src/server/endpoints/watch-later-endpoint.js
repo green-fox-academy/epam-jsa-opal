@@ -31,8 +31,13 @@ function watchLater(req, res) {
         res.status(404).json({'error': 'not found'});
         return;
       }
-      userInfos.watchlater.push({'videoId': videoId});
+      let existuser = userInfos.watchlater.filter(function(value, index, array) {
+        return (value.videoId === videoId);
+      });
 
+      if (existuser.length === 0) {
+        userInfos.watchlater.push({'videoId': videoId});
+      }
       usersDb.updateUserInfo(userInfos, userId, (result) => {
         updateErrorhandle(res, result);
         res.status(200).json({});
