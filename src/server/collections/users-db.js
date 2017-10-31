@@ -261,19 +261,19 @@ function updateUserInfo(userInfos, userId, callback) {
   });
 }
 
-function subscribe(userInfos, subscriberInfos, callback) {
+function subscribe(userInfos, targetUserInfos, callback) {
   MongoClient.connect(url, (err, db) => {
     if (err) {
       return callback(undefined);
     }
     let userDB = db.collection('users');
 
-    userDB.update({'_id': ObjectId(userInfos.userId)}, {$push: {'subscriptions': subscriberInfos}}, (err) => {
+    userDB.update({'_id': ObjectId(userInfos.userId)}, {$push: {'subscriptions': targetUserInfos}}, (err) => {
       if (err) {
         console.log(err);
         return callback('Upadate Failed');
       }
-      userDB.update({'_id': ObjectId(subscriberInfos.userId)}, {$push: {'subscribers': userInfos}}, (err) => {
+      userDB.update({'_id': ObjectId(targetUserInfos.userId)}, {$push: {'subscribers': userInfos}}, (err) => {
         if (err) {
           console.log(err);
           return callback('Upadate Failed');

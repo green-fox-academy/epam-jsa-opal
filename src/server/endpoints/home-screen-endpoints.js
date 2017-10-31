@@ -203,17 +203,24 @@ function subscribe(req, res) {
       res.status(401).json({'error': 'unauthorized'});
       return;
     }
-    usersDb.subscribe(
+    videosDb.increaseSubscribe(
       {'userId': req.body.userId, 'username': req.body.username, 'avatar': req.body.avatar},
       {'userId': req.body.subscriberId, 'username': req.body.subscriberName, 'avatar': req.body.subscriberAvatar},
-      (subscribeInfos) => {
-        if (subscribeInfos === 'failed') {
+      (updateInfos) => {
+        if (updateInfos === 'failed') {
           res.status(500).json({'error': 'subscribe failed'});
           return;
         }
-        res.status(200).json({
-          'success': 'subscriber success',
-        });
+        usersDb.subscribe(
+          {'userId': req.body.userId, 'username': req.body.username, 'avatar': req.body.avatar},
+          {'userId': req.body.subscriberId, 'username': req.body.subscriberName, 'avatar': req.body.subscriberAvatar},
+          (subscribeInfos) => {
+            if (subscribeInfos === 'failed') {
+              res.status(500).json({'error': 'subscribe failed'});
+              return;
+            }
+            res.status(200).json({'success': 'subscriber success'});
+          });
       });
   });
 }
