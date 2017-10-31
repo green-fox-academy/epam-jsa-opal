@@ -8,14 +8,11 @@ const VideosFullView = (props) => {
     let order = props.videoInfos;
 
     order.sort((a, b) => b.viewNumber - a.viewNumber);
-    renderElement = order.map((value, index) => {
-      return (
-        <VideoPreview
-          videoInfo={value}
-          key={value.videoId} />
-      );
-    });
-
+    renderElement = order.map((value, index) =>
+      <VideoPreview
+        videoInfo={value}
+        key={value.videoId} />
+    );
   } else if (props.pagetype === 'liked') {
     renderElement = props.videoInfos.filter((videoInfo) => {
       return videoInfo.likeStatus.some((likeStatus) => {
@@ -24,29 +21,27 @@ const VideosFullView = (props) => {
     }).map((filteredVideoInfo) => {
       return <VideoPreview
         videoInfo={filteredVideoInfo}
-        key={filteredVideoInfo.videoId} /> 
+        key={filteredVideoInfo.videoId} />;
     });
-
   } else if (props.pagetype === 'feed') {
     renderElement = props.videoInfos.filter((videoInfo) => {
       return (videoInfo.author === props.username);
     }).map((value)=>{
-      return  <VideoPreview
-             videoInfo={value}
-             key={value.videoId} />
+      return <VideoPreview
+        videoInfo={value}
+        key={value.videoId} />;
     });
-
   } else if (props.pagetype === 'history') {
-    if (props.history !== undefined){
+    if (props.history !== undefined) {
       renderElement = props.videoInfos.filter((videoInfo)=>{
         return props.history.some((singleHistory)=>{
           return videoInfo.videoId === singleHistory.videoId;
         });
       }).map((value)=>{
         return <VideoPreview
-        videoInfo={value}
-        key={value.videoId} />
-      })
+          videoInfo={value}
+          key={value.videoId} />;
+      });
     }
 
   } else if (props.pagetype === 'watchlater') {
@@ -57,9 +52,9 @@ const VideosFullView = (props) => {
         });
       }).map((value)=>{
         return <VideoPreview
-        videoInfo={value}
-        key={value.videoId} />
-      })
+          videoInfo={value}
+          key={value.videoId} />;
+      });
     }
   } else if (props.pagetype === 'search') {
     let search = props.searchContent.slice(1);
