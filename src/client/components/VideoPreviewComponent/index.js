@@ -5,7 +5,7 @@ class VideoPreview extends React.Component {
     super(props);
   }
   storeHistory() {
-    fetch(`/api/videos/${this.props.videoInfo.videoId}/trackvideohistory`, {
+    fetch(`/api/videos/${this.props.videoInfo.videoId}/track-video-history`, {
       method: 'post',
       headers: {'Authorization': localStorage.getItem('token')},
     });

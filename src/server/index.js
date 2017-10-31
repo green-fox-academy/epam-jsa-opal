@@ -30,7 +30,7 @@ app.get('/heartbeat', DatabaseHealth.checkDatabaseHealth);
 app.get('/api/videos/:videoId', homeController.getHomeInfos);
 app.post('/api/videos/:videoId/watchlater', watchlaterController.watchLater);
 app.post('/api/videos/:videoId/comments', homeController.postComment);
-app.post('/api/videos/:videoId/trackvideohistory', historyController.trackVideoHistory);
+app.post('/api/videos/:videoId/track-video-history', historyController.trackVideoHistory);
 app.post('/api/videos/:videoId/:votetype', thumbupController.judgeVotetype);
 app.delete('/api/videos/:videoId/:votetype', thumbupController.judgeCanceltype);
 app.post('/api/videos/', homeController.uploadVideo);

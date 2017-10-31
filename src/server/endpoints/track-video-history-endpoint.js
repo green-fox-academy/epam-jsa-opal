@@ -31,11 +31,7 @@ function trackVideoHistory(req, res) {
         res.status(404).json({'error': 'not found'});
         return;
       }
-      let existuser = userInfos.history.filter(function(value, index, array) {
-        return (value.videoId === videoId);
-      });
-
-      if (existuser.length === 0) {
+      if (userInfos.history.length === 0 || userInfos.history[userInfos.history.length - 1].videoId !== videoId) {
         userInfos.history.push({'videoId': videoId});
       }
 
