@@ -11,16 +11,6 @@ class SuggesstedVideos extends React.Component {
   onClickShowMore() {
     this.setState({suggestedVideosNum: 10});
   }
-  addViewNum(videoId) {
-    fetch('/api/videos/' + videoId, {
-      method: 'put',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': localStorage.getItem('token'),
-      },
-      body: JSON.stringify({'videoId': videoId}),
-    });
-  }
   render() {
     const defaultNum = 4;
     const suggestedVideosNum = this.state.suggestedVideosNum;
@@ -31,7 +21,6 @@ class SuggesstedVideos extends React.Component {
         <SuggestedVideosView
           videoInfos={this.props.videoLists}
           suggestedVideosNum={this.state.suggestedVideosNum}
-          addViewNum={this.addViewNum}
         />
         <button className={suggestedVideosNum > defaultNum ?
           'show-more-button-clicked' : 'show-more-button'}

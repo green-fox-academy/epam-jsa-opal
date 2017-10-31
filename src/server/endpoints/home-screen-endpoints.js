@@ -189,34 +189,11 @@ function getLoginedUserInfos(req, res) {
   });
 }
 
-function increaseViewNum(req, res) {
-  let token = req.get('Authorization');
-
-  if (token === undefined) {
-    res.status(401).json({'error': 'unauthorized'});
-    return;
-  }
-  if (req.body.videoId === undefined || req.body.videoId.length !== 24) {
-    res.status(400).json({'error': 'bad request'});
-    return;
-  }
-  tokensDb.getToken(token, (tokenInfos) => {
-    if (tokenInfos._id === undefined) {
-      res.status(401).json({'error': 'unauthorized'});
-      return;
-    }
-    videosDb.increaseViewNum(req.body.videoId, (videosViews) => {
-      res.status(200).json({'views': videosViews});
-    });
-  });
-}
-
 module.exports = {
   getHomeInfos: getHomeInfos,
   postComment: postComment,
   uploadVideo: uploadVideo,
   getVideoInfos: getVideoInfos,
   getLoginedUserInfos: getLoginedUserInfos,
-  increaseViewNum: increaseViewNum,
 };
 
