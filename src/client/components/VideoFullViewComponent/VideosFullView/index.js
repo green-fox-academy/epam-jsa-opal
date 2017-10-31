@@ -40,7 +40,7 @@ const VideosFullView = (props) => {
     if(props.history !== undefined){
       renderElement = props.videoInfos.filter((videoInfo)=>{
         return props.history.some((singleHistory)=>{
-          return videoInfo.userId === singleHistory.userId;
+          return videoInfo.videoId === singleHistory.videoId;
         });
       }).map((value)=>{
         return <VideoPreview
