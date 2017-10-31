@@ -11,6 +11,7 @@ class VideoComponent extends React.Component {
       'isDisliked': false,
       'isClickedWatchlater': false,
       'videoInfos': {videoDetails: {}, uploader: {}, commentInfos: []},
+      'subscriber': false,
     };
     this.updateVideoInfos = this.updateVideoInfos.bind(this);
   }
@@ -100,6 +101,7 @@ class VideoComponent extends React.Component {
       return response.json();
     }).then((result) => {
       if (statusCode === 200) {
+        this.setState({subscribe: true});
         this.props.fetchLoginUserInfos((newLoginuserInfo) => {
           this.props.updateSubscription(newLoginuserInfo);
         });
@@ -145,7 +147,7 @@ class VideoComponent extends React.Component {
                 </div>
               </div>
               <div className="subcribe-number">
-                <button className="subscribe" onClick={this.subscribe.bind(this)}>
+                <button className={this.state.subscribe ? 'subcribe clicked' : 'subcribe'} onClick={this.subscribe.bind(this)}>
               subcribe
                 </button>
                 <span className="subscribe-num">{this.state.videoInfos.uploader.subscribers ?
