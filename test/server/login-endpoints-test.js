@@ -1,3 +1,5 @@
+'use strict';
+
 const assert = require('assert');
 let supertest = require('supertest');
 let server = supertest.agent('http://localhost:3000');

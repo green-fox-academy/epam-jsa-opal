@@ -1,3 +1,5 @@
+'use strict';
+
 const assert = require('assert');
 const supertest = require('supertest');
 const server = supertest.agent('http://localhost:3000');
@@ -6,7 +8,8 @@ describe('username conflict test', function() {
   it('login success', function(done) {
     server
       .post('/api/signup')
-      .send({'username': 'haochenli',
+      .send({
+        'username': 'haochenli',
         'email': 'enqqqqa@google.com',
         'phone number': '123123123',
         'full name': 'asdasd',
@@ -21,12 +24,12 @@ describe('username conflict test', function() {
   });
 });
 
-
 describe('email conflict test', function() {
   it('login success', function(done) {
     server
       .post('/api/signup')
-      .send({'username': 'chenli',
+      .send({
+        'username': 'chenli',
         'email': 'lihaohen@qq.com',
         'phone number': '123123123',
         'full name': 'asdasd',
@@ -45,7 +48,8 @@ describe('phone number conflict test', function() {
   it('login success', function(done) {
     server
       .post('/api/signup')
-      .send({'username': 'ass',
+      .send({
+        'username': 'ass',
         'email': 'asd@qq.com',
         'phone number': '139981232',
         'full name': 'asdasd',
@@ -60,12 +64,12 @@ describe('phone number conflict test', function() {
   });
 });
 
-
 describe('user name void test', function() {
   it('login success', function(done) {
     server
       .post('/api/signup')
-      .send({'username': '',
+      .send({
+        'username': '',
         'email': 'lihaohen@qq.com',
         'phone number': '123123123',
         'full name': 'asdasd',
@@ -84,7 +88,8 @@ describe('email void test', function() {
   it('login success', function(done) {
     server
       .post('/api/signup')
-      .send({'username': 'lllll',
+      .send({
+        'username': 'lllll',
         'email': '',
         'phone number': '123123123',
         'full name': 'asdasd',
@@ -102,7 +107,8 @@ describe('full name void test', function() {
   it('login success', function(done) {
     server
       .post('/api/signup')
-      .send({'username': 'lllll',
+      .send({
+        'username': 'lllll',
         'email': 'www@163.com',
         'phone number': '1231451',
         'full name': ' ',
@@ -120,7 +126,8 @@ describe('password void test', function() {
   it('login success', function(done) {
     server
       .post('/api/signup')
-      .send({'username': 'lllll',
+      .send({
+        'username': 'lllll',
         'email': 'www@163.com',
         'phone number': '10101010',
         'full name': 'asdasd',
@@ -138,7 +145,8 @@ describe('phone number void test', function() {
   it('login success', function(done) {
     server
       .post('/api/signup')
-      .send({'username': 'lllll',
+      .send({
+        'username': 'lllll',
         'email': 'www@163.com',
         'phone number': '',
         'full name': 'asdasd',
@@ -156,7 +164,8 @@ describe('the phone number format check', function() {
   it('login success', function(done) {
     server
       .post('/api/signup')
-      .send({'username': 'aaaaa',
+      .send({
+        'username': 'aaaaa',
         'email': 'lihaohaan@qq.com',
         'phone number': '1231a23123',
         'full name': 'asdasd',
@@ -175,7 +184,8 @@ describe('the full name format check', function() {
   it('login success', function(done) {
     server
       .post('/api/signup')
-      .send({'username': 'aaaaa',
+      .send({
+        'username': 'aaaaa',
         'email': 'lihaohaan@qq.com',
         'phone number': '123123123',
         'full name': 'asd11asd',
@@ -194,7 +204,8 @@ describe('email format is wrong', function() {
   it('login success', function(done) {
     server
       .post('/api/signup')
-      .send({'username': 'ass',
+      .send({
+        'username': 'ass',
         'email': 'liaoheasn.qq.com',
         'phone number': '123123',
         'full name': 'asdasd',
@@ -212,7 +223,8 @@ describe('create successfully', function() {
   it('login success', function(done) {
     server
       .post('/api/signup')
-      .send({'username': 'lllll',
+      .send({
+        'username': 'lllll',
         'email': 'wwwas@163.com',
         'phone number': '10101010',
         'full name': 'asdsasd',

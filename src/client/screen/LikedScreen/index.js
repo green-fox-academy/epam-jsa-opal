@@ -5,8 +5,8 @@ import Header from '../../components/HeaderComponent';
 import NavigationBar from '../../components/NavigationBarComponent';
 import VideosFull from '../../components/VideoFullViewComponent';
 import './index.scss';
- 
- class Home extends React.Component {
+
+class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -120,12 +120,12 @@ import './index.scss';
             null
           }
           <NavigationBar selected={'like'} className="navigation-bar"/>
-          <div className="videos-full"> 
-            <VideosFull 
+          <div className="videos-full">
+            <VideosFull
               username={this.state.loginuser.username}
-              userId={this.state.loginuser.userId} 
-              pagetype={'liked'} 
-              videoLists={this.state.videoLists}/> 
+              userId={this.state.loginuser.userId}
+              pagetype={'liked'}
+              videoLists={this.state.videoLists}/>
           </div>
         </div>
       </div>

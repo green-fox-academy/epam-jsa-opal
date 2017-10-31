@@ -14,47 +14,24 @@ const VideosFullView = (props) => {
         key={value.videoId} />
     );
   } else if (props.pagetype === 'liked') {
-    renderElement = props.videoInfos.filter((videoInfo) => {
-      return videoInfo.likeStatus.some((likeStatus) => {
-        return props.userId === likeStatus.userId && likeStatus.liked === true;
-      });
-    }).map((filteredVideoInfo) => {
-      return <VideoPreview
-        videoInfo={filteredVideoInfo}
-        key={filteredVideoInfo.videoId} />;
-    });
+    renderElement = props.videoInfos.filter((videoInfo) => videoInfo.likeStatus.some((likeStatus) => props.userId === likeStatus.userId && likeStatus.liked === true)).map((filteredVideoInfo) => <VideoPreview
+      videoInfo={filteredVideoInfo}
+      key={filteredVideoInfo.videoId} />);
   } else if (props.pagetype === 'feed') {
-    renderElement = props.videoInfos.filter((videoInfo) => {
-      return (videoInfo.author === props.username);
-    }).map((value)=>{
-      return <VideoPreview
-        videoInfo={value}
-        key={value.videoId} />;
-    });
+    renderElement = props.videoInfos.filter((videoInfo) => (videoInfo.author === props.username)).map((value)=><VideoPreview
+      videoInfo={value}
+      key={value.videoId} />);
   } else if (props.pagetype === 'history') {
     if (props.history !== undefined) {
-      renderElement = props.videoInfos.filter((videoInfo)=>{
-        return props.history.some((singleHistory)=>{
-          return videoInfo.videoId === singleHistory.videoId;
-        });
-      }).map((value)=>{
-        return <VideoPreview
-          videoInfo={value}
-          key={value.videoId} />;
-      });
+      renderElement = props.videoInfos.filter((videoInfo)=>props.history.some((singleHistory)=>videoInfo.videoId === singleHistory.videoId)).map((value)=><VideoPreview
+        videoInfo={value}
+        key={value.videoId} />);
     }
-
   } else if (props.pagetype === 'watchlater') {
     if (props.watchlater !== undefined) {
-      renderElement = props.videoInfos.filter((videoInfo)=>{
-        return props.watchlater.some((watchElement)=>{
-          return videoInfo.videoId === watchElement.videoId;
-        });
-      }).map((value)=>{
-        return <VideoPreview
-          videoInfo={value}
-          key={value.videoId} />;
-      });
+      renderElement = props.videoInfos.filter((videoInfo)=>props.watchlater.some((watchElement)=>videoInfo.videoId === watchElement.videoId)).map((value)=><VideoPreview
+        videoInfo={value}
+        key={value.videoId} />);
     }
   }
 

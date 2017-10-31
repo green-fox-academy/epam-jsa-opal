@@ -6,8 +6,8 @@ import NavigationBar from '../../components/NavigationBarComponent';
 import SuggestedVideos from '../../components/SuggestedVideosComponent';
 import VideoComponent from '../../components/VideoComponent';
 import './index.scss';
- 
- class Home extends React.Component {
+
+class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -128,7 +128,7 @@ import './index.scss';
           userInfos={this.state.loginuser} />
           </div>
           <div className="suggestedVideos"> <SuggestedVideos videoLists={this.state.videoLists}/> </div>
-        </div> 
+        </div>
       </div>
     );
   }

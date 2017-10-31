@@ -26,6 +26,7 @@ class Comment extends React.Component {
   }
   onClickLikeButton() {
     const likeState = this.state.likeState;
+
     if (likeState.dislikeClicked) {
       fetch('/api/videos/' + this.props.videoId + '/comments/'
       + this.props.commentId + '/dislike', {
@@ -65,8 +66,8 @@ class Comment extends React.Component {
   }
   onClickDislikeButton() {
     const likeState = this.state.likeState;
+
     if (likeState.likeClicked) {
-    
       fetch('/api/videos/' + this.props.videoId + '/comments/'
       + this.props.commentId + '/like', {
         'method': 'delete',

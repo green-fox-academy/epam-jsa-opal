@@ -53,7 +53,7 @@ function getHomeInfos(req, res) {
       videoInfos.commentInfos.forEach((comment) => {
         let likeNums = 0;
         let dislikeNums = 0;
-  
+
         if (comment.LikeStatus.length === 0) {
           comment.likeNums = likeNums;
           comment.dislikeNums = dislikeNums;
@@ -68,7 +68,6 @@ function getHomeInfos(req, res) {
           if (index >= comment.LikeStatus.length - 1) {
             comment.likeNums = likeNums;
             comment.dislikeNums = dislikeNums;
-
           }
         });
         if (comment.LikeStatus.length === 0) {
@@ -94,8 +93,6 @@ function getHomeInfos(req, res) {
         'commentInfos': videoInfos.commentInfos.reverse(),
       });
     });
-
-
   });
 }
 
@@ -152,7 +149,7 @@ function getVideoInfos(req, res) {
 
     res.status(200).json(allVideos.map((value) => (
       {
-        'likeStatus':value.videoDetails.LikeStatus,
+        'likeStatus': value.videoDetails.LikeStatus,
         'videoId': value._id.toString(),
         'videoSrc': value.videoUrl,
         'previewSrc': value.videoDetails.preview,
@@ -183,9 +180,9 @@ function getLoginedUserInfos(req, res) {
         return;
       }
       res.status(200).json({
-        'history':userInfos.history,
+        'history': userInfos.history,
         'watchlater': userInfos.watchlater,
-        'userId':userInfos._id,
+        'userId': userInfos._id,
         'username': userInfos.username,
         'avatar': userInfos.avatar,
       });

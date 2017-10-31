@@ -29,7 +29,6 @@ module.exports = {
     'no-lone-blocks': 'error',
     'no-lonely-if': 'error',
     'no-loop-func': 'error',
-    'no-magic-numbers': 'error',
     'no-multi-assign': 'error',
     'no-multiple-empty-lines': ['error', {'max': 1, 'maxEOF': 1}],
     'no-new': 'error',
