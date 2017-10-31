@@ -115,6 +115,8 @@ function dbInsert(req, res) {
     'password': '',
     'avatar': createRandomAvatar(),
     'watchlater': [],
+    'subscriptions': [],
+    'subscribers': [],
   };
 
   sendContent.username = req.body.username;
