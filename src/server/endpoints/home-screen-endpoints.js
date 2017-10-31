@@ -152,6 +152,7 @@ function getVideoInfos(req, res) {
 
     res.status(200).json(allVideos.map((value) => (
       {
+        'likeStatus':value.videoDetails.LikeStatus,
         'videoId': value._id.toString(),
         'videoSrc': value.videoUrl,
         'previewSrc': value.videoDetails.preview,
@@ -182,6 +183,9 @@ function getLoginedUserInfos(req, res) {
         return;
       }
       res.status(200).json({
+        'history':userInfos.history,
+        'watchlater': userInfos.watchlater,
+        'userId':userInfos._id,
         'username': userInfos.username,
         'avatar': userInfos.avatar,
       });

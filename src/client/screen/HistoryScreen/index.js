@@ -3,8 +3,7 @@
 import React from 'react';
 import Header from '../../components/HeaderComponent';
 import NavigationBar from '../../components/NavigationBarComponent';
-import SuggestedVideos from '../../components/SuggestedVideosComponent';
-import VideoComponent from '../../components/VideoComponent';
+import VideosFull from '../../components/VideoFullViewComponent';
 import './index.scss';
  
  class Home extends React.Component {
@@ -94,7 +93,7 @@ import './index.scss';
   }
   render() {
     return (
-      <div className="homecontainer">
+      <div className="home-container">
         <Header className="header"
           onClickUpload={this.onClickUpload}
           userInfos={this.state.loginuser}
@@ -102,7 +101,7 @@ import './index.scss';
         <div className="main">
           {this.state.clickUpload ?
             <form className="upload-form" onSubmit={this.onSubmit}>
-              <input type="text" name="video-url" placeholder="video url" required
+              <input type="url" name="video-url" placeholder="video url" required
                 disabled = {this.state.uploading}/>
               <input type="text" name="video-preview" placeholder="video preview" required
                 disabled = {this.state.uploading}/>
@@ -120,15 +119,16 @@ import './index.scss';
             :
             null
           }
-          <NavigationBar selected={'home'} className="navigationBar"/>
-          <div className="videoComponent"> <VideoComponent videoId={
-            this.props.location.search.split('=')[1] ? this.props.location.search.split('=')[1] :
-              this.state.videoLists[0] ?
-                this.state.videoLists[this.state.videoLists.length - 1].videoId : null}
-          userInfos={this.state.loginuser} />
+          <NavigationBar selected={'history'} className="navigation-bar"/>
+          <div className="videos-full"> 
+            <VideosFull 
+              history={this.state.loginuser.history}
+              username={this.state.loginuser.username}
+              userId={this.state.loginuser.userId} 
+              pagetype={'history'} 
+              videoLists={this.state.videoLists}/> 
           </div>
-          <div className="suggestedVideos"> <SuggestedVideos videoLists={this.state.videoLists}/> </div>
-        </div> 
+        </div>
       </div>
     );
   }
