@@ -3,12 +3,9 @@ import './index.scss';
 import VideosFullView from './VideosFullView';
 
 class VideosFull extends React.Component {
-  constructor(props) {
-    super(props);
-  }
   render() {
     return (
-      <aside className="Full-video-container">
+      <aside className="full-video-container">
         <VideosFullView
           history={this.props.history}
           watchlater={this.props.watchlater}

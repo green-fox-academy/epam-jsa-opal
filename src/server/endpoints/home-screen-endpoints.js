@@ -156,7 +156,7 @@ function getVideoInfos(req, res) {
 
     res.status(200).json(allVideos.map((value) => (
       {
-        'Likestatus':value.videoDetails.LikeStatus,
+        'likeStatus':value.videoDetails.LikeStatus,
         'videoId': value._id.toString(),
         'videoSrc': value.videoUrl,
         'previewSrc': value.videoDetails.preview,

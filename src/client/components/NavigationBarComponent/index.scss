@@ -15,18 +15,8 @@
     width: 100px;
   }
 
-
-  .selected:after {
-      margin-top: -50px;
-      position: absolute;
-      content: '';
-      display: block;
-      width: 8px;
-      height: 58px;
-      background-color: #f00;
-  }
-
-  a:hover:after {
+  a:hover::after,
+  .selected::after {
     margin-top: -50px;
     position: absolute;
     content: '';

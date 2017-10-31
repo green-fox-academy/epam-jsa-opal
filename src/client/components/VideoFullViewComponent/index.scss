@@ -1,4 +1,4 @@
-.Full-video-container {
+.full-video-container {
   width: 100%;
   padding: 20px;
   h1 {
@@ -10,8 +10,7 @@
   }
 
   .show-more-button {
-    $font-color: rgb(255,255,255);
-    color: $font-color;
+    color: rgb(255,255,255);
     background-color: #D93738;
     cursor: pointer;
     font-size: .875rem;
