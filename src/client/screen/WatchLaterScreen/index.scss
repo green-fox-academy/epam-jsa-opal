@@ -1,18 +1,20 @@
 
-.homecontainer {
-  background-color:  #fff;
+.home-container {
+  background-color: #fff;
 }
-.VideosFull {
-  width: 100%;
+
+.videos-full {
   margin: 0 40px;
+  width: 100%;
 }
+
 .main {
   display: flex;
   justify-content: space-between;
   margin-top: 37px;
 }
 
-.navigationbar {
+.navigation-bar {
   margin-top: -37px;
 }
 
@@ -68,13 +70,17 @@
     border-radius: 50%;
     border-top: 10px solid #d93738;
     height: 70px;
-    width: 70px;
     left: calc(50% - 50px);
     position: absolute;
     top: calc(50% - 70px);
+    width: 70px;
   }
+
   @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% {
+      transform: rotate(0deg); }
+
+    100% {
+      transform: rotate(360deg); }
   }
 }

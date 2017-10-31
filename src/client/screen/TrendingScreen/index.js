@@ -93,7 +93,7 @@ import './index.scss';
   }
   render() {
     return (
-      <div className="homecontainer">
+      <div className="home-container">
         <Header className="header"
           onClickUpload={this.onClickUpload}
           userInfos={this.state.loginuser}
@@ -101,7 +101,7 @@ import './index.scss';
         <div className="main">
           {this.state.clickUpload ?
             <form className="upload-form" onSubmit={this.onSubmit}>
-              <input type="text" name="video-url" placeholder="video url" required
+              <input type="url" name="video-url" placeholder="video url" required
                 disabled = {this.state.uploading}/>
               <input type="text" name="video-preview" placeholder="video preview" required
                 disabled = {this.state.uploading}/>
@@ -119,8 +119,8 @@ import './index.scss';
             :
             null
           }
-          <NavigationBar selected={'trending'} className="navigationBar"/>
-          <div className="VideosFull"> <VideosFull pagetype={'trending'} videoLists={this.state.videoLists}/> </div>
+          <NavigationBar selected={'trending'} className="navigation-bar"/>
+          <div className="videos-full"> <VideosFull pagetype={'trending'} videoLists={this.state.videoLists}/> </div>
         </div>
       </div>
     );
