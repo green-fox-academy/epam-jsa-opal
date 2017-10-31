@@ -30,6 +30,7 @@ function commentRequestHandler(req, res, callback) {
   let videosId = req.params.videoId;
   let commentId = req.params.commentsId;
   let votetype = req.params.votetype;
+
   console.log(videosId);
   MongoClient.connect(url, (err, db) => {
     if (err) {
@@ -40,6 +41,7 @@ function commentRequestHandler(req, res, callback) {
         dbError(err, res, db);
         let VideoObject = items[0];
         let token = req.get('Authorization');
+
         db.collection('tokenDescriptors')
           .find({'token': token})
           .toArray(function(err, subitems) {
@@ -60,6 +62,7 @@ function commentRequestHandler(req, res, callback) {
               'res': res,
               'commentId': commentId,
             };
+
             callback(inputObj);
           });
       });
@@ -71,7 +74,6 @@ function updateCommentsInfo(obj, tempArray) {
   obj.db.collection('videos')
     .update({'_id': ObjectId(obj.videosId)},
       {$set: {'commentInfos': obj.VideoObject.commentInfos}});
-  
 }
 
 module.exports = {

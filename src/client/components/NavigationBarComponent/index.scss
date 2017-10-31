@@ -5,8 +5,8 @@
   display: flex;
   flex-direction: column;
   height: 1398px;
-  width: 100px;
   position: relative;
+  width: 100px;
 
   a {
     color: #393939;
@@ -15,17 +15,17 @@
     width: 100px;
   }
 
-
-  a:hover:after {
-    margin-top: -50px;
-    position: absolute;
+  a:hover::after,
+  .selected::after {
+    background-color: #f00;
     content: '';
     display: block;
-    width: 8px;
     height: 58px;
-    background-color: #f00;
+    margin-top: -50px;
+    position: absolute;
+    width: 8px;
   }
-
+  
   a::before {
     background-position: center;
     background-repeat: no-repeat;

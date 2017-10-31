@@ -119,7 +119,7 @@ class ProfileScreen extends React.Component {
           </nav>
           <form className={this.state.tab === 'profile' ?
             'my-profile show' :
-            'my-profile'} 
+            'my-profile'}
           onSubmit={this.onSubmit}
           >
             <h1>Profile</h1>
@@ -157,8 +157,6 @@ class ProfileScreen extends React.Component {
   }
 }
 
-ProfileScreen.defaultProps = {
-
-};
+ProfileScreen.defaultProps = {};
 
 export default ProfileScreen;

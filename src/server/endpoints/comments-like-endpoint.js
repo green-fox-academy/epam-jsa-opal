@@ -2,17 +2,15 @@
 
 const commentDb = require('../collections/commentLike-db');
 
-
 function deletecommentRequestHandler(res, req) {
   commentDb.commentRequestHandler(res, req, (obj)=>{
     let tempArray = obj.VideoObject.commentInfos[obj.commentId].LikeStatus;
     let flag = [false];
 
-    if(obj.votetype === 'like'){
+    if (obj.votetype === 'like') {
       iterateArray(tempArray, false, obj.userId, 'liked', flag);
       commentDb.updateCommentsInfo(obj, tempArray);
-    }
-    else if(obj.votetype === 'dislike'){
+    } else if (obj.votetype === 'dislike') {
       iterateArray(tempArray, false, obj.userId, 'disliked', flag);
       commentDb.updateCommentsInfo(obj, tempArray);
     }
@@ -20,22 +18,20 @@ function deletecommentRequestHandler(res, req) {
   });
 }
 
-
 function putcommentRequestHandler(res, req) {
   commentDb.commentRequestHandler(res, req, (obj)=>{
     let tempArray = obj.VideoObject.commentInfos[obj.commentId].LikeStatus;
     let flag = [false];
 
-    if(obj.votetype === 'like'){
+    if (obj.votetype === 'like') {
       iterateArray(tempArray, true, obj.userId, 'liked', flag);
-      if(!flag[0]) {
+      if (!flag[0]) {
         createObj(true, false, tempArray, obj.userId);
       }
       commentDb.updateCommentsInfo(obj, tempArray);
-    }
-    else if(obj.votetype === 'dislike'){
-      iterateArray(tempArray, true, obj.userId, 'disliked',flag);
-      if(!flag[0]) {
+    } else if (obj.votetype === 'dislike') {
+      iterateArray(tempArray, true, obj.userId, 'disliked', flag);
+      if (!flag[0]) {
         createObj(false, true, tempArray, obj.userId);
       }
       commentDb.updateCommentsInfo(obj, tempArray);
@@ -45,7 +41,7 @@ function putcommentRequestHandler(res, req) {
 }
 
 function sendResponse(tempArray, res, db) {
-  if(tempArray === undefined){
+  if (tempArray === undefined) {
     res.status(500).send();
   }
   let sendObj = countLikeAndDislikedNumber(tempArray);
@@ -55,8 +51,8 @@ function sendResponse(tempArray, res, db) {
   res.status(200).send(sendObj);
 }
 
-function iterateArray(tempArray, changedValue, userId, target,flag){
-  tempArray.forEach((part,index)=> {
+function iterateArray(tempArray, changedValue, userId, target, flag) {
+  tempArray.forEach((part, index)=> {
     if (tempArray[index].userId === userId.toString()) {
       if (target === 'disliked') {
         tempArray[index].disliked = changedValue;
@@ -94,6 +90,7 @@ function createObj(like, dislike, tempArray, userId) {
     'liked': like,
     'disliked': dislike,
   };
+
   tempArray.push(objInsert);
 }
 

@@ -20,12 +20,12 @@ class NavigationBar extends React.Component {
 
     return (
       <nav className="navigationbar">
-        <Link className="homebutton" to="/home">Home</Link>
-        <Link className="trendingbutton" to="/trending">Trending</Link>
-        <Link className="feedbutton" to="/feed">Feed</Link>
-        <Link className="historybutton" to="/history">History</Link>
-        <Link className="watchbutton" to="/wahtchlater">Watch later</Link>
-        <Link className="likedbutton" to="/liked">Liked</Link>
+        <Link className={this.props.selected === 'home' ? 'selected homebutton' : 'homebutton'} to="/home">Home</Link>
+        <Link className={this.props.selected === 'trending' ? 'selected trendingbutton' : 'trendingbutton'} to="/trending">Trending</Link>
+        <Link className={this.props.selected === 'feed' ? 'selected feedbutton' : 'feedbutton'} to="/feed">Feed</Link>
+        <Link className={this.props.selected === 'history' ? 'selected historybutton' : 'historybutton'} to="/history">History</Link>
+        <Link className={this.props.selected === 'watchlater' ? 'selected watchbutton' : 'watchbutton'} to="/watchlater">Watch later</Link>
+        <Link className={this.props.selected === 'like' ? 'selected likedbutton' : 'likedbutton'} to="/liked">Liked</Link>
         <div className="obstaclehorizantal"></div>
         <span>Subscription</span>
         {subscription}
