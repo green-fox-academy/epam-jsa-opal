@@ -190,11 +190,39 @@ function getLoginedUserInfos(req, res) {
   });
 }
 
+function subscribe(req, res) {
+  let token = req.get('Authorization');
+
+  if (token === undefined) {
+    res.status(400).json({'error': 'unauthorized'});
+    return;
+  }
+  tokensDb.getToken(token, (tokenInfos) => {
+    if (tokenInfos._id === undefined) {
+      res.status(401).json({'error': 'unauthorized'});
+      return;
+    }
+    usersDb.subscribe(
+      {'userId': req.body.userId, 'username': req.body.username, 'avatar': req.body.avatar},
+      {'userId': req.body.subscriberId, 'username': req.body.subscriberName, 'avatar': req.body.subscriberAvatar},
+      (subscribeInfos) => {
+        if (subscribeInfos === 'failed') {
+          res.status(500).json({'error': 'subscribe failed'});
+          return;
+        }
+        res.status(200).json({
+          'success': 'subscriber success',
+        });
+      });
+  });
+}
+
 module.exports = {
   getHomeInfos: getHomeInfos,
   postComment: postComment,
   uploadVideo: uploadVideo,
   getVideoInfos: getVideoInfos,
   getLoginedUserInfos: getLoginedUserInfos,
+  subscribe: subscribe,
 };
 
