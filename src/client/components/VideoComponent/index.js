@@ -9,6 +9,7 @@ class VideoComponent extends React.Component {
     this.state = {
       'isLiked': false,
       'isDisliked': false,
+      'isClickedWatchlater': false,
       'videoInfos': {videoDetails: {}, uploader: {}, commentInfos: []},
     };
     this.updateVideoInfos = this.updateVideoInfos.bind(this);
@@ -80,6 +81,16 @@ class VideoComponent extends React.Component {
   subscribe() {
 
   }
+
+  watchlater() {
+    fetch(`/api/videos/${this.state.videoInfos.videoId}/watchlater`, {
+      method: 'post',
+      headers: {'Authorization': localStorage.getItem('token')},
+    }).then((response) => {
+      this.setState({'isClickedWatchlater': true});
+    });
+  }
+
   updateVideoInfos(videoInfos) {
     this.setState({videoInfos: videoInfos});
   }
@@ -93,6 +104,7 @@ class VideoComponent extends React.Component {
             <div className="video-name">
               <span>{this.state.videoInfos.videoDetails.title}</span>
               <button className="share" onClick={this.share.bind(this)}></button>
+              <button className={this.state.isClickedWatchlater ? 'watchlater clicked' : 'watchlater'} onClick={this.watchlater.bind(this)}></button>
             </div>
             <div>
               <span className="view-num">{this.state.videoInfos.videoDetails.views}</span> <span className="view">views</span>

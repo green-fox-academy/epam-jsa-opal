@@ -141,6 +141,10 @@ function uploadVideo(req, res) {
 
 function getVideoInfos(req, res) {
   videosDb.getAllVideo((allVideos) => {
+    if (allVideos === undefined) {
+      res.status(500).json({'error': 'can not connect to db'});
+      return;
+    }
     if (allVideos.length === 0) {
       res.status(404).json({'error': 'not found'});
       return;
