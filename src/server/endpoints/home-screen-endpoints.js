@@ -4,6 +4,13 @@ const videosDb = require('../collections/videos-db');
 const tokensDb = require('../collections/tokens-db');
 const usersDb = require('../collections/users-db');
 
+function checkSubscribe(currentUserId, subscribeArray) {
+  return subscribeArray.every((user) => {
+    if (currentUserId === user.userId) return true;
+    return false;
+  });
+}
+
 function getHomeInfos(req, res) {
   if (req.params.videoId.length !== 24) {
     res.status(400).json({'error': 'bad request'});
@@ -50,10 +57,11 @@ function getHomeInfos(req, res) {
       });
       videoInfos.videoDetails.videoLikeNums = videoLikeNums;
       videoInfos.videoDetails.videoDislikeNums = videoDislikeNums;
+      videoInfos.videoDetails.subscribe = checkSubscribe(userId, videoInfos.uploader.subscribers);
       videoInfos.commentInfos.forEach((comment) => {
         let likeNums = 0;
         let dislikeNums = 0;
-  
+
         if (comment.LikeStatus.length === 0) {
           comment.likeNums = likeNums;
           comment.dislikeNums = dislikeNums;
@@ -68,7 +76,6 @@ function getHomeInfos(req, res) {
           if (index >= comment.LikeStatus.length - 1) {
             comment.likeNums = likeNums;
             comment.dislikeNums = dislikeNums;
-
           }
         });
         if (comment.LikeStatus.length === 0) {
@@ -94,8 +101,6 @@ function getHomeInfos(req, res) {
         'commentInfos': videoInfos.commentInfos.reverse(),
       });
     });
-
-
   });
 }
 
