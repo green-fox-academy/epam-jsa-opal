@@ -26,7 +26,7 @@ function getHomeInfos(req, res) {
       let videoLikeNums = 0;
       let videoDislikeNums = 0;
 
-      if (userInfos._id === undefined) {
+      if (userInfos === undefined) {
         res.status(401).json({'error': 'unauthorized'});
         return;
       }

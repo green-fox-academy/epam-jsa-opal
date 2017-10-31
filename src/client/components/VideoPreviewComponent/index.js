@@ -18,7 +18,6 @@ class VideoPreview extends React.Component {
             style={
               {backgroundImage: `url(${this.props.videoInfo.previewSrc})`}
             }
-           
             onClick={this.storeHistory.bind(this)}
           >
             <span>{this.props.videoInfo.videoTime}</span>
