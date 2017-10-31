@@ -185,6 +185,7 @@ function getLoginedUserInfos(req, res) {
         'username': userInfos.username,
         'avatar': userInfos.avatar,
         'subscriptions': userInfos.subscriptions,
+        'userId': userInfos._id.toString(),
       });
     });
   });

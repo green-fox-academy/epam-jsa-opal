@@ -92,6 +92,9 @@ import './index.scss';
       }
     });
   }
+  updateSubscription(newLoginuserInfo) {
+    this.setState({loginuser: newLoginuserInfo});
+  }
   render() {
     return (
       <div className="homecontainer">
@@ -125,7 +128,10 @@ import './index.scss';
             this.props.location.search.split('=')[1] ? this.props.location.search.split('=')[1] :
               this.state.videoLists[0] ?
                 this.state.videoLists[this.state.videoLists.length - 1].videoId : null}
-          userInfos={this.state.loginuser} />
+          userInfos={this.state.loginuser}
+          fetchLoginUserInfos={this.fetchLoginUserInfos}
+          updateSubscription={this.updateSubscription.bind(this)}
+          />
           </div>
           <div className="suggestedVideos"> <SuggestedVideos videoLists={this.state.videoLists}/> </div>
         </div>
