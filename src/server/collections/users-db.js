@@ -103,7 +103,7 @@ function createRandomAvatar() {
     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOewMCy_hxB73gEJW7C7ifg3BARWLgxmWXeyI4RQmN8aY8Lbt2ag',
   ];
 
-  return avatarArray[Math.floor(Math.random() * 21)]
+  return avatarArray[Math.floor(Math.random() * 21)];
 }
 
 function dbInsert(req, res) {
@@ -114,6 +114,7 @@ function dbInsert(req, res) {
     'full name': '',
     'password': '',
     'avatar': createRandomAvatar(),
+    'watchlater': [],
   };
 
   sendContent.username = req.body.username;
@@ -238,10 +239,29 @@ function updateUserInfos(oldUsername, newInfos, callback) {
     });
   });
 }
+
+function updateUserInfo(userInfos, userId, callback) {
+  MongoClient.connect(url, (err, db) => {
+    if (err) {
+      return callback(undefined);
+    }
+    let userDB = db.collection('users');
+
+    userDB.update({'_id': ObjectId(userId)}, {'$set': userInfos}, (err, result) => {
+      if (err) {
+        console.log(err);
+        return callback('Upadate Failed');
+      }
+      db.close();
+      return callback('success');
+    });
+  });
+}
 module.exports = {
   storeUser: dbInsert,
   findUserInfo: findUserInfo,
   findUserInfoById: findUserInfoById,
   findUserInfoByUsername: findUserInfoByUsername,
   updateUserInfos: updateUserInfos,
+  updateUserInfo: updateUserInfo,
 };
