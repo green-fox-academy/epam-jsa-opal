@@ -178,11 +178,42 @@ function addVideo(videoInfos, token, callback) {
   });
 }
 
+function getUploadVideosByUsername(userName, callback) {
+  MongoClient.connect(url, (err, db) => {
+    if (err) {
+      console.log(err.name + ':' + err.message);
+      return callback(undefined);
+    }
+    let videosDB = db.collection('videos');
+
+    videosDB.find({'uploader.name': userName}).toArray((err, result) => {
+      if (err) {
+        console.log(err);
+      }
+      db.close();
+      if (result.length === 0) {
+        return callback([]);
+      }
+      return callback(result.map((value) => ({
+        'videoId': value._id.toString(),
+        'videoSrc': value.videoUrl,
+        'previewSrc': value.videoDetails.preview,
+        'title': value.videoDetails.title,
+        'videoTime': value.videoDetails.time,
+        'author': value.uploader.name,
+        'viewNumber': value.videoDetails.views,
+      }
+      )));
+    });
+  });
+}
+
 module.exports = {
   findVideoInfo: findVideoInfo,
   updateVideoInfo: updateVideoInfo,
   addComment: addComment,
   addVideo: addVideo,
   getAllVideo: getAllVideo,
+  getUploadVideosByUsername: getUploadVideosByUsername,
 };
 

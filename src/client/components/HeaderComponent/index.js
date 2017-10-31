@@ -26,7 +26,7 @@ class header extends React.Component {
   render() {
     return (
       <header className="header">
-        <span className="team-name">opal</span>
+        <a href="/home" className="team-name">opal</a>
         <div className="obstacle"></div>
         <form>
           <img className="search-logo" src={search} ></img>
@@ -42,7 +42,7 @@ class header extends React.Component {
           <nav className="hoverstuff">
             <div className="dropdown">
               <div className="dropdown-content">
-                <button>{this.props.userInfos.username}'s profile</button>
+                <a href={`/profile?username=${this.props.userInfos.username}`}>{this.props.userInfos.username}'s profile</a>
                 <button onClick={this.Userlogout}>logout</button>
               </div>
             </div>

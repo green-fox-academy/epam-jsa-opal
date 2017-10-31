@@ -103,7 +103,7 @@ function createRandomAvatar() {
     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOewMCy_hxB73gEJW7C7ifg3BARWLgxmWXeyI4RQmN8aY8Lbt2ag',
   ];
 
-  return avatarArray[Math.floor(Math.random() * 21)]
+  return avatarArray[Math.floor(Math.random() * 21)];
 }
 
 function dbInsert(req, res) {
@@ -114,6 +114,10 @@ function dbInsert(req, res) {
     'full name': '',
     'password': '',
     'avatar': createRandomAvatar(),
+    'watchlater': [],
+    'history': [],
+    'subscriptions': [],
+    'subscribers': [],
   };
 
   sendContent.username = req.body.username;
@@ -198,8 +202,69 @@ function findUserInfoById(userId, callback) {
     });
   });
 }
+
+function findUserInfoByUsername(userName, callback) {
+  MongoClient.connect(url, (err, db) => {
+    if (err) {
+      console.log(err.name + ':' + err.message);
+      return callback(undefined);
+    }
+    let usersDB = db.collection('users');
+
+    usersDB.findOne({'username': userName}, (err, result) => {
+      if (err) {
+        console.log(err);
+      }
+      db.close();
+      if (result === null) {
+        return callback([]);
+      }
+      return callback(result);
+    });
+  });
+}
+
+function updateUserInfos(oldUsername, newInfos, callback) {
+  MongoClient.connect(url, (err, db) => {
+    if (err) {
+      console.log(err.name + ':' + err.message);
+      return callback(undefined);
+    }
+    let usersDB = db.collection('users');
+
+    usersDB.update({'username': oldUsername}, {$set: {'full name': newInfos.fullName, 'avatar': newInfos.avatar}}, (err, result) => {
+      if (err) {
+        console.log(err);
+        return callback('failed');
+      }
+      db.close();
+      return callback(newInfos);
+    });
+  });
+}
+
+function updateUserInfo(userInfos, userId, callback) {
+  MongoClient.connect(url, (err, db) => {
+    if (err) {
+      return callback(undefined);
+    }
+    let userDB = db.collection('users');
+
+    userDB.update({'_id': ObjectId(userId)}, {'$set': userInfos}, (err, result) => {
+      if (err) {
+        console.log(err);
+        return callback('Upadate Failed');
+      }
+      db.close();
+      return callback('success');
+    });
+  });
+}
 module.exports = {
   storeUser: dbInsert,
   findUserInfo: findUserInfo,
   findUserInfoById: findUserInfoById,
+  findUserInfoByUsername: findUserInfoByUsername,
+  updateUserInfos: updateUserInfos,
+  updateUserInfo: updateUserInfo,
 };

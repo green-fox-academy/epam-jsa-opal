@@ -1,26 +1,14 @@
 'use strict';
 
-let mongodb = require('mongodb');
-let MongoClient = mongodb.MongoClient;
-let protocol = process.env.DB_PROTOCOL;
-let host = process.env.DB_HOST;
-let port = process.env.DB_PORT;
-let name = process.env.DB_NAME;
-let username = process.env.Username;
-let password = process.env.Password;
-let url;
-
-if (password !== undefined) {
-  url = protocol + '://' + username + ':' + password + '@' + host + ':' + port + '/' + name;
-} else {
-  url = protocol + '://' + host + ':' + port + '/' + name;
-}
-
 const videosDb = require('../collections/videos-db');
 const tokensDb = require('../collections/tokens-db');
 const usersDb = require('../collections/users-db');
 
 function getHomeInfos(req, res) {
+  if (req.params.videoId.length !== 24) {
+    res.status(400).json({'error': 'bad request'});
+    return;
+  }
   videosDb.findVideoInfo(req.params.videoId, (videoInfos) => {
     if (videoInfos._id === undefined) {
       res.status(404).json({'error': 'not found'});
@@ -149,6 +137,10 @@ function uploadVideo(req, res) {
 
 function getVideoInfos(req, res) {
   videosDb.getAllVideo((allVideos) => {
+    if (allVideos === undefined) {
+      res.status(500).json({'error': 'can not connect to db'});
+      return;
+    }
     if (allVideos.length === 0) {
       res.status(404).json({'error': 'not found'});
       return;

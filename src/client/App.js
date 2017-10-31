@@ -8,6 +8,7 @@ import Liked from '../client/screen/LikedScreen';
 import Feed from '../client/screen/FeedScreen';
 import History from '../client/screen/HistoryScreen';
 import WatchLater from '../client/screen/WatchLaterScreen';
+import Profile from '../client/screen/ProfileScreen';
 
 class App extends React.Component {
   render() {
@@ -24,6 +25,7 @@ class App extends React.Component {
           <Route path="/home" component={Home} />
           <Route path="/watch" component={Home} />
           <Route path='/liked' component={Liked} />
+          <Route path="/profile" component={Profile} />
         </div>
       </Router>
     );
