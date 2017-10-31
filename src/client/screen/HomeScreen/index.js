@@ -15,7 +15,7 @@ import './index.scss';
       'clickUpload': false,
       'errorMessage': null,
       'uploading': false,
-      'loginuser': {},
+      'loginuser': {subscriptions:[]},
     };
     this.onClickUpload = this.onClickUpload.bind(this);
     this.onClickCancelUpload = this.onClickCancelUpload.bind(this);

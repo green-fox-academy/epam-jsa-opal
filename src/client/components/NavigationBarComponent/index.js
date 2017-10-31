@@ -34,28 +34,5 @@ class NavigationBar extends React.Component {
     );
   }
 }
-NavigationBar.defaultProps = {
-  subscriptions: [
-    {
-      avatar: subscription1,
-      username: 'opal1',
-      userId: 'sub1',
-    },
-    {
-      avatar: subscription2,
-      username: 'opal2',
-      userId: 'sub2',
-    },
-    {
-      avatar: subscription3,
-      username: 'opal3',
-      userId: 'sub3',
-    },
-    {
-      avatar: subscription4,
-      username: 'opal4',
-      userId: 'sub4',
-    },
-  ],
-};
+
 export default NavigationBar;
