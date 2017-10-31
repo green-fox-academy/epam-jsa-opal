@@ -48,4 +48,3 @@ function trackVideoHistory(req, res) {
 }
 
 module.exports = {trackVideoHistory: trackVideoHistory};
-
