@@ -91,7 +91,7 @@ class ProfileScreen extends React.Component {
       statusCode = response.status;
       return response.json();
     }).then((result) => {
-      if (statusCode === 201) {
+      if (statusCode === 200) {
         window.location.reload();
       }
     });

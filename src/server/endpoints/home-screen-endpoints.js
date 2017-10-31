@@ -19,13 +19,17 @@ function getHomeInfos(req, res) {
     let userId;
 
     if (token === undefined) {
-      res.status(400).json({'error': 'unauthorization'});
+      res.status(400).json({'error': 'unauthorized'});
       return;
     }
     tokensDb.getToken(token, (userInfos) => {
       let videoLikeNums = 0;
       let videoDislikeNums = 0;
 
+      if (userInfos === undefined) {
+        res.status(401).json({'error': 'unauthorized'});
+        return;
+      }
       userId = userInfos.userId;
       videoInfos.videoDetails.clickedLike = false;
       videoInfos.videoDetails.clickedDislike = false;
@@ -164,12 +168,12 @@ function getLoginedUserInfos(req, res) {
   let token = req.get('Authorization');
 
   if (token === undefined) {
-    res.status(400).json({'error': 'unAuthorization'});
+    res.status(400).json({'error': 'unauthorized'});
     return;
   }
   tokensDb.getToken(token, (tokenInfos) => {
     if (tokenInfos._id === undefined) {
-      res.status(404).json({'error': 'not found'});
+      res.status(401).json({'error': 'unauthorized'});
       return;
     }
     usersDb.findUserInfoById(tokenInfos.userId, (userInfos) => {
