@@ -5,11 +5,10 @@ const tokensDb = require('../collections/tokens-db');
 const usersDb = require('../collections/users-db');
 
 function checkSubscribe(currentUserId, subscribeArray) {
-  if (subscribeArray.length === 0) return false;
-  return subscribeArray.every((user) => {
-    if (currentUserId === user.userId) return true;
+  if (subscribeArray.length === 0) {
     return false;
-  });
+  }
+  return subscribeArray.every((user) => currentUserId === user.userId);
 }
 
 function getHomeInfos(req, res) {
