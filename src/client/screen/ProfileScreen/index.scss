@@ -56,8 +56,6 @@ profile-screen {
     display: none;
     margin: 1% 10%;
     width: 80%;
-    // min-width: 320px;
-    // width: calc(35% + 30px);
 
     button {
       background-color: #d93738;
@@ -161,11 +159,15 @@ profile-screen {
     .search-name {
       width: 80%;
     }
+
     .obstacle {
       margin-left: 5%;
     }
+
     .right-top {
+
       margin-right: 1%;
+
         .right-top-button {
           display: none;
         }
@@ -173,17 +175,23 @@ profile-screen {
   }
 
   .user-infos {
+
     .my-profile {
+
       input {
         width: 100%;
       }
+
     }
+
     .my-videos {
+
       ul {
-        display: flex;
         align-items: center;
+        display: flex;
         flex-direction: column;
       }
+      
       li {
        margin-right: 0;
       }
