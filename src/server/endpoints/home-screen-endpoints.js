@@ -26,11 +26,18 @@ function getHomeInfos(req, res) {
       let videoLikeNums = 0;
       let videoDislikeNums = 0;
 
-      userId = userInfos.userId;
+      if (userInfos._id === undefined) {
+        res.status(401).json({'error': 'unauthorization'});
+        return;
+      }
+      userId = userInfos.userId.toString();
       videoInfos.videoDetails.clickedLike = false;
       videoInfos.videoDetails.clickedDislike = false;
 
       videoInfos.videoDetails.LikeStatus.forEach((user) => {
+        if (user === undefined) {
+          res.status(400).json({});
+        }
         if (user.userId.toString() === userId.toString() && user.liked === true) {
           videoInfos.videoDetails.clickedLike = true;
         }
@@ -49,7 +56,7 @@ function getHomeInfos(req, res) {
       videoInfos.commentInfos.forEach((comment) => {
         let likeNums = 0;
         let dislikeNums = 0;
-  
+
         if (comment.LikeStatus.length === 0) {
           comment.likeNums = likeNums;
           comment.dislikeNums = dislikeNums;
@@ -64,7 +71,6 @@ function getHomeInfos(req, res) {
           if (index >= comment.LikeStatus.length - 1) {
             comment.likeNums = likeNums;
             comment.dislikeNums = dislikeNums;
-
           }
         });
         if (comment.LikeStatus.length === 0) {
@@ -90,8 +96,6 @@ function getHomeInfos(req, res) {
         'commentInfos': videoInfos.commentInfos.reverse(),
       });
     });
-
-
   });
 }
 
