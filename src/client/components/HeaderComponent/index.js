@@ -16,7 +16,7 @@ class header extends React.Component {
         'Content-Type': 'application/json',
         'Authorization': token,
       },
-    }).then (function(event){
+    }).then(function(event) {
       localStorage.removeItem('token');
       localStorage.removeItem('expiresAt');
       window.location.href = '/login';
@@ -41,7 +41,7 @@ class header extends React.Component {
           <img className="user-profile" src={this.props.userInfos.avatar}></img>
           <nav className="hoverstuff">
             <div className="dropdown">
-              <div className="dropdown-content">
+              <div className="dropdown-content" onClick = "">
                 <a href={`/profile?username=${this.props.userInfos.username}`}>{this.props.userInfos.username}'s profile</a>
                 <button onClick={this.Userlogout}>logout</button>
               </div>
