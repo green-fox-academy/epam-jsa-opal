@@ -72,10 +72,10 @@ profile-screen {
     }
 
     label {
+      color: #a1a1a1;
       display: inline-block;
       min-width: 125px;
       width: 25%;
-      color: #a1a1a1;
     }
 
     input {
@@ -117,6 +117,7 @@ profile-screen {
         max-height: 100%;
         max-width: 100%;
       }
+
       a:last-child {
         color: #6b6b6b;
         font-size: 12px;
@@ -129,13 +130,14 @@ profile-screen {
     margin: 1% 10%;
     @media only screen and (min-width: 600px) {
       ul {
-          display: flex;
+        display: flex;
       }
+
       li {
-        padding: 0 0 .5rem 0;
         margin: 0 12.5px;
+        padding: 0 0 .5rem 0;
       }
-  }
+    }
 
     .subscribers-list {
       display: flex;
