@@ -2,6 +2,7 @@
 
 const usersDb = require('../collections/users-db');
 const tokensDb = require('../collections/tokens-db');
+const videosDb = require('../collections/videos-db.js');
 
 function updateErrorhandle(res, result) {
   if (result === 'Upadate Failed') {
@@ -34,10 +35,11 @@ function trackVideoHistory(req, res) {
       if (userInfos.history.length === 0 || userInfos.history[userInfos.history.length - 1].videoId !== videoId) {
         userInfos.history.push({'videoId': videoId});
       }
-
       usersDb.updateUserInfo(userInfos, userId, (result) => {
         updateErrorhandle(res, result);
-        res.status(200).json({});
+        videosDb.increaseViewNum(videoId, (videosViews) => {
+          res.status(200).json({'views': videosViews});
+        });
       });
     });
   });

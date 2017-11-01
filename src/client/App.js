@@ -28,7 +28,7 @@ class App extends React.Component {
           <Route path="/history" component={History} />
           <Route path="/home" component={Home} />
           <Route path="/watch" component={Home} />
-          <Route path='/liked' component={Liked} />
+          <Route path="/liked" component={Liked} />
           <Route path="/profile" component={Profile} />
         </div>
       </Router>

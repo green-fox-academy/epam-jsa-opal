@@ -208,6 +208,37 @@ function getUploadVideosByUsername(userName, callback) {
   });
 }
 
+function increaseViewNum(videoId, callback) {
+  MongoClient.connect(url, (err, db) => {
+    if (err) {
+      console.log(err.name + ':' + err.message);
+      return callback(undefined);
+    }
+    let videosDB = db.collection('videos');
+
+    videosDB.findOne({'_id': ObjectId(videoId)}, (err, videoInfo) => {
+      if (err) {
+        console.log(err.name + ':' + err.message);
+        return callback(undefined);
+      }
+      if (videoInfo === null) {
+        return callback([]);
+      }
+      let newVideoDetails = videoInfo.videoDetails;
+
+      newVideoDetails.views = ++videoInfo.videoDetails.views;
+      videosDB.update({'_id': ObjectId(videoId)}, {$set: {'videoDetails': newVideoDetails}}, (err, result) => {
+        if (err) {
+          console.log(err);
+          return callback(undefined);
+        }
+        db.close();
+        return callback(newVideoDetails.views);
+      });
+    });
+  });
+}
+
 module.exports = {
   findVideoInfo: findVideoInfo,
   updateVideoInfo: updateVideoInfo,
@@ -215,5 +246,6 @@ module.exports = {
   addVideo: addVideo,
   getAllVideo: getAllVideo,
   getUploadVideosByUsername: getUploadVideosByUsername,
+  increaseViewNum: increaseViewNum,
 };
 

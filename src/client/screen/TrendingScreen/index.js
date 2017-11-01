@@ -5,8 +5,8 @@ import Header from '../../components/HeaderComponent';
 import NavigationBar from '../../components/NavigationBarComponent';
 import VideosFull from '../../components/VideoFullViewComponent';
 import './index.scss';
- 
- class Home extends React.Component {
+
+class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {

@@ -12,7 +12,7 @@
     "heroku-prebuild": "npm install --only=dev",
     "test:frontend": "jest --colors",
     "test:backend": "mocha ./test/server",
-    "lint:js": "eslint . --ext .js --color",
+    "lint:js": "eslint . --ext .js --color --fix",
     "lint:css": "stylelint src/client/**/*.scss --colors --fix",
     "lint": "run-s lint:*"
   },

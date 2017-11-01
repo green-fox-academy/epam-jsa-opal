@@ -91,7 +91,7 @@ class ProfileScreen extends React.Component {
       statusCode = response.status;
       return response.json();
     }).then((result) => {
-      if (statusCode === 201) {
+      if (statusCode === 200) {
         window.location.reload();
       }
     });
@@ -119,7 +119,7 @@ class ProfileScreen extends React.Component {
           </nav>
           <form className={this.state.tab === 'profile' ?
             'my-profile show' :
-            'my-profile'} 
+            'my-profile'}
           onSubmit={this.onSubmit}
           >
             <h1>Profile</h1>
@@ -157,8 +157,6 @@ class ProfileScreen extends React.Component {
   }
 }
 
-ProfileScreen.defaultProps = {
-
-};
+ProfileScreen.defaultProps = {};
 
 export default ProfileScreen;

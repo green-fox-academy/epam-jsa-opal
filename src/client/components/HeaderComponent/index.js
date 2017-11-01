@@ -20,7 +20,7 @@ class header extends React.Component {
         'Content-Type': 'application/json',
         'Authorization': token,
       },
-    }).then (function(event){
+    }).then(function(event) {
       localStorage.removeItem('token');
       localStorage.removeItem('expiresAt');
       window.location.href = '/login';
