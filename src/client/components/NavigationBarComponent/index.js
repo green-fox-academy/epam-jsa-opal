@@ -12,7 +12,7 @@ class NavigationBar extends React.Component {
   render() {
     let subscription = this.props.subscriptions.map(function(channel) {
       return (
-        <Link className="subscription" key={channel.id} to={channel.url}>
+        <Link className="subscription" key={channel.userId} to={'/profile?username=' + channel.username}>
           <img src={channel.avatar}></img>
         </Link>
       );
@@ -34,28 +34,5 @@ class NavigationBar extends React.Component {
     );
   }
 }
-NavigationBar.defaultProps = {
-  subscriptions: [
-    {
-      avatar: subscription1,
-      url: '/111',
-      id: 'sub1',
-    },
-    {
-      avatar: subscription2,
-      url: '/222',
-      id: 'sub2',
-    },
-    {
-      avatar: subscription3,
-      url: '/333',
-      id: 'sub3',
-    },
-    {
-      avatar: subscription4,
-      url: '/333',
-      id: 'sub4',
-    },
-  ],
-};
+
 export default NavigationBar;

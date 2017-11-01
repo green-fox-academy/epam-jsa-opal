@@ -79,7 +79,32 @@ class VideoComponent extends React.Component {
 
   }
   subscribe() {
+    let statusCode;
 
+    fetch('/api/subscribe/', {
+      method: 'put',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': localStorage.getItem('token'),
+      },
+      body: JSON.stringify({
+        'userId': this.props.userInfos.userId,
+        'username': this.props.userInfos.username,
+        'avatar': this.props.userInfos.avatar,
+        'subscriberId': this.state.videoInfos.uploader.userId.toString(),
+        'subscriberName': this.state.videoInfos.uploader.name,
+        'subscriberAvatar': this.state.videoInfos.uploader.avatar,
+      }),
+    }).then((response) => {
+      statusCode = response.status;
+      return response.json();
+    }).then((result) => {
+      if (statusCode === 200) {
+        this.props.fetchLoginUserInfos((newLoginuserInfo) => {
+          this.props.updateSubscription(newLoginuserInfo);
+        });
+      }
+    });
   }
 
   watchlater() {
@@ -120,7 +145,8 @@ class VideoComponent extends React.Component {
                 </div>
               </div>
               <div className="subcribe-number">
-                <button className="subscribe" onClick={this.subscribe.bind(this)}>
+                <button className={this.state.videoInfos.videoDetails.subscribe ? 'subcribe clicked' : 'subcribe'}
+                  onClick={this.subscribe.bind(this)} disabled={this.state.videoInfos.videoDetails.subscribe}>
               subcribe
                 </button>
                 <span className="subscribe-num">{this.state.videoInfos.uploader.subscribers ?

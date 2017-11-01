@@ -239,6 +239,24 @@ function increaseViewNum(videoId, callback) {
   });
 }
 
+function increaseSubscribe(userInfos, targetUserInfos, callback) {
+  MongoClient.connect(url, (err, db) => {
+    if (err) {
+      return callback(undefined);
+    }
+    let videosDB = db.collection('videos');
+
+    videosDB.updateMany({'uploader.userId': ObjectId(targetUserInfos.userId)}, {$push: {'uploader.subscribers': userInfos}}, (err) => {
+      if (err) {
+        console.log(err);
+        return callback('Upadate Failed');
+      }
+      db.close();
+      return callback('success');
+    });
+  });
+}
+
 module.exports = {
   findVideoInfo: findVideoInfo,
   updateVideoInfo: updateVideoInfo,
@@ -247,5 +265,6 @@ module.exports = {
   getAllVideo: getAllVideo,
   getUploadVideosByUsername: getUploadVideosByUsername,
   increaseViewNum: increaseViewNum,
+  increaseSubscribe: increaseSubscribe,
 };
 
