@@ -3,7 +3,7 @@ import VideoPreview from '../../VideoPreviewComponent';
 
 const VideosFullView = (props) => {
   let renderElement = [];
-
+  console.log('add full view');
   if (props.pagetype === 'trending') {
     let order = props.videoInfos;
 
@@ -34,6 +34,7 @@ const VideosFullView = (props) => {
         key={value.videoId} />);
     }
   } else if (props.pagetype === 'search') {
+    console.log(props.searchContent);
     let search = props.searchContent.slice(1);
     renderElement = props.videoInfos.filter((videoInfo)=>{
       return videoInfo.title.indexOf(search) !== -1;
