@@ -41,7 +41,7 @@ class header extends React.Component {
           <img className="user-profile" src={this.props.userInfos.avatar}></img>
           <nav className="hoverstuff">
             <div className="dropdown">
-              <div className="dropdown-content" onClick = "">
+              <div className="dropdown-content">
                 <a href={`/profile?username=${this.props.userInfos.username}`}>{this.props.userInfos.username}'s profile</a>
                 <button onClick={this.Userlogout}>logout</button>
               </div>
