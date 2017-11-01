@@ -119,7 +119,7 @@ class Home extends React.Component {
             :
             null
           }
-          <NavigationBar selected={'home'} className="navigationBar" subscriptions={this.state.loginuser.subscriptions}/>
+          <NavigationBar selected={'trending'} className="navigationBar" subscriptions={this.state.loginuser.subscriptions}/>
           <div className="videos-full"> <VideosFull pagetype={'trending'} videoLists={this.state.videoLists}/> </div>
         </div>
       </div>

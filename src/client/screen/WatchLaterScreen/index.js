@@ -119,7 +119,7 @@ class Home extends React.Component {
             :
             null
           }
-          <NavigationBar selected={'home'} className="navigationBar" subscriptions={this.state.loginuser.subscriptions}/>
+          <NavigationBar selected={'watchlater'} className="navigationBar" subscriptions={this.state.loginuser.subscriptions}/>
           <div className="videos-full"> <VideosFull
             watchlater={this.state.loginuser.watchlater}
             pagetype={'watchlater'}
