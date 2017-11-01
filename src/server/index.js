@@ -39,6 +39,7 @@ app.get('/api/videos', homeController.getVideoInfos);
 app.get('/api/loginuser', homeController.getLoginedUserInfos);
 app.get('/api/profile/:username', profileController.getUserProfiles);
 app.put('/api/profile/:username', profileController.modifyUserProfiles);
+app.put('/api/subscribe/', homeController.subscribe);
 app.get('*', (req, res) =>{
   res.sendFile('index.html', {root: path.join(__dirname, '../../dist')});
 });
