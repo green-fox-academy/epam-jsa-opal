@@ -33,6 +33,11 @@ function getHomeInfos(req, res) {
       let videoLikeNums = 0;
       let videoDislikeNums = 0;
 
+      if (userInfos._id === undefined) {
+        res.status(401).json({'error': 'unauthorization'});
+        return;
+      }
+      userId = userInfos.userId.toString();
       if (userInfos === undefined) {
         res.status(401).json({'error': 'unauthorized'});
         return;
@@ -42,6 +47,9 @@ function getHomeInfos(req, res) {
       videoInfos.videoDetails.clickedDislike = false;
 
       videoInfos.videoDetails.LikeStatus.forEach((user) => {
+        if (user === undefined) {
+          res.status(400).json({});
+        }
         if (user.userId.toString() === userId.toString() && user.liked === true) {
           videoInfos.videoDetails.clickedLike = true;
         }
