@@ -107,16 +107,17 @@
 
 .comments-lists {
   position: relative;
+
   .loader {
+    animation: spin 1.5s linear infinite;
     border: 16px solid #f3f3f3;
     border-radius: 50%;
     border-top: 16px solid #d93738;
-    width: 100px;
     height: 100px;
-    animation: spin 1.5s linear infinite;
+    left: calc(50% - 100px);
     position: absolute;
     top: 65px;
-    left: calc(50% - 100px)
+    width: 100px
   }
   @keyframes spin {
     0% { transform: rotate(0deg); }

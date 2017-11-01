@@ -3,8 +3,7 @@
 import React from 'react';
 import Header from '../../components/HeaderComponent';
 import NavigationBar from '../../components/NavigationBarComponent';
-import SuggestedVideos from '../../components/SuggestedVideosComponent';
-import VideoComponent from '../../components/VideoComponent';
+import VideosFull from '../../components/VideoFullViewComponent';
 import './index.scss';
 
 class Home extends React.Component {
@@ -92,12 +91,9 @@ class Home extends React.Component {
       }
     });
   }
-  updateSubscription(newLoginuserInfo) {
-    this.setState({loginuser: newLoginuserInfo});
-  }
   render() {
     return (
-      <div className="homecontainer">
+      <div className="home-container">
         <Header className="header"
           onClickUpload={this.onClickUpload}
           userInfos={this.state.loginuser}
@@ -105,7 +101,7 @@ class Home extends React.Component {
         <div className="main">
           {this.state.clickUpload ?
             <form className="upload-form" onSubmit={this.onSubmit}>
-              <input type="text" name="video-url" placeholder="video url" required
+              <input type="url" name="video-url" placeholder="video url" required
                 disabled = {this.state.uploading}/>
               <input type="text" name="video-preview" placeholder="video preview" required
                 disabled = {this.state.uploading}/>
@@ -124,16 +120,13 @@ class Home extends React.Component {
             null
           }
           <NavigationBar selected={'home'} className="navigationBar" subscriptions={this.state.loginuser.subscriptions}/>
-          <div className="videoComponent"> <VideoComponent videoId={
-            this.props.location.search.split('=')[1] ? this.props.location.search.split('=')[1] :
-              this.state.videoLists[0] ?
-                this.state.videoLists[this.state.videoLists.length - 1].videoId : null}
-          userInfos={this.state.loginuser}
-          fetchLoginUserInfos={this.fetchLoginUserInfos}
-          updateSubscription={this.updateSubscription.bind(this)}
-          />
+          <div className="videos-full">
+            <VideosFull
+              username={this.state.loginuser.username}
+              userId={this.state.loginuser.userId}
+              pagetype={'liked'}
+              videoLists={this.state.videoLists}/>
           </div>
-          <div className="suggestedVideos"> <SuggestedVideos videoLists={this.state.videoLists}/> </div>
         </div>
       </div>
     );

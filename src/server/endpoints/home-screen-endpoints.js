@@ -4,6 +4,13 @@ const videosDb = require('../collections/videos-db');
 const tokensDb = require('../collections/tokens-db');
 const usersDb = require('../collections/users-db');
 
+function checkSubscribe(currentUserId, subscribeArray) {
+  if (subscribeArray.length === 0) {
+    return false;
+  }
+  return subscribeArray.every((user) => currentUserId === user.userId);
+}
+
 function getHomeInfos(req, res) {
   if (req.params.videoId.length !== 24) {
     res.status(400).json({'error': 'bad request'});
@@ -19,7 +26,7 @@ function getHomeInfos(req, res) {
     let userId;
 
     if (token === undefined) {
-      res.status(400).json({'error': 'unauthorization'});
+      res.status(400).json({'error': 'unauthorized'});
       return;
     }
     tokensDb.getToken(token, (userInfos) => {
@@ -31,6 +38,11 @@ function getHomeInfos(req, res) {
         return;
       }
       userId = userInfos.userId.toString();
+      if (userInfos === undefined) {
+        res.status(401).json({'error': 'unauthorized'});
+        return;
+      }
+      userId = userInfos.userId;
       videoInfos.videoDetails.clickedLike = false;
       videoInfos.videoDetails.clickedDislike = false;
 
@@ -53,6 +65,7 @@ function getHomeInfos(req, res) {
       });
       videoInfos.videoDetails.videoLikeNums = videoLikeNums;
       videoInfos.videoDetails.videoDislikeNums = videoDislikeNums;
+      videoInfos.videoDetails.subscribe = checkSubscribe(userId, videoInfos.uploader.subscribers);
       videoInfos.commentInfos.forEach((comment) => {
         let likeNums = 0;
         let dislikeNums = 0;
@@ -152,6 +165,7 @@ function getVideoInfos(req, res) {
 
     res.status(200).json(allVideos.map((value) => (
       {
+        'likeStatus': value.videoDetails.LikeStatus,
         'videoId': value._id.toString(),
         'videoSrc': value.videoUrl,
         'previewSrc': value.videoDetails.preview,
@@ -168,12 +182,12 @@ function getLoginedUserInfos(req, res) {
   let token = req.get('Authorization');
 
   if (token === undefined) {
-    res.status(400).json({'error': 'unAuthorization'});
+    res.status(400).json({'error': 'unauthorized'});
     return;
   }
   tokensDb.getToken(token, (tokenInfos) => {
     if (tokenInfos._id === undefined) {
-      res.status(404).json({'error': 'not found'});
+      res.status(401).json({'error': 'unauthorized'});
       return;
     }
     usersDb.findUserInfoById(tokenInfos.userId, (userInfos) => {
@@ -182,10 +196,49 @@ function getLoginedUserInfos(req, res) {
         return;
       }
       res.status(200).json({
+        'history': userInfos.history,
+        'watchlater': userInfos.watchlater,
+        'userId': userInfos._id,
         'username': userInfos.username,
         'avatar': userInfos.avatar,
+        'subscriptions': userInfos.subscriptions,
+        'userId': userInfos._id.toString(),
       });
     });
+  });
+}
+
+function subscribe(req, res) {
+  let token = req.get('Authorization');
+
+  if (token === undefined) {
+    res.status(400).json({'error': 'unauthorized'});
+    return;
+  }
+  tokensDb.getToken(token, (tokenInfos) => {
+    if (tokenInfos._id === undefined) {
+      res.status(401).json({'error': 'unauthorized'});
+      return;
+    }
+    videosDb.increaseSubscribe(
+      {'userId': req.body.userId, 'username': req.body.username, 'avatar': req.body.avatar},
+      {'userId': req.body.subscriberId, 'username': req.body.subscriberName, 'avatar': req.body.subscriberAvatar},
+      (updateInfos) => {
+        if (updateInfos === 'failed') {
+          res.status(500).json({'error': 'subscribe failed'});
+          return;
+        }
+        usersDb.subscribe(
+          {'userId': req.body.userId, 'username': req.body.username, 'avatar': req.body.avatar},
+          {'userId': req.body.subscriberId, 'username': req.body.subscriberName, 'avatar': req.body.subscriberAvatar},
+          (subscribeInfos) => {
+            if (subscribeInfos === 'failed') {
+              res.status(500).json({'error': 'subscribe failed'});
+              return;
+            }
+            res.status(200).json({'success': 'subscriber success'});
+          });
+      });
   });
 }
 
@@ -195,5 +248,6 @@ module.exports = {
   uploadVideo: uploadVideo,
   getVideoInfos: getVideoInfos,
   getLoginedUserInfos: getLoginedUserInfos,
+  subscribe: subscribe,
 };
 

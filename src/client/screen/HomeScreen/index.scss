@@ -11,7 +11,11 @@
   margin-right: 40px;
   width: 68%;
 }
-
+.title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 .main {
   display: flex;
   justify-content: space-between;

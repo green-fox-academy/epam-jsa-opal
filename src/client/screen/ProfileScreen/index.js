@@ -13,6 +13,7 @@ class ProfileScreen extends React.Component {
       'modify': false,
       'profileInfos': {uploads: [], subscribers: []},
       'loginuser': {},
+      'isme': true,
     };
     this.defalutProfileInfos = {};
     this.fetchProfileInfos = this.fetchProfileInfos.bind(this);
@@ -28,6 +29,9 @@ class ProfileScreen extends React.Component {
       this.defalutName = profileInfos.fullName;
       this.defalutAvatar = profileInfos.avatar;
       this.setState({'profileInfos': profileInfos});
+      if (profileInfos.username !== this.state.loginuser.username) {
+        this.setState({'isme': false});
+      }
     });
     this.fetchLoginUserInfos((result) => {
       if (result.error) {
@@ -91,7 +95,7 @@ class ProfileScreen extends React.Component {
       statusCode = response.status;
       return response.json();
     }).then((result) => {
-      if (statusCode === 201) {
+      if (statusCode === 200) {
         window.location.reload();
       }
     });
@@ -119,7 +123,7 @@ class ProfileScreen extends React.Component {
           </nav>
           <form className={this.state.tab === 'profile' ?
             'my-profile show' :
-            'my-profile'} 
+            'my-profile'}
           onSubmit={this.onSubmit}
           >
             <h1>Profile</h1>
@@ -130,11 +134,20 @@ class ProfileScreen extends React.Component {
             <label>Phone number:</label>
             <input type="phoneNumber" name="phoneNumber" value={this.state.profileInfos.phoneNumber} disabled={true}/>
             <label htmlFor="fullName">Full name:</label>
-            <input type="text" name="fullName" id="fullName" value={this.state.profileInfos.fullName} onChange={this.onChangeFullName} required placeholder="full name"/>
+            <input type="text" name="fullName" id="fullName" value={this.state.profileInfos.fullName} onChange={this.onChangeFullName} required
+              placeholder="full name" disabled={!this.state.isme}/>
             <label htmlFor="avatar">Avatar:</label>
-            <input type="avatar" name="avatar" id="avatar" value={this.state.profileInfos.avatar} onChange={this.onChangeAvatar} required placeholder="avatar"/>
-            <button type="submit" disabled={this.state.modify}>Modify</button>
-            <button type="button" className="cancel" onClick={this.onCancel.bind(this)}>Cancel</button>
+            <input type="avatar" name="avatar" id="avatar" value={this.state.profileInfos.avatar} onChange={this.onChangeAvatar} required
+              placeholder="avatar" disabled={!this.state.isme}/>
+            {
+              this.state.isme ?
+                <div>
+                  <button type="submit" disabled={this.state.modify}>Modify</button>
+                  <button type="button" className="cancel" onClick={this.onCancel.bind(this)}>Cancel</button>
+                </div> :
+                null
+            }
+            
           </form>
           <div className={this.state.tab === 'subscription' ?
             'my-subscriptions show' :
@@ -157,8 +170,6 @@ class ProfileScreen extends React.Component {
   }
 }
 
-ProfileScreen.defaultProps = {
-
-};
+ProfileScreen.defaultProps = {};
 
 export default ProfileScreen;

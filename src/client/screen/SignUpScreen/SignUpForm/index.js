@@ -10,7 +10,7 @@ const SignUpForm = (props) => (
       placeholder="Username (Optional)" />
     <input type="email" name="email" placeholder="E-mail" required
       className={props.errorEmail ? 'error' : ''}/>
-    <input name="phone" placeholder="Phone Number (Optional)"
+    <input name="phone" placeholder="Phone Number"
       className={props.errorPhone ? 'error' : ''}/>
     <input name="fullname" placeholder="Full Name" required
       className={props.errorFullname ? 'error' : ''}/>
