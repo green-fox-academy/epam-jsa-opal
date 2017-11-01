@@ -13,6 +13,7 @@ class ProfileScreen extends React.Component {
       'modify': false,
       'profileInfos': {uploads: [], subscribers: []},
       'loginuser': {},
+      'isme': true,
     };
     this.defalutProfileInfos = {};
     this.fetchProfileInfos = this.fetchProfileInfos.bind(this);
@@ -28,6 +29,9 @@ class ProfileScreen extends React.Component {
       this.defalutName = profileInfos.fullName;
       this.defalutAvatar = profileInfos.avatar;
       this.setState({'profileInfos': profileInfos});
+      if (profileInfos.username !== this.state.loginuser.username) {
+        this.setState({'isme': false});
+      }
     });
     this.fetchLoginUserInfos((result) => {
       if (result.error) {
@@ -130,9 +134,11 @@ class ProfileScreen extends React.Component {
             <label>Phone number:</label>
             <input type="phoneNumber" name="phoneNumber" value={this.state.profileInfos.phoneNumber} disabled={true}/>
             <label htmlFor="fullName">Full name:</label>
-            <input type="text" name="fullName" id="fullName" value={this.state.profileInfos.fullName} onChange={this.onChangeFullName} required placeholder="full name"/>
+            <input type="text" name="fullName" id="fullName" value={this.state.profileInfos.fullName} onChange={this.onChangeFullName} required
+              placeholder="full name" disabled={!this.state.isme}/>
             <label htmlFor="avatar">Avatar:</label>
-            <input type="avatar" name="avatar" id="avatar" value={this.state.profileInfos.avatar} onChange={this.onChangeAvatar} required placeholder="avatar"/>
+            <input type="avatar" name="avatar" id="avatar" value={this.state.profileInfos.avatar} onChange={this.onChangeAvatar} required
+              placeholder="avatar" disabled={!this.state.isme}/>
             <button type="submit" disabled={this.state.modify}>Modify</button>
             <button type="button" className="cancel" onClick={this.onCancel.bind(this)}>Cancel</button>
           </form>
