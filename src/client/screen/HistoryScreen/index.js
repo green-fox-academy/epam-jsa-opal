@@ -14,7 +14,7 @@ class Home extends React.Component {
       'clickUpload': false,
       'errorMessage': null,
       'uploading': false,
-      'loginuser': {},
+      'loginuser': {subscriptions:[]},
     };
     this.onClickUpload = this.onClickUpload.bind(this);
     this.onClickCancelUpload = this.onClickCancelUpload.bind(this);
@@ -119,7 +119,7 @@ class Home extends React.Component {
             :
             null
           }
-          <NavigationBar selected={'history'} className="navigation-bar"/>
+          <NavigationBar selected={'history'} className="navigationBar" subscriptions={this.state.loginuser.subscriptions}/>
           <div className="videos-full">
             <VideosFull
               history={this.state.loginuser.history}

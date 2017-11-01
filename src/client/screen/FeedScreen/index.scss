@@ -84,3 +84,177 @@
       transform: rotate(360deg); }
   }
 }
+
+
+@media screen and (max-width: 375px) {
+  .main{
+    .videos-full {
+      margin: 0;
+      position: absolute;
+      top:180px;
+
+      .full-video-container {
+        padding: 0;
+
+        .suggested-video-ul {
+          align-items: center;
+          display: flex;
+          flex-direction: column;
+        }
+      }
+    }
+  }
+
+  .video-info{
+    .video-name {
+      .share{
+        height: initial;
+      }
+
+      .watchlater{
+        height: initial;
+        margin-left: .5em;
+      }
+    }
+  }
+  
+  header{
+    .obstacle{
+      margin-left: 1em;
+    }
+
+    .right-top{
+      margin-right: 0;
+
+      img {
+        display: none;
+      }
+
+      .right-top-button{
+        display: none;
+      }
+    }
+  }
+ 
+  .main {
+    display: block;
+
+    .add-comment{
+      img {
+        border-radius: 50%;
+        height: 40px;
+        width: 40px;
+      }
+    }
+
+    .comment{
+      .comment-container{
+        .comment-setting{
+          right: 5px;
+        }
+      }
+
+      img {
+        height: 40px;
+        width: 40px;
+          
+      }
+    }
+
+    .navigationbar {
+      .selected:after, 
+     {
+        background-color: red;
+        content: "";
+        height: 48px;
+        left: 44%;
+        position: relative;
+        top: 45px;
+        transform: rotate(90deg);
+      }
+      align-items: initial;
+      flex-direction: row;
+      height: fit-content;
+      height: auto;
+      width: 100%;
+
+      .homebutton:before{
+        margin: 29px 0;
+      }
+
+      a:hover:after { 
+        display: none;
+      }
+
+      a {
+        font-size: 0;
+      }
+
+      .subscription {
+        display: none;
+      }
+
+      div {
+        display: none;
+      }
+
+      span {
+        display: none;
+      }
+
+      .setting {
+        position: initial;
+      }
+    }
+
+
+    h1 {
+      text-align: center;
+    }
+
+    .suggested-video-ul {
+      margin: 1% 1%;
+      width: 98%;
+
+      .suggested-video-list {
+        display: inline-block;
+        margin-right: 0px;
+        width: 300px;
+        .suggested-video {
+          padding-left: 40px;
+        }
+      }
+    }
+
+    .videoComponent {
+      margin: 0;
+      width: 100%;
+
+      .video-below {
+        padding: 0 4px;
+
+        .user-info {
+          .userinfo-left {
+            width: 70%;
+          }
+
+          .thumb {
+            button {
+              font-size: 0;
+              height: 22px;
+              width: 30px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .suggested-video-container {
+    .show-more-button {
+      margin-left: 34px;
+    }
+  }
+  
+}
+
