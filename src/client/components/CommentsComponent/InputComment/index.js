@@ -21,7 +21,7 @@ class InputComment extends React.Component {
       <div className={this.props.clicked ?
         'add-comment clicked-comment' : 'add-comment'}
       >
-        <img src={this.props.avatar} alt="11"/>
+        <img src={this.props.avatar} alt=""/>
         <div className="add-comment-content">
           <input type="text" name="add-comment" onChange={this.onchangeInput}
             placeholder={this.props.isComment ?
@@ -31,11 +31,14 @@ class InputComment extends React.Component {
             value={this.state.value}
           />
           <div className="buttons">
-            <input type="button" value="CANCEL"
-              onClick={this.props.onClickCancel}/>
+            {this.props.isComment ?
+              null :
+              <input type="button" value="Cancel"
+                onClick={this.props.onClickCancel}/>
+            }
             <input type="submit" value={this.props.isComment ?
-              'COMMENT' :
-              'REPLY'
+              'Comment' :
+              'Reply'
             }
             className={this.state.empty ? '' : 'active'}
             disabled={this.state.empty ? true : false}
