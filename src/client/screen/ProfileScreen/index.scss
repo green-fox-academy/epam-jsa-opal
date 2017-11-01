@@ -33,6 +33,11 @@ profile-screen {
       background-color: #ddd;
     }
 
+    button.active {
+      background-color: #d93738;
+      color: #fff;
+    }
+
     button:hover {
       background-color: #d93738;
       color: #fff;
@@ -191,7 +196,7 @@ profile-screen {
         display: flex;
         flex-direction: column;
       }
-      
+
       li {
        margin-right: 0;
       }

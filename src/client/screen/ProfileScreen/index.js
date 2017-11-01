@@ -117,9 +117,15 @@ class ProfileScreen extends React.Component {
             <span className="user-full-name">{this.state.profileInfos.fullName}</span>
           </div>
           <nav>
-            <button className="my-profile-button" onClick={this.onClickProfile.bind(this)}>profife</button>
-            <button className="my-subscriptions-button" onClick={this.onClickSubscription.bind(this)}>subscriptions</button>
-            <button className="my-videos-button" onClick={this.onClickVideo.bind(this)}>videos</button>
+            <button className={this.state.tab === 'profile' ?
+              'my-profile-button active' : 
+              'my-profile-button'}onClick={this.onClickProfile.bind(this)}>profife</button>
+            <button className={this.state.tab === 'subscription' ?
+              'my-subscriptions-button active' : 
+              'my-subscriptions-button'} onClick={this.onClickSubscription.bind(this)}>subscriptions</button>
+            <button className={this.state.tab === 'video' ?
+              'my-videos-button active' : 
+              'my-videos-button'} onClick={this.onClickVideo.bind(this)}>videos</button>
           </nav>
           <form className={this.state.tab === 'profile' ?
             'my-profile show' :
