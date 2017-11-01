@@ -5,8 +5,8 @@ import Header from '../../components/HeaderComponent';
 import NavigationBar from '../../components/NavigationBarComponent';
 import VideosFull from '../../components/VideoFullViewComponent';
 import './index.scss';
- 
- class Home extends React.Component {
+
+class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -35,7 +35,10 @@ import './index.scss';
     });
   }
   fetchLoginUserInfos(callback) {
-    fetch('/api/loginuser', {headers: {'Authorization': localStorage.getItem('token')}})
+    fetch(
+      '/api/loginuser', {
+        headers:
+      {'Authorization': localStorage.getItem('token')}})
       .then((response) => response.json())
       .then((result) => callback(result));
   }
@@ -101,14 +104,21 @@ import './index.scss';
         <div className="main">
           {this.state.clickUpload ?
             <form className="upload-form" onSubmit={this.onSubmit}>
-              <input type="url" name="video-url" placeholder="video url" required
+              <input type="url"
+                name="video-url"
+                placeholder="video url" required
                 disabled = {this.state.uploading}/>
-              <input type="text" name="video-preview" placeholder="video preview" required
+              <input type="text"
+                name="video-preview"
+                placeholder="video preview" required
                 disabled = {this.state.uploading}/>
-              <input type="text" name="video-title" placeholder="video title" required
+              <input type="text"
+                name="video-title"
+                placeholder="video title" required
                 disabled = {this.state.uploading}/>
               <button type="submit" disabled={this.state.uploading}
-                className={this.state.uploading ? 'loading' : ''}>Upload</button>
+                className={this.state.uploading ?
+                  'loading' : ''}>Upload</button>
               <button onClick={this.onClickCancelUpload}>Cancel</button>
               <p className="error-message">{this.state.errorMessage}</p>
               {this.state.uploading ?
@@ -120,10 +130,10 @@ import './index.scss';
             null
           }
           <NavigationBar selected={'search'} className="navigation-bar"/>
-          <div className="videos-full"> <VideosFull 
+          <div className="videos-full"> <VideosFull
             searchContent={window.location.search}
-            pagetype={'search'} 
-            videoLists={this.state.videoLists}/> 
+            pagetype={'search'}
+            videoLists={this.state.videoLists}/>
           </div>
         </div>
       </div>
