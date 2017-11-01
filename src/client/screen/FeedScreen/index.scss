@@ -207,20 +207,21 @@
       }
     }
 
-    .suggestedVideos {
-      width: 100%;
 
-      h1 {
-        text-align: center;
-      }
+    h1 {
+      text-align: center;
+    }
 
-      .suggested-video-ul {
-        margin: 1% 1%;
-        width: 98%;
+    .suggested-video-ul {
+      margin: 1% 1%;
+      width: 98%;
 
-        .suggested-video-list {
-          display: block;
-          width: 100%;
+      .suggested-video-list {
+        display: inline-block;
+        margin-right: 0px;
+        width: 300px;
+        .suggested-video {
+          padding-left: 40px;
         }
       }
     }

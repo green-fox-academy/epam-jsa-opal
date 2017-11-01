@@ -86,8 +86,14 @@
         .homebutton:before{
           margin: 29px 0;
         }
-        a:hover:after { 
-         
+       .selected:after {
+          background-color: red;
+          content: "";
+          height: 48px;
+          left: 44%;
+          position: relative;
+          top: 20px;
+          transform: rotate(90deg);
         }
         a {
           font-size: 0;
