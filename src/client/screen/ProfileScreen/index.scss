@@ -54,8 +54,9 @@ profile-screen {
   .my-profile {
     display: none;
     margin: 1% 10%;
-    min-width: 320px;
-    width: calc(35% + 30px);
+    width: 80%;
+    // min-width: 320px;
+    // width: calc(35% + 30px);
 
     button {
       background-color: #d93738;
@@ -127,15 +128,6 @@ profile-screen {
   .my-videos {
     display: none;
     margin: 1% 10%;
-    @media only screen and (min-width: 600px) {
-      ul {
-          display: flex;
-      }
-      li {
-        padding: 0 0 .5rem 0;
-        margin: 0 12.5px;
-      }
-  }
 
     .subscribers-list {
       display: flex;
@@ -160,5 +152,40 @@ profile-screen {
 
   .show {
     display: block;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  .header {
+    .search-name {
+      width: 80%;
+    }
+    .obstacle {
+      margin-left: 5%;
+    }
+    .right-top {
+      margin-right: 1%;
+        .right-top-button {
+          display: none;
+        }
+    }
+  }
+
+  .user-infos {
+    .my-profile {
+      input {
+        width: 100%;
+      }
+    }
+    .my-videos {
+      ul {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+      }
+      li {
+       margin-right: 0;
+      }
+    }
   }
 }
