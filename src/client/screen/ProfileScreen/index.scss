@@ -30,6 +30,12 @@ profile-screen {
       margin-right: 10px;
       position: relative;
       transition: background-color 1s;
+      background-color: #ddd;
+    }
+
+    button.active {
+      background-color: #d93738;
+      color: #fff;
     }
 
     button:hover {
@@ -54,8 +60,7 @@ profile-screen {
   .my-profile {
     display: none;
     margin: 1% 10%;
-    min-width: 320px;
-    width: calc(35% + 30px);
+    width: 80%;
 
     button {
       background-color: #d93738;
@@ -127,15 +132,6 @@ profile-screen {
   .my-videos {
     display: none;
     margin: 1% 10%;
-    @media only screen and (min-width: 600px) {
-      ul {
-          display: flex;
-      }
-      li {
-        padding: 0 0 .5rem 0;
-        margin: 0 12.5px;
-      }
-  }
 
     .subscribers-list {
       display: flex;
@@ -160,5 +156,50 @@ profile-screen {
 
   .show {
     display: block;
+  }
+}
+
+@media only screen and (max-width: 415px) {
+  .header {
+    .search-name {
+      width: 80%;
+    }
+
+    .obstacle {
+      margin-left: 5%;
+    }
+
+    .right-top {
+
+      margin-right: 1%;
+
+        .right-top-button {
+          display: none;
+        }
+    }
+  }
+
+  .user-infos {
+
+    .my-profile {
+
+      input {
+        width: 100%;
+      }
+
+    }
+
+    .my-videos {
+
+      ul {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+      }
+
+      li {
+       margin-right: 0;
+      }
+    }
   }
 }
