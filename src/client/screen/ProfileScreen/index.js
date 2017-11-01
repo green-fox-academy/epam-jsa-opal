@@ -139,8 +139,15 @@ class ProfileScreen extends React.Component {
             <label htmlFor="avatar">Avatar:</label>
             <input type="avatar" name="avatar" id="avatar" value={this.state.profileInfos.avatar} onChange={this.onChangeAvatar} required
               placeholder="avatar" disabled={!this.state.isme}/>
-            <button type="submit" disabled={this.state.modify}>Modify</button>
-            <button type="button" className="cancel" onClick={this.onCancel.bind(this)}>Cancel</button>
+            {
+              this.state.isme ?
+                <div>
+                  <button type="submit" disabled={this.state.modify}>Modify</button>
+                  <button type="button" className="cancel" onClick={this.onCancel.bind(this)}>Cancel</button>
+                </div> :
+                null
+            }
+            
           </form>
           <div className={this.state.tab === 'subscription' ?
             'my-subscriptions show' :
