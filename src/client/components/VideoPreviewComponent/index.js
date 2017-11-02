@@ -3,14 +3,6 @@ import React from 'react';
 class VideoPreview extends React.Component {
   constructor(props) {
     super(props);
-    console.log('fired constructor');
-    console.log(this.props.videoInfo.viewNumber);
-    this.state = {viewNumber: this.props.videoInfo.viewNumber};
-  }
-  componentWillReceiveProps(nextProps) {
-    console.log('fired componentWillReceiveProps');
-    console.log(nextProps.videoInfo.viewNumber);
-    this.setState({viewNumber: nextProps.videoInfo.viewNumber});
   }
   storeHistory() {
     fetch(`/api/videos/${this.props.videoInfo.videoId}/track-video-history`, {
@@ -34,7 +26,7 @@ class VideoPreview extends React.Component {
         <p className="title">{this.props.videoInfo.title}</p>
         <span className="video-message">
           <span>{this.props.videoInfo.author}</span>
-          <span>{this.state.viewNumber} views</span>
+          <span>{this.props.videoInfo.viewNumber + 1} views</span>
         </span>
       </li>
     );
