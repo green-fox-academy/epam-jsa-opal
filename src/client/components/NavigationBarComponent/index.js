@@ -29,7 +29,6 @@ class NavigationBar extends React.Component {
         <div className="obstaclehorizantal"></div>
         <span>Subscription</span>
         {subscription}
-        <a className="setting" onclick="return false">setting</a>
       </nav>
     );
   }
