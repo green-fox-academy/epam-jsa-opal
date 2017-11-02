@@ -6,7 +6,7 @@ class VideoPreview extends React.Component {
     this.state = {viewNumber: this.props.videoInfo.viewNumber};
   }
   componentWillReceiveProps(nextProps) {
-    this.setState({viewNumber: this.state.viewNumber});
+    this.setState({viewNumber: nextProps.videoInfo.viewNumber});
   }
   storeHistory() {
     fetch(`/api/videos/${this.props.videoInfo.videoId}/track-video-history`, {
