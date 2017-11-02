@@ -8,7 +8,12 @@ function checkSubscribe(currentUserId, subscribeArray) {
   if (subscribeArray.length === 0) {
     return false;
   }
-  return subscribeArray.every((user) => currentUserId === user.userId);
+ for(let i = 0; i< subscribeArray.length; i++) {
+  if (currentUserId === subscribeArray[i].userId) {
+    return true;
+  }
+ }
+ return false;
 }
 
 function getHomeInfos(req, res) {
