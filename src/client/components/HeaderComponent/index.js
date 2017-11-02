@@ -57,7 +57,7 @@ class header extends React.Component {
             <div className="dropdown" onClick={this.changeDropdown.bind(this)}>
               {this.state.onClickdropdown ?
                <div className="dropdown-content">
-                <a href={`/profile?username=${this.props.userInfos.username}`}>{this.props.userInfos.username}'s profile</a>
+                <a href={`/profile?username=${this.props.userInfos.username}`}>{this.props.userInfos.username}</a>
                 <button onClick={this.Userlogout}>logout</button>
               </div> 
               :
