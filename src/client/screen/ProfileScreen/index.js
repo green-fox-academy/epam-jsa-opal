@@ -28,6 +28,8 @@ class ProfileScreen extends React.Component {
       }
       this.defalutName = profileInfos.fullName;
       this.defalutAvatar = profileInfos.avatar;
+      this.uploads = profileInfos.uploads;
+      this.subscribers = profileInfos.subscribers;
       this.setState({'profileInfos': profileInfos});
       if (profileInfos.username !== this.state.loginuser.username) {
         this.setState({'isme': false});
@@ -102,9 +104,13 @@ class ProfileScreen extends React.Component {
   }
   onCancel() {
     let defaultInfos = this.defalutProfileInfos;
-
-    defaultInfos.fullName = this.defalutName;
-    defaultInfos.avatar = this.defalutAvatar;
+    
+    defaultInfos = {
+      'fullName': this.defalutName,
+      'avatar': this.defalutAvatar,
+      'uploads': this.uploads,
+      'subscribers': this.subscribers,
+    };
     this.setState({profileInfos: defaultInfos});
   }
   render() {
