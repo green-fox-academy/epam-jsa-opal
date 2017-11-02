@@ -17,7 +17,12 @@
          }
         }
       }
-    
+
+    .comments-lists{
+      padding: 0 10px 20px 10px;
+      border-bottom: 1px solid #aaa;
+    }
+
     header{
       height: 3.375em;
       .obstacle{
@@ -119,6 +124,7 @@
           flex-direction: column;
           .suggested-video-list {
             display: block;
+            margin-right: 0;
           }
         }
       }
@@ -144,6 +150,9 @@
       }
     }
     .suggested-video-container {
+      h1 {
+        margin: 20px 0;
+      }
       .show-more-button {
         width: 220px;
       }
