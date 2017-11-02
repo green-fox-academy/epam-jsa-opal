@@ -3,9 +3,13 @@ import React from 'react';
 class VideoPreview extends React.Component {
   constructor(props) {
     super(props);
+    console.log('fired constructor');
+    console.log(this.props.videoInfo.viewNumber);
     this.state = {viewNumber: this.props.videoInfo.viewNumber};
   }
   componentWillReceiveProps(nextProps) {
+    console.log('fired componentWillReceiveProps');
+    console.log(nextProps.videoInfo.viewNumber);
     this.setState({viewNumber: nextProps.videoInfo.viewNumber});
   }
   storeHistory() {
