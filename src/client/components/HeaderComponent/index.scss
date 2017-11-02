@@ -114,10 +114,6 @@ header {
   display: flex;
 }
 
-.dropbtn {
-  border: 0;
-  cursor: pointer;
-}
 
 .dropdown {
   background-color: rgb(255, 255, 255);
@@ -128,28 +124,39 @@ header {
 }
 
 .dropdown-content {
+  border: 1px solid rgb(241, 241, 241);
   background-color: rgb(255, 255, 255);
   box-shadow: 0 8px 16px 0 $boxshadow;
   display: none;
   min-width: 8em;
   position: absolute;
   right: 1%;
-  top: 2.5em;
+  top: 2.2em;
   z-index: 1;
 }
-
-.dropdown-content button {
+.dropdown-content a {
+  text-align: center;
+	font-size:17px;
   background-color: rgb(255, 255, 255);
   color: rgb(0, 0, 0);
   display: block;
-  padding: .625em;
+  padding: .525em;
+  text-decoration: none;
+}
+.dropdown-content button {
+  width: 100%;
+  border-top: 1px solid #aaa;
+	font-size:17px;
+  background-color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
+  display: block;
+  padding: .525em;
   text-decoration: none;
 }
 
 .dropdown-content button:hover {
-  text-decoration: underline;
+  cursor: pointer;
 }
-
 .hoverstuff:hover {
   cursor: pointer;
 }
