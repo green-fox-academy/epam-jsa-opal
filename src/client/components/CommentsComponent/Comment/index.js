@@ -133,7 +133,6 @@ class Comment extends React.Component {
           <button className="input-comment"
             onClick={this.onClickComment}>Reply</button>
           <p className="comment-time">{new Date(this.props.commentInfo.commentTime).toLocaleString()}</p>
-          <button className="comment-setting"></button>
           <InputComment
             clicked={this.state.clickComment}
             onClickCancel={this.onClickCancel}
