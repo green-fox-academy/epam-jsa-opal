@@ -182,7 +182,11 @@ profile-screen {
   }
 
   .user-infos {
-
+    .profile-preview {
+      span {
+       font-size: 1.5rem; 
+      }
+    }
     .my-profile {
 
       input {
