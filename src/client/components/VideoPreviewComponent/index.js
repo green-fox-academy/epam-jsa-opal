@@ -5,8 +5,10 @@ class VideoPreview extends React.Component {
     super(props);
     this.state = {viewNumber: this.props.videoInfo.viewNumber};
   }
+  componentWillReceiveProps(nextProps) {
+    this.setState({viewNumber: this.state.viewNumber});
+  }
   storeHistory() {
-    this.setState({viewNumber: this.state.viewNumber + 1});
     fetch(`/api/videos/${this.props.videoInfo.videoId}/track-video-history`, {
       method: 'post',
       headers: {'Authorization': localStorage.getItem('token')},
