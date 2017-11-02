@@ -4,7 +4,6 @@ import React from 'react';
 import Header from '../../components/HeaderComponent';
 import NavigationBar from '../../components/NavigationBarComponent';
 import VideosFull from '../../components/VideoFullViewComponent';
-import './index.scss';
 
 class Home extends React.Component {
   constructor(props) {
@@ -119,7 +118,7 @@ class Home extends React.Component {
             :
             null
           }
-          <NavigationBar selected={'home'} className="navigationBar" subscriptions={this.state.loginuser.subscriptions}/>
+          <NavigationBar selected={'watchlater'} className="navigationBar" subscriptions={this.state.loginuser.subscriptions}/>
           <div className="videos-full"> <VideosFull
             watchlater={this.state.loginuser.watchlater}
             pagetype={'watchlater'}
