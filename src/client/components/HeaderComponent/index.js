@@ -7,6 +7,15 @@ import upload from './assets/upload.png';
 import userprofile from './assets/userprofile.png';
 
 class header extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      'onClickdropdown' : false, 
+    }
+  }
+  changeDropdown(){
+    this.setState({'onClickdropdown': !this.state.onClickdropdown});
+  }
   clickSearch() {
    let value = document.getElementsByClassName('search-name')[0].value;
    window.location.href = '/search?'+value;
@@ -45,11 +54,15 @@ class header extends React.Component {
           </button>
           <img className="user-profile" src={this.props.userInfos.avatar}></img>
           <nav className="hoverstuff">
-            <div className="dropdown">
-              <div className="dropdown-content">
+            <div className="dropdown" onClick={this.changeDropdown.bind(this)}>
+              {this.state.onClickdropdown ?
+               <div className="dropdown-content">
                 <a href={`/profile?username=${this.props.userInfos.username}`}>{this.props.userInfos.username}'s profile</a>
                 <button onClick={this.Userlogout}>logout</button>
-              </div>
+              </div> 
+              :
+              null
+              }
             </div>
           </nav>
         </div>
