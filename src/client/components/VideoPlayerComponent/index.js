@@ -9,7 +9,6 @@ class VideoPlayer extends React.Component {
     return (
       <video controls
         src={this.props.videosrc} type="video/mp4"
-        poster={this.props.videopreview}
       />
     );
   }

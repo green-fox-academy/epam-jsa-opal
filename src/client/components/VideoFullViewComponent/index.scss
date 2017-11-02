@@ -24,6 +24,9 @@
   .show-more-button-clicked {
     display: none;
   }
+  .suggested-video-list {
+    margin-right: 20px;
+  }
 }
 
 .suggested-video-ul {
@@ -35,7 +38,6 @@
   display: inline-block;
   list-style: none;
   margin-bottom: 1.2rem;
-  margin-right: 20px;
   padding: 0 12.5px;
   padding-bottom: .5rem;
   width: 220px;
