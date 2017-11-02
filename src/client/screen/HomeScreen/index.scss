@@ -174,7 +174,8 @@
 
 .upload-form {
   background-color: #fff;
-  padding: 20px 15px;
+  border: 1px solid #d3d3d3;
+  padding: 10px 25px 20px 25px;
   position: absolute;
   right: 130px;
   text-align: center;
@@ -201,7 +202,7 @@
     border-radius: 2px;
     color: rgb(255, 255, 255);
     cursor: pointer;
-    margin-bottom: 1rem;
+    margin-top: 15px;
     padding: 7px;
   }
 
