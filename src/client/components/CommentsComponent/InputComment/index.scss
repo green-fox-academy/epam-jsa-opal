@@ -30,18 +30,17 @@
   }
 
   input:not([type='text']) {
-    background-color: #d3e9fa;
-    border-radius: 4px;
+    background-color: #ddd;
+    border-radius: 2px;
     color: #fff;
     cursor: no-drop;
-    height: 41px;
     line-height: 19px;
-    margin: 10px;
-    width: 100px;
+    margin: 10px 0;
+    padding: 8px 15px;
   }
 
   input.active {
-    background-color: #2693e6;
+    background-color: #d93738;
     cursor: pointer;
   }
 
@@ -49,6 +48,7 @@
     background-color: #fff;
     color: #a1a1a1;
     cursor: pointer;
+    margin-right: 10px;
   }
 }
 

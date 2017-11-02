@@ -122,7 +122,7 @@ class ProfileScreen extends React.Component {
               'my-profile-button'}onClick={this.onClickProfile.bind(this)}>profife</button>
             <button className={this.state.tab === 'subscription' ?
               'my-subscriptions-button active' : 
-              'my-subscriptions-button'} onClick={this.onClickSubscription.bind(this)}>subscriptions</button>
+              'my-subscriptions-button'} onClick={this.onClickSubscription.bind(this)}>subscribers</button>
             <button className={this.state.tab === 'video' ?
               'my-videos-button active' : 
               'my-videos-button'} onClick={this.onClickVideo.bind(this)}>videos</button>
@@ -158,7 +158,7 @@ class ProfileScreen extends React.Component {
           <div className={this.state.tab === 'subscription' ?
             'my-subscriptions show' :
             'my-subscriptions'} >
-            <h1>Subscriptions</h1>
+            <h1>Subscribers</h1>
             <Subscribers subscribers={this.state.profileInfos.subscribers}/>
           </div>
           <div className={this.state.tab === 'video' ?
