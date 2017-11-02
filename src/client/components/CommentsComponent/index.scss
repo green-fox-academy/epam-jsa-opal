@@ -54,18 +54,18 @@
     }
 
     .clicked + span {
-      visibility: visible;
+      color: #d93738;
     }
 
     .like-num,
     .dislike-num {
-      color: #d93738;
+      color: #ddd;
       display: inline-block;
       font-size: 14px;
       height: 16px;
       line-height: 16px;
       margin: 0 .5rem;
-      visibility: hidden;
+      visibility: visible;
     }
 
     .input-comment {
