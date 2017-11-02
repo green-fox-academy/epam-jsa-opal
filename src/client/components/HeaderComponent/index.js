@@ -11,6 +11,12 @@ class header extends React.Component {
    let value = document.getElementsByClassName('search-name')[0].value;
    window.location.href = '/search?'+value;
   }
+  pressEnter(e) {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      this.clickSearch();
+    }
+  }
   Userlogout() {
     let token = localStorage.getItem('token');
 
@@ -33,8 +39,8 @@ class header extends React.Component {
         <a href="/home" className="team-name">opal</a>
         <div className="obstacle"></div>
         <form>
-          <img onClick={this.clickSearch} type='submit' className="search-logo" src={search} ></img>
-          <input className="search-name" placeholder="search" type="search">
+          <img onClick={this.clickSearch} className="search-logo" src={search} ></img>
+          <input className="search-name" placeholder="search" type="search" onKeyPress={this.pressEnter.bind(this)}>
 
           </input>
         </form>
