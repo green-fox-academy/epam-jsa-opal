@@ -123,7 +123,7 @@ class VideoComponent extends React.Component {
   render() {
     return (
       <div className="video-component">
-        <VideoPlayer videosrc={this.state.videoInfos.videoUrl}/>
+        <VideoPlayer videosrc={this.state.videoInfos.videoUrl} videopreview={this.state.videoInfos.videoDetails.preview}/>
         <div className="video-below">
           <div className="video-info">
             <div className="video-name">
