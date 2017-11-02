@@ -77,10 +77,10 @@ profile-screen {
     }
 
     label {
+      color: #a1a1a1;
       display: inline-block;
       max-width: 170px;
       width: 25%;
-      color: #a1a1a1;
     }
 
     input {
@@ -122,6 +122,7 @@ profile-screen {
         max-height: 100%;
         max-width: 100%;
       }
+
       a:last-child {
         color: #6b6b6b;
         font-size: 12px;
@@ -132,7 +133,6 @@ profile-screen {
   .my-videos {
     display: none;
     margin: 1% 10%;
-
     .subscribers-list {
       display: flex;
       flex-wrap: wrap;

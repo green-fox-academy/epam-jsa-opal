@@ -4,7 +4,6 @@ import React from 'react';
 import Header from '../../components/HeaderComponent';
 import NavigationBar from '../../components/NavigationBarComponent';
 import VideosFull from '../../components/VideoFullViewComponent';
-import './index.scss';
 
 class Home extends React.Component {
   constructor(props) {
@@ -35,7 +34,10 @@ class Home extends React.Component {
     });
   }
   fetchLoginUserInfos(callback) {
-    fetch('/api/loginuser', {headers: {'Authorization': localStorage.getItem('token')}})
+    fetch(
+      '/api/loginuser', {
+        headers:
+      {'Authorization': localStorage.getItem('token')}})
       .then((response) => response.json())
       .then((result) => callback(result));
   }
@@ -101,14 +103,21 @@ class Home extends React.Component {
         <div className="main">
           {this.state.clickUpload ?
             <form className="upload-form" onSubmit={this.onSubmit}>
-              <input type="url" name="video-url" placeholder="video url" required
+              <input type="url"
+                name="video-url"
+                placeholder="video url" required
                 disabled = {this.state.uploading}/>
-              <input type="text" name="video-preview" placeholder="video preview" required
+              <input type="text"
+                name="video-preview"
+                placeholder="video preview" required
                 disabled = {this.state.uploading}/>
-              <input type="text" name="video-title" placeholder="video title" required
+              <input type="text"
+                name="video-title"
+                placeholder="video title" required
                 disabled = {this.state.uploading}/>
               <button type="submit" disabled={this.state.uploading}
-                className={this.state.uploading ? 'loading' : ''}>Upload</button>
+                className={this.state.uploading ?
+                  'loading' : ''}>Upload</button>
               <button onClick={this.onClickCancelUpload}>Cancel</button>
               <p className="error-message">{this.state.errorMessage}</p>
               {this.state.uploading ?
@@ -119,13 +128,11 @@ class Home extends React.Component {
             :
             null
           }
-          <NavigationBar selected={'feed'} className="navigationBar" subscriptions={this.state.loginuser.subscriptions}/>
-          <div className="videos-full">
-            <VideosFull
-              username={this.state.loginuser.username}
-              userId={this.state.loginuser.userId}
-              pagetype={'feed'}
-              videoLists={this.state.videoLists}/>
+          <NavigationBar selected={''} className="navigationBar" subscriptions={this.state.loginuser.subscriptions}/>
+          <div className="videos-full"> <VideosFull
+            searchContent={window.location.search}
+            pagetype={'search'}
+            videoLists={this.state.videoLists}/>
           </div>
         </div>
       </div>

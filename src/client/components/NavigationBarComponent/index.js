@@ -20,16 +20,16 @@ class NavigationBar extends React.Component {
 
     return (
       <nav className="navigationbar">
-        <Link className={this.props.selected === 'home' ? 'selected homebutton' : 'homebutton'} to="/home">Home</Link>
-        <Link className={this.props.selected === 'trending' ? 'selected trendingbutton' : 'trendingbutton'} to="/trending">Trending</Link>
-        <Link className={this.props.selected === 'feed' ? 'selected feedbutton' : 'feedbutton'} to="/feed">Feed</Link>
-        <Link className={this.props.selected === 'history' ? 'selected historybutton' : 'historybutton'} to="/history">History</Link>
-        <Link className={this.props.selected === 'watchlater' ? 'selected watchbutton' : 'watchbutton'} to="/watchlater">Watch later</Link>
-        <Link className={this.props.selected === 'like' ? 'selected likedbutton' : 'likedbutton'} to="/liked">Liked</Link>
+        <a className={this.props.selected === 'home' ? 'selected homebutton' : 'homebutton'} href="/home">Home</a>
+        <a className={this.props.selected === 'trending' ? 'selected trendingbutton' : 'trendingbutton'} href="/trending">Trending</a>
+        <a className={this.props.selected === 'feed' ? 'selected feedbutton' : 'feedbutton'} href="/feed">Feed</a>
+        <a className={this.props.selected === 'history' ? 'selected historybutton' : 'historybutton'} href="/history">History</a>
+        <a className={this.props.selected === 'watchlater' ? 'selected watchbutton' : 'watchbutton'} href="/watchlater">Watch later</a>
+        <a className={this.props.selected === 'like' ? 'selected likedbutton' : 'likedbutton'} href="/liked">Liked</a>
         <div className="obstaclehorizantal"></div>
         <span>Subscription</span>
         {subscription}
-        <Link className="setting" to="/setting">setting</Link>
+        <a className="setting" onclick="return false">setting</a>
       </nav>
     );
   }
